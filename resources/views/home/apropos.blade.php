@@ -1,0 +1,1660 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>À Propos - Casa Mia Restaurant Sénégalais</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- CSS Personnalisé -->
+    <style>
+        /* ===== VARIABLES JAUNE ===== */
+        :root {
+            --primary-color: #FFC107;
+            --primary-dark: #FFA000;
+            --primary-light: #FFD54F;
+            --secondary-color: #333333;
+            --light-color: #FFFDE7;
+            --text-color: #333;
+            --text-light: #666;
+            --border-radius: 8px;
+            --box-shadow: 0 5px 15px rgba(255, 193, 7, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-color);
+            line-height: 1.6;
+            background-color: white;
+            overflow-x: hidden;
+            width: 100%;
+            max-width: 100vw;
+            padding-top: 70px; /* IMPORTANT: padding pour la navbar fixe */
+        }
+
+        /* IMPORTANT: Correction pour le body avec navbar fixe */
+        html {
+            scroll-padding-top: 70px; /* Pour les ancres avec navbar fixe */
+        }
+
+        /* ===== NAVBAR CORRIGÉE POUR ÊTRE FIXE ===== */
+        .navbar {
+            background-color: white !important;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 0.5rem 0;
+            transition: var(--transition);
+            height: 70px;
+            position: fixed !important; /* FIXE */
+            top: 0 !important; /* Positionné en haut */
+            left: 0 !important;
+            right: 0 !important;
+            z-index: 1030 !important;
+            width: 100% !important;
+        }
+
+        .navbar .container {
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+
+        .navbar-brand img {
+            transition: var(--transition);
+            height: 40px;
+            width: auto;
+        }
+
+        .navbar-brand:hover img {
+            transform: scale(1.05);
+        }
+
+        .brand-name {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--secondary-color);
+        }
+
+        .brand-first {
+            color: var(--primary-color);
+        }
+
+        .nav-link {
+            font-weight: 500;
+            color: var(--secondary-color) !important;
+            margin: 0 0.3rem;
+            padding: 0.4rem 0.8rem !important;
+            transition: var(--transition);
+            border-radius: var(--border-radius);
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--primary-dark) !important;
+            background-color: rgba(255, 193, 7, 0.1);
+        }
+
+        .btn-admin {
+            background-color: var(--primary-color);
+            color: var(--secondary-color) !important;
+            border-radius: var(--border-radius);
+            padding: 0.4rem 1rem !important;
+            font-weight: 600;
+            border: none;
+        }
+
+        .btn-admin:hover {
+            background-color: var(--primary-dark);
+            color: white !important;
+        }
+
+        /* IMPORTANT: Correction pour le main */
+        main {
+            padding-top: 0; /* Supprimé car body a déjà le padding */
+        }
+
+        /* ===== HERO SECTION ===== */
+        .about-hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                        url('https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1374&q=80');
+            background-size: cover;
+            background-position: center;
+            min-height: 250px;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            padding: 2rem 0;
+        }
+
+        .hero-content {
+            text-align: center;
+            color: white;
+            padding: 1rem;
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            line-height: 1.3;
+        }
+
+        .hero-title .highlight {
+            color: var(--primary-color);
+        }
+
+        .hero-subtitle {
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            opacity: 0.9;
+        }
+
+        /* ===== SECTION TITRE ===== */
+        section {
+            padding: 2.5rem 0;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 0.8rem;
+            color: var(--secondary-color);
+            position: relative;
+            padding-bottom: 0.5rem;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background-color: var(--primary-color);
+        }
+
+        .section-title.text-center::after {
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .highlight {
+            color: var(--primary-color);
+        }
+
+        .section-subtitle {
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        .section-bg-light {
+            background-color: var(--light-color);
+        }
+
+        /* ===== SECTION HISTOIRE ===== */
+        .history-image {
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+            border: 1px solid rgba(255, 193, 7, 0.1);
+            margin-bottom: 1.5rem;
+        }
+
+        .history-image img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .history-image:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Timeline épurée */
+        .timeline {
+            position: relative;
+            padding: 1.5rem 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 10px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background-color: rgba(255, 193, 7, 0.3);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 1.5rem;
+            padding-left: 2.5rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 4px;
+            top: 1rem;
+            width: 12px;
+            height: 12px;
+            background-color: var(--primary-color);
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+        .timeline-year {
+            font-weight: bold;
+            color: var(--primary-color);
+            font-size: 1rem;
+            margin-bottom: 0.3rem;
+            display: inline-block;
+        }
+
+        .timeline-content {
+            background-color: white;
+            border-radius: var(--border-radius);
+            padding: 1rem;
+            box-shadow: var(--box-shadow);
+            border: 1px solid rgba(255, 193, 7, 0.1);
+        }
+
+        .timeline-content h4 {
+            color: var(--secondary-color);
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .timeline-content p {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-bottom: 0;
+        }
+
+        /* ===== SECTION ÉQUIPE ===== */
+        .team-member {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding: 1rem;
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            border: 1px solid rgba(255, 193, 7, 0.1);
+            transition: var(--transition);
+        }
+
+        .team-member:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(255, 193, 7, 0.15);
+        }
+
+        .team-photo {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 1rem;
+            border: 3px solid white;
+            box-shadow: var(--box-shadow);
+        }
+
+        .team-member h4 {
+            color: var(--secondary-color);
+            margin-bottom: 0.3rem;
+            font-size: 1.1rem;
+        }
+
+        .team-member .position {
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+            font-size: 0.9rem;
+        }
+
+        .team-member p {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-bottom: 0;
+        }
+
+        /* ===== SECTION VALEURS ===== */
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.2rem;
+            margin-top: 1.5rem;
+        }
+
+        .value-card {
+            text-align: center;
+            padding: 1.5rem 1rem;
+            background-color: white;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+            box-shadow: var(--box-shadow);
+            border: 1px solid rgba(255, 193, 7, 0.1);
+        }
+
+        .value-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(255, 193, 7, 0.15);
+        }
+
+        .value-icon {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            height: 50px;
+            width: 50px;
+            line-height: 50px;
+            background-color: rgba(255, 193, 7, 0.1);
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+        }
+
+        .value-card h4 {
+            color: var(--secondary-color);
+            margin-bottom: 0.8rem;
+            font-size: 1.1rem;
+        }
+
+        .value-card p {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-bottom: 0;
+            line-height: 1.5;
+        }
+
+        /* ===== FOOTER RÉDUIT ===== */
+        .footer {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 2rem 0 1rem;
+            margin-top: 2rem;
+            font-size: 0.9rem;
+            width: 100%;
+        }
+
+        .footer-brand {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .footer-brand img {
+            width: 40px;
+            height: 40px;
+        }
+
+        .footer-brand h3 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            color: white;
+            font-size: 1.2rem;
+            margin: 0 0 0 10px;
+        }
+
+        .footer-description {
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 1rem;
+            font-size: 0.85rem;
+            line-height: 1.4;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 0.8rem;
+            margin-top: 0.5rem;
+        }
+
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 35px;
+            height: 35px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border-radius: 50%;
+            text-decoration: none;
+            transition: var(--transition);
+            font-size: 0.9rem;
+        }
+
+        .social-link:hover {
+            background: var(--primary-color);
+            color: var(--secondary-color);
+            transform: translateY(-3px);
+        }
+
+        .footer-title {
+            color: white;
+            font-size: 1rem;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+            position: relative;
+            display: inline-block;
+        }
+
+        .footer-title:after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 25px;
+            height: 2px;
+            background: var(--primary-color);
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: var(--transition);
+            font-size: 0.85rem;
+            display: inline-block;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-color);
+            transform: translateX(5px);
+        }
+
+        .footer-contact {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 1rem 0;
+        }
+
+        .footer-contact li {
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: flex-start;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.85rem;
+            line-height: 1.3;
+        }
+
+        .footer-contact i {
+            margin-right: 8px;
+            color: var(--primary-color);
+            margin-top: 2px;
+            font-size: 0.9rem;
+            min-width: 18px;
+        }
+
+        .newsletter {
+            margin-top: 1rem;
+        }
+
+        .newsletter h5 {
+            color: white;
+            font-size: 0.9rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .newsletter p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.8rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 0.5rem 0.8rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: var(--border-radius);
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 0.85rem;
+            transition: var(--transition);
+        }
+
+        .newsletter-form input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .newsletter-form input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .newsletter-form button {
+            background: var(--primary-color);
+            color: var(--secondary-color);
+            border: none;
+            width: 40px;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .newsletter-form button:hover {
+            background: var(--primary-dark);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 1.5rem;
+            padding-top: 1rem;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.8rem;
+        }
+
+        .heart-icon {
+            color: var(--primary-color);
+            animation: heartbeat 1.5s ease-in-out infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        /* ===== BOUTON RETOUR EN HAUT ===== */
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 45px;
+            height: 45px;
+            background-color: var(--primary-color);
+            color: var(--secondary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            box-shadow: 0 4px 10px rgba(255, 193, 7, 0.3);
+        }
+
+        .back-to-top.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background-color: var(--primary-dark);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(255, 160, 0, 0.4);
+        }
+
+        /* ===== ANIMATIONS ===== */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ===== CORRECTION DU CONTENEUR ===== */
+        .container {
+            padding-left: 15px;
+            padding-right: 15px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* ===== RESPONSIVE MOBILE - VERSION AMÉLIORÉE ===== */
+        @media (max-width: 992px) {
+            /* Correction des valeurs grid */
+            .values-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            /* IMPORTANT: Correction pour le body avec navbar fixe sur mobile */
+            body {
+                padding-top: 60px !important; /* Hauteur de la navbar mobile */
+            }
+            
+            html {
+                scroll-padding-top: 60px; /* Ajusté pour mobile */
+            }
+            
+            /* Correction du conteneur Bootstrap pour mobile */
+            .container {
+                max-width: 100% !important;
+                padding-left: 15px !important;
+                padding-right: 15px !important;
+                overflow-x: hidden !important;
+            }
+            
+            .row {
+                margin-left: 0 !important;
+                margin-right: 0 !important;
+            }
+            
+            /* Correction pour éviter le débordement horizontal */
+            body {
+                overflow-x: hidden !important;
+                width: 100% !important;
+                max-width: 100vw !important;
+            }
+            
+            /* Navbar mobile FIXE */
+            .navbar {
+                height: 60px !important;
+                padding: 0.3rem 0 !important;
+                background: linear-gradient(to right, white, #FFFDE7) !important;
+                border-bottom: 2px solid rgba(255, 193, 7, 0.2);
+                box-shadow: 0 4px 12px rgba(255, 193, 7, 0.15);
+                position: fixed !important; /* Reste fixe */
+                top: 0 !important; /* Toujours en haut */
+                left: 0 !important;
+                right: 0 !important;
+                z-index: 1030 !important;
+                width: 100% !important;
+            }
+            
+            .navbar-brand img {
+                height: 35px;
+            }
+            
+            .brand-name {
+                font-size: 1.3rem;
+            }
+            
+            /* Menu mobile corrigé */
+            .navbar-collapse {
+                background: linear-gradient(135deg, white 0%, #FFFDE7 100%);
+                border-radius: 12px;
+                margin-top: 10px;
+                padding: 15px !important;
+                border: 2px solid rgba(255, 193, 7, 0.15);
+                box-shadow: 0 10px 30px rgba(255, 193, 7, 0.15);
+                position: absolute !important;
+                top: 60px !important; /* Sous la navbar fixe */
+                left: 15px;
+                right: 15px;
+                z-index: 1000;
+            }
+            
+            .navbar-nav .nav-link {
+                background: rgba(255, 193, 7, 0.08);
+                margin: 5px 0 !important;
+                border-radius: 8px;
+                padding: 12px 15px !important;
+                text-align: center;
+                display: block;
+                width: 100%;
+            }
+            
+            .navbar-nav .nav-link.active {
+                background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%);
+                color: var(--secondary-color) !important;
+                font-weight: 600;
+            }
+            
+            .btn-admin {
+                background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+                margin-top: 10px !important;
+                text-align: center;
+                display: block;
+                width: 100%;
+                box-shadow: 0 4px 10px rgba(255, 193, 7, 0.3);
+                padding: 12px 15px !important;
+            }
+            
+            /* Hero section mobile */
+            .about-hero {
+                min-height: 220px;
+                background-attachment: scroll;
+                margin: 0 10px;
+                border-radius: 12px;
+                overflow: hidden;
+                border: 2px solid rgba(255, 193, 7, 0.2);
+                box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+                margin-top: 0 !important; /* Pas de marge car navbar fixe */
+            }
+            
+            .hero-content {
+                padding: 1.5rem;
+            }
+            
+            .hero-title {
+                font-size: 1.6rem;
+                margin-bottom: 0.5rem;
+                line-height: 1.3;
+            }
+            
+            .hero-subtitle {
+                font-size: 0.95rem;
+                margin-bottom: 1rem;
+                padding: 0 0.5rem;
+            }
+            
+            /* Sections générales */
+            section {
+                padding: 2rem 0 !important;
+                margin: 10px;
+                border-radius: 12px;
+                background-color: rgba(255, 255, 255, 0.92);
+                backdrop-filter: blur(10px);
+                -webkit-backdrop-filter: blur(10px);
+                border: 2px solid rgba(255, 193, 7, 0.2);
+                box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+            }
+            
+            .section-bg-light {
+                background: linear-gradient(135deg, #FFF9C4 0%, #FFF8E1 100%);
+            }
+            
+            .container {
+                padding: 0 15px !important;
+            }
+            
+            /* Titres de section mobile */
+            .section-title {
+                font-size: 1.4rem !important;
+                text-align: center;
+                display: block !important;
+                margin-bottom: 1.2rem !important;
+                background: linear-gradient(135deg, rgba(255, 193, 7, 0.1) 0%, transparent 100%);
+                padding: 10px 20px !important;
+                border-radius: 10px;
+                border: 1px solid rgba(255, 193, 7, 0.15);
+                width: fit-content;
+                margin-left: auto !important;
+                margin-right: auto !important;
+            }
+            
+            .section-title::after {
+                left: 50% !important;
+                transform: translateX(-50%) !important;
+            }
+            
+            .section-subtitle {
+                text-align: center;
+                padding: 0 1rem 1.2rem !important;
+                margin-bottom: 1rem !important;
+                background: rgba(255, 253, 231, 0.6);
+                padding: 12px !important;
+                border-radius: 8px;
+                border: 1px solid rgba(255, 193, 7, 0.1);
+                margin-top: 0.5rem !important;
+            }
+            
+            /* Section Histoire mobile */
+            .history-image {
+                margin: 0 auto 1.5rem;
+                max-width: 100%;
+                border: 2px solid rgba(255, 193, 7, 0.2);
+                box-shadow: 0 8px 25px rgba(255, 193, 7, 0.15);
+            }
+            
+            .history-image img {
+                height: 200px;
+            }
+            
+            /* Timeline mobile */
+            .timeline {
+                padding: 1rem 0;
+            }
+            
+            .timeline::before {
+                left: 15px;
+            }
+            
+            .timeline-item {
+                padding-left: 2.8rem;
+                margin-bottom: 1.2rem;
+            }
+            
+            .timeline-item::before {
+                left: 9px;
+                top: 1.2rem;
+                width: 14px;
+                height: 14px;
+                background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+                box-shadow: 0 0 10px rgba(255, 193, 7, 0.6);
+            }
+            
+            .timeline-content {
+                background: linear-gradient(135deg, white 0%, #FFFDE7 100%);
+                padding: 1rem;
+                border: 2px solid rgba(255, 193, 7, 0.15);
+                box-shadow: 0 8px 25px rgba(255, 193, 7, 0.15);
+            }
+            
+            /* Section Équipe mobile */
+            .team-member {
+                margin-bottom: 1.5rem;
+                padding: 1.2rem;
+                background: linear-gradient(135deg, white 0%, #FFFDE7 100%);
+                border: 2px solid rgba(255, 193, 7, 0.2);
+                box-shadow: 0 8px 25px rgba(255, 193, 7, 0.15);
+            }
+            
+            .team-photo {
+                width: 100px;
+                height: 100px;
+                border: 3px solid white;
+                box-shadow: 0 4px 15px rgba(255, 193, 7, 0.3);
+            }
+            
+            .team-member h4 {
+                font-size: 1.1rem;
+                margin-bottom: 0.3rem;
+            }
+            
+            .team-member .position {
+                font-size: 0.9rem;
+                margin-bottom: 0.6rem;
+            }
+            
+            .team-member p {
+                font-size: 0.85rem;
+                line-height: 1.5;
+            }
+            
+            /* Section Valeurs mobile - 2 par ligne */
+            .values-grid {
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 1rem;
+            }
+            
+            .value-card {
+                padding: 1.2rem;
+                background: linear-gradient(135deg, white 0%, #FFF8E1 100%);
+                border: 2px solid rgba(255, 193, 7, 0.2);
+                box-shadow: 0 8px 25px rgba(255, 193, 7, 0.15);
+                margin-bottom: 1rem;
+            }
+            
+            .value-icon {
+                font-size: 1.6rem;
+                height: 45px;
+                width: 45px;
+                line-height: 45px;
+                background: linear-gradient(135deg, rgba(255, 193, 7, 0.2) 0%, rgba(255, 152, 0, 0.2) 100%);
+                border: 2px solid rgba(255, 193, 7, 0.3);
+            }
+            
+            .value-card h4 {
+                font-size: 1.1rem;
+                margin-bottom: 0.6rem;
+            }
+            
+            .value-card p {
+                font-size: 0.85rem;
+                line-height: 1.5;
+            }
+            
+            /* Footer mobile */
+            .footer {
+                background: linear-gradient(135deg, #333333 0%, #222222 100%);
+                padding: 2rem 0 1rem;
+                margin-top: 1.5rem;
+                border-top: 3px solid var(--primary-color);
+                margin: 10px;
+                border-radius: 12px;
+            }
+            
+            .footer .col-lg-4, 
+            .footer .col-lg-3, 
+            .footer .col-lg-2, 
+            .footer .col-md-6 {
+                background: rgba(255, 255, 255, 0.05);
+                border-radius: 10px;
+                padding: 15px;
+                margin-bottom: 15px;
+                border: 1px solid rgba(255, 193, 7, 0.1);
+            }
+            
+            .footer-brand {
+                margin-bottom: 1rem;
+            }
+            
+            .footer-brand h3 {
+                font-size: 1.1rem;
+                margin: 0 0 0 10px;
+            }
+            
+            .footer-description {
+                font-size: 0.85rem;
+                line-height: 1.4;
+                margin-bottom: 1rem;
+            }
+            
+            .social-links {
+                justify-content: flex-start;
+                gap: 0.8rem;
+            }
+            
+            .social-link {
+                width: 35px;
+                height: 35px;
+                background: linear-gradient(135deg, rgba(255, 193, 7, 0.2) 0%, rgba(255, 152, 0, 0.2) 100%);
+                border: 1px solid rgba(255, 193, 7, 0.3);
+            }
+            
+            .footer-title {
+                font-size: 1rem;
+                margin-bottom: 0.8rem;
+            }
+            
+            .footer-links a {
+                font-size: 0.85rem;
+            }
+            
+            .footer-contact li {
+                font-size: 0.85rem;
+                line-height: 1.4;
+            }
+            
+            .newsletter {
+                background: rgba(255, 255, 255, 0.08);
+                padding: 15px;
+                border-radius: 10px;
+                border: 1px solid rgba(255, 193, 7, 0.15);
+            }
+            
+            .newsletter h5 {
+                font-size: 0.95rem;
+            }
+            
+            .newsletter p {
+                font-size: 0.8rem;
+            }
+            
+            .newsletter-form input {
+                padding: 0.5rem 0.8rem;
+                font-size: 0.85rem;
+                background: rgba(255, 255, 255, 0.15);
+                border: 1px solid rgba(255, 193, 7, 0.3);
+            }
+            
+            .newsletter-form button {
+                background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+                width: 40px;
+            }
+            
+            .footer-bottom {
+                margin-top: 1.5rem;
+                padding-top: 1rem;
+                text-align: center;
+                background: transparent;
+                padding: 15px;
+            }
+            
+            .footer-bottom .row {
+                flex-direction: column;
+            }
+            
+            .footer-bottom .col-md-6 {
+                width: 100%;
+                text-align: center;
+                margin-bottom: 0.5rem;
+            }
+            
+            .footer-bottom .text-end {
+                text-align: center;
+                margin-top: 0.5rem;
+            }
+            
+            /* Bouton retour en haut mobile */
+            .back-to-top {
+                bottom: 15px;
+                right: 15px;
+                width: 40px;
+                height: 40px;
+                background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+                box-shadow: 0 4px 10px rgba(255, 193, 7, 0.4);
+            }
+            
+            /* Correction des marges et paddings */
+            .row {
+                margin-left: -6px !important;
+                margin-right: -6px !important;
+            }
+            
+            .col-md-4, .col-lg-4, .col-lg-2, .col-lg-3, .col-md-6 {
+                padding-left: 6px !important;
+                padding-right: 6px !important;
+            }
+            
+            /* Animation fade-in-up pour mobile */
+            .fade-in {
+                animation: fadeInUp 0.5s ease-out !important;
+            }
+            
+            @keyframes fadeInUp {
+                from {
+                    opacity: 0;
+                    transform: translateY(15px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+            
+            /* Correction pour les effets hover sur mobile */
+            .team-member:hover,
+            .value-card:hover,
+            .timeline-content:hover {
+                transform: translateY(-5px) !important;
+                transition: all 0.3s ease !important;
+            }
+            
+            .btn-admin:hover,
+            .social-link:hover,
+            .back-to-top:hover,
+            .newsletter-form button:hover {
+                transform: translateY(-2px) scale(1.02) !important;
+            }
+        }
+
+        /* ===== VERSION TRÈS MOBILE (PETITS ÉCRANS) ===== */
+        @media (max-width: 576px) {
+            body {
+                padding-top: 55px !important;
+            }
+            
+            html {
+                scroll-padding-top: 55px;
+            }
+            
+            .navbar {
+                height: 55px !important;
+            }
+            
+            .navbar-brand img {
+                height: 30px !important;
+            }
+            
+            .brand-name {
+                font-size: 1.1rem !important;
+            }
+            
+            /* Hero section */
+            .about-hero {
+                min-height: 200px;
+                margin: 0 5px;
+            }
+            
+            .hero-title {
+                font-size: 1.4rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 0.9rem;
+                padding: 0 0.5rem;
+            }
+            
+            /* Sections */
+            section {
+                padding: 1.5rem 0 !important;
+                margin: 5px;
+            }
+            
+            .section-title {
+                font-size: 1.3rem !important;
+                padding: 8px 16px !important;
+            }
+            
+            .section-subtitle {
+                padding: 10px !important;
+                font-size: 0.9rem !important;
+            }
+            
+            /* Histoire */
+            .history-image img {
+                height: 180px;
+            }
+            
+            /* Timeline */
+            .timeline-item {
+                padding-left: 2.5rem;
+                margin-bottom: 1rem;
+            }
+            
+            .timeline-item::before {
+                left: 7px;
+                top: 1rem;
+                width: 12px;
+                height: 12px;
+            }
+            
+            .timeline-content {
+                padding: 0.9rem;
+            }
+            
+            /* Équipe */
+            .team-member {
+                padding: 1rem;
+            }
+            
+            .team-photo {
+                width: 90px;
+                height: 90px;
+            }
+            
+            .team-member h4 {
+                font-size: 1rem;
+            }
+            
+            .team-member .position {
+                font-size: 0.85rem;
+            }
+            
+            .team-member p {
+                font-size: 0.8rem;
+            }
+            
+            /* Valeurs - 1 par ligne sur très petits écrans */
+            .values-grid {
+                grid-template-columns: 1fr !important;
+                gap: 0.8rem;
+            }
+            
+            .value-card {
+                padding: 1rem;
+            }
+            
+            .value-icon {
+                font-size: 1.5rem;
+                height: 40px;
+                width: 40px;
+                line-height: 40px;
+            }
+            
+            .value-card h4 {
+                font-size: 1rem;
+            }
+            
+            .value-card p {
+                font-size: 0.8rem;
+            }
+            
+            /* Footer */
+            .footer {
+                padding: 1.5rem 0 1rem;
+                margin: 5px;
+            }
+            
+            .footer .col-lg-4, 
+            .footer .col-lg-3, 
+            .footer .col-lg-2, 
+            .footer .col-md-6 {
+                padding: 12px;
+            }
+            
+            .footer-brand h3 {
+                font-size: 1rem;
+            }
+            
+            .footer-description {
+                font-size: 0.8rem;
+            }
+            
+            /* Bouton retour en haut */
+            .back-to-top {
+                bottom: 10px;
+                right: 10px;
+                width: 35px;
+                height: 35px;
+                font-size: 0.9rem;
+            }
+        }
+
+        /* ===== VERSION TRÈS PETITS ÉCRANS ===== */
+        @media (max-width: 400px) {
+            .hero-title {
+                font-size: 1.2rem;
+            }
+            
+            .section-title {
+                font-size: 1.2rem !important;
+            }
+            
+            .timeline-item {
+                padding-left: 2.2rem;
+            }
+            
+            .timeline-item::before {
+                left: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation FIXE -->
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <img src="{{ asset('assets/image/logo.jpeg') }}" alt="Logo Casa Mia" class="d-inline-block align-top me-2">
+                <span class="brand-name d-none d-md-inline"><span class="brand-first">Casa</span> Mia</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{{ route('accueil') }}">Accueil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('apropos') }}">À Propos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('menu') }}">Menu</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('contact') }}">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn-admin" href="{{ route('login.index') }}">
+                            <i class="fas fa-user-shield me-1"></i> Admin
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section class="about-hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1 class="hero-title fade-in">Notre <span class="highlight">Histoire</span></h1>
+                    <p class="hero-subtitle fade-in">Une passion sénégalaise depuis 2010</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section Histoire -->
+        <section>
+            <div class="container">
+                <div class="row align-items-center mb-4">
+                    <div class="col-lg-6 fade-in">
+                        <h2 class="section-title">L'Aventure <span class="highlight">Casa Mia</span></h2>
+                        <p class="lead">Casa Mia est une passion familiale qui dure depuis plus d'une décennie.</p>
+                        <p>Tout a commencé en 2010 lorsque Tafa Wade décida de partager son amour pour la cuisine sénégalaise avec sa ville natale, Saint Louis.</p>
+                        <p>Le nom "Casa Mia" qui signifie "Ma Maison" en italien, reflète notre philosophie : accueillir chaque client comme un membre de notre famille et lui offrir une expérience culinaire chaleureuse et authentique.</p>
+                    </div>
+                    <div class="col-lg-6 fade-in">
+                        <div class="history-image">
+                            <img src="https://images.unsplash.com/photo-1559925393-8be0ec4767c8?ixlib=rb-4.0.3&auto=format&fit=crop&w=1471&q=80" 
+                                 alt="Fondateur Casa Mia" class="img-fluid">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Timeline -->
+                <h2 class="section-title text-center mb-4 fade-in">Notre <span class="highlight">Parcours</span></h2>
+                
+                <div class="timeline">
+                    <div class="timeline-item fade-in">
+                        <div class="timeline-content">
+                            <div class="timeline-year">2010</div>
+                            <h4>Ouverture de Casa Mia</h4>
+                            <p>Ouverture du premier restaurant Casa Mia à Saint Louis avec seulement 10 tables. Le succès est immédiat grâce à l'authenticité des plats sénégalais.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item fade-in">
+                        <div class="timeline-content">
+                            <div class="timeline-year">2013</div>
+                            <h4>Agrandissement</h4>
+                            <p>Le restaurant s'agrandit pour accueillir 50 couverts suite à sa popularité grandissante. Introduction des spécialités régionales.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item fade-in">
+                        <div class="timeline-content">
+                            <div class="timeline-year">2016</div>
+                            <h4>Prix du Meilleur Restaurant</h4>
+                            <p>Casa Mia reçoit le prix du "Meilleur Restaurant Sénégalais de Saint Louis" par le guide gastronomique local.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item fade-in">
+                        <div class="timeline-content">
+                            <div class="timeline-year">2020</div>
+                            <h4>Rénovation Complète</h4>
+                            <p>Rénovation complète du restaurant avec une nouvelle cuisine ouverte et une terrasse extérieure. Introduction du service de livraison.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item fade-in">
+                        <div class="timeline-content">
+                            <div class="timeline-year">2023</div>
+                            <h4>Expansion</h4>
+                            <p>Ouverture d'un espace événementiel pour les fêtes privées et lancement d'ateliers de cuisine sénégalaise.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section Équipe -->
+        <section class="section-bg-light">
+            <div class="container">
+                <h2 class="section-title text-center mb-4 fade-in">Notre <span class="highlight">Équipe</span></h2>
+                
+                <div class="row">
+                    <div class="col-md-4 fade-in">
+                        <div class="team-member">
+                            <img src="images/logoo.png" 
+                                 alt="Aicha Diaw - Chef Cuisinière matin" class="team-photo">
+                            <h4>Aicha Diaw</h4>
+                            <p class="position">Chef Cuisinière matin</p>
+                            <p>Passionnée par la cuisine sénégalaise, Aicha apporte 15 ans d'expérience dans la cuisine traditionnelle authentique.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4 fade-in">
+                        <div class="team-member">
+                            <img src="images/logoo.png" 
+                                 alt="Amar Dieng - Chef Cuisinier soir" class="team-photo">
+                            <h4>Amar Dieng</h4>
+                            <p class="position">Chef Cuisinier Soir</p>
+                            <p>Spécialiste des plats traditionnels, Amar crée chaque jour des plats qui racontent une histoire de saveurs authentiques.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4 fade-in">
+                        <div class="team-member">
+                            <img src="images/logoo.png" 
+                                 alt="Mame Diarra Niang - Serveuse" class="team-photo">
+                            <h4>Mame Diarra Niang</h4>
+                            <p class="position">Serveuse</p>
+                            <p>Mame Diarra veille à ce que chaque client se sente comme à la maison avec un service attentif et personnalisé depuis 8 ans.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section Valeurs -->
+        <section>
+            <div class="container">
+                <h2 class="section-title text-center mb-4 fade-in">Nos <span class="highlight">Valeurs</span></h2>
+                
+                <div class="values-grid">
+                    <div class="value-card fade-in">
+                        <div class="value-icon">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <h4>Passion</h4>
+                        <p>Nous mettons tout notre cœur dans chaque plat que nous préparons, avec amour et dévouement.</p>
+                    </div>
+                    
+                    <div class="value-card fade-in">
+                        <div class="value-icon">
+                            <i class="fas fa-seedling"></i>
+                        </div>
+                        <h4>Authenticité</h4>
+                        <p>Nous respectons les recettes traditionnelles sénégalaises tout en utilisant des produits locaux frais.</p>
+                    </div>
+                    
+                    <div class="value-card fade-in">
+                        <div class="value-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h4>Communauté</h4>
+                        <p>Nous sommes fiers de faire partie de la communauté de Saint Louis et soutenons les producteurs locaux.</p>
+                    </div>
+                    
+                    <div class="value-card fade-in">
+                        <div class="value-icon">
+                            <i class="fas fa-award"></i>
+                        </div>
+                        <h4>Excellence</h4>
+                        <p>Nous visons l'excellence dans chaque aspect de notre restaurant, de la cuisine au service.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-3">
+                    <div class="footer-brand mb-2">
+                        <img src="images/logoo.png" alt="Logo Casa Mia" class="me-2">
+                        <h3><span class="brand-first">Casa</span> Mia</h3>
+                    </div>
+                    <p class="footer-description">Restaurant sénégalais authentique à Saint Louis.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                
+                <div class="col-lg-2 col-md-6 mb-3">
+                    <h4 class="footer-title">Menu</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Accueil</a></li>
+                        <li><a href="apropos.html">À Propos</a></li>
+                        <li><a href="menu.html">Menu</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="col-lg-3 col-md-6 mb-3">
+                    <h4 class="footer-title">Contact</h4>
+                    <ul class="footer-contact">
+                        <li><i class="fas fa-map-marker-alt"></i> Saint Louis, Route de Khor</li>
+                        <li><i class="fas fa-phone"></i> 77 206 81 81</li>
+                        <li><i class="fas fa-envelope"></i> tafa.wade@gmail.com</li>
+                    </ul>
+                </div>
+                
+                <div class="col-lg-3 col-md-6 mb-3">
+                    <div class="newsletter">
+                        <h5>Newsletter</h5>
+                        <p>Recevez nos offres</p>
+                        <form class="newsletter-form">
+                            <input type="email" placeholder="Email" required>
+                            <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="row">
+                    <div class="col-md-6">
+                        <p>&copy; 2023 Casa Mia. Tous droits réservés.</p>
+                    </div>
+                    <div class="col-md-6 text-end">
+                        <p>Conçu avec <i class="fas fa-heart heart-icon"></i></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bouton retour en haut -->
+    <a href="#" class="back-to-top">
+        <i class="fas fa-chevron-up"></i>
+    </a>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- JS Personnalisé -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animation d'apparition au défilement
+            function revealOnScroll() {
+                const elements = document.querySelectorAll('.fade-in');
+                
+                elements.forEach(element => {
+                    const elementTop = element.getBoundingClientRect().top;
+                    const elementVisible = 100;
+                    
+                    if (elementTop < window.innerHeight - elementVisible) {
+                        element.classList.add('visible');
+                    }
+                });
+            }
+            
+            // Bouton retour en haut
+            function toggleBackToTop() {
+                const backToTop = document.querySelector('.back-to-top');
+                if (window.scrollY > 300) {
+                    backToTop.classList.add('active');
+                } else {
+                    backToTop.classList.remove('active');
+                }
+            }
+            
+            // IMPORTANT: Correction du scroll avec navbar fixe
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    const href = this.getAttribute('href');
+                    if (href === '#' || href.startsWith('#') && document.querySelector(href)) {
+                        e.preventDefault();
+                        const target = document.querySelector(href);
+                        if (target) {
+                            const navbarHeight = document.querySelector('.navbar').offsetHeight;
+                            const targetPosition = target.getBoundingClientRect().top + window.pageYOffset;
+                            const offsetPosition = targetPosition - navbarHeight;
+                            
+                            window.scrollTo({
+                                top: offsetPosition,
+                                behavior: 'smooth'
+                            });
+                        }
+                    }
+                });
+            });
+            
+            // Bouton retour en haut
+            document.querySelector('.back-to-top').addEventListener('click', function(e) {
+                e.preventDefault();
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+            
+            // Set active nav link
+            const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+            document.querySelectorAll('.nav-link').forEach(link => {
+                if (link.getAttribute('href') === currentPage) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+
+            // Fix pour le menu mobile
+            const navbarToggler = document.querySelector('.navbar-toggler');
+            const navbarCollapse = document.querySelector('.navbar-collapse');
+            
+            if (navbarToggler && navbarCollapse) {
+                navbarToggler.addEventListener('click', function() {
+                    navbarCollapse.classList.toggle('show');
+                });
+                
+                // Fermer le menu quand on clique en dehors
+                document.addEventListener('click', function(e) {
+                    if (!navbarToggler.contains(e.target) && !navbarCollapse.contains(e.target)) {
+                        navbarCollapse.classList.remove('show');
+                    }
+                });
+            }
+
+            // Optimisation mobile
+            if (window.innerWidth <= 768) {
+                // Désactiver certaines animations sur mobile
+                document.querySelectorAll('.fade-in').forEach(el => {
+                    el.style.animationDuration = '0.4s';
+                });
+            }
+
+            // Gestionnaire d'événements
+            window.addEventListener('scroll', () => {
+                revealOnScroll();
+                toggleBackToTop();
+            });
+            
+            // Initialiser au chargement
+            revealOnScroll();
+            toggleBackToTop();
+
+            // Correction spécifique pour le rendu mobile
+            function fixMobileLayout() {
+                // Vérifier si on est sur mobile
+                const isMobile = window.innerWidth <= 768;
+                
+                if (isMobile) {
+                    // Correction pour le conteneur
+                    const container = document.querySelector('.container');
+                    if (container) {
+                        container.style.maxWidth = '100%';
+                        container.style.overflowX = 'hidden';
+                    }
+                }
+            }
+
+            // Exécuter au chargement et au redimensionnement
+            window.addEventListener('load', fixMobileLayout);
+            window.addEventListener('resize', fixMobileLayout);
+            
+            // Exécuter la correction au chargement
+            fixMobileLayout();
+        });
+    </script>
+</body>
+</html>

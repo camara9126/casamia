@@ -80,7 +80,7 @@ class UserController extends Controller
    public function logout() {
         Auth::guard('web')->logout();
 
-        return redirect()->route('home');
+        return redirect()->route('accueil');
    }
     
 }

@@ -12,18 +12,18 @@ use Illuminate\Support\Facades\Route;
 
 // page d'accueil
 Route::get('/', function () {
-    $menus= Menu::where('description','!=', 'plats')->latest()->get();
-    $plats= Menu::where('description','plats')->latest()->get();
-    $articles= Article::all();
-    return view('home.index', compact('menus','articles','plats'));
-})->name('home');
+    $menus= Menu::latest()->get();
+    $articles= Article::latest()->paginate(4);
+    return view('home.index', compact('menus','articles'));
+})->name('accueil');
 
-Route::get('/test', function () {
-    $menus= Menu::where('description','!=', 'plats')->latest()->get();
-    $plats= Menu::where('description','plats')->latest()->get();
-    $articles= Article::all();
-    return view('home.test', compact('menus','articles','plats'));
-})->name('test');
+
+
+//a propos
+Route::get('/apropos', function () {
+   // $categorie= Categorie::all();
+    return view('home.apropos');
+})->name('apropos');
 
 
 //contact
@@ -34,8 +34,8 @@ Route::get('/contact', function () {
 
 //menu
 Route::get('/menu', function () {
-   $menus= Menu::where('description','!=', 'plats')->latest()->get();
-    $plats= Menu::where('description','plats')->latest()->get();
+   $menus= Menu::latest()->get();
+    $plats= Article::latest()->paginate(1);
 
     return view('home.menu', compact('menus','plats'));
 })->name('menu');
@@ -60,27 +60,23 @@ Route::get('/panier/moins/{rowId}', [CardController::class, 'moins'])->name('pan
 //Route personnel
 Route::resource('/personnel', PersonnelController::class);
 
-//Article
-Route::resource('/darticle', ArticleController::class)->middleware(['auth','verified']);
-//Route::get('/article/{id}',[ArticleController::class, 'show'])->name('article.show');
-//Route::get('/darticle/{id}/edit',[ArticleController::class, 'edit'])->middleware(['auth','verified'])->name('darticle.edit');
-//Route::patch('/darticle/{id}',[ArticleController::class, 'update'])->middleware(['auth','verified'])->name('darticle.update');
-
 
 //Dashboard
 Route::get('/dhome', function () {
-    $menus= Menu::orderBy('nom','ASC');
-    $articles= Article::all();
+    $menus= Menu::latest()->get();
+    $articles= Article::latest()->get();
 
-    return view('dashboard.home', compact('menus','articles'));
+    return view('casa.index', compact('menus','articles'));
 
 })->middleware(['auth','verified'])->name('dhome');
 
 //Menu
 Route::resource('/dmenu', MenuController::class)->middleware(['auth','verified']);
 Route::get('/menu/{id}',[MenuController::class, 'show'])->name('menu.show');
-//Route::patch('/dmenu/{id}/edit',[MenuController::class, 'edit'])->middleware(['auth','verified'])->name('dmenu.edit');
-//Route::patch('/dmenu/{id}',[MenuController::class, 'update'])->middleware(['auth','verified'])->name('dmenu.update');
+
+
+//Article
+Route::resource('/darticle', ArticleController::class)->middleware(['auth','verified']);
 
 //Route whatsapp
 Route::get('/whatsapp', [CardController::class, 'whatsapp'])->name('cart.whatsapp');

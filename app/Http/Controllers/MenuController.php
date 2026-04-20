@@ -88,7 +88,7 @@ class MenuController extends Controller
         $request->validate([
             'nom' => 'required','string',
             'description' => 'required',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
         // Gestion des l'images
@@ -96,15 +96,13 @@ class MenuController extends Controller
             $filename = time().$request->file('image')->getClientOriginalName();
             $path = $request->file('image')->storeAs('imgCategories', $filename, 'public');
             $request['image'] = '/storage/' . $path;
-        } else {
-            dd('Aucun fichier image reçu');
-        }
+        } 
 
         // creation du categorie
         $menu->update([
             'nom' => $request->nom,
             'description' => $request->description,
-            'image' => $path,
+            'image' => $path ?? $menu->image,
         ]);
         // dd($categories);
         return redirect()->route('dmenu.index', compact('menu'))->with('success', 'Menu crée avec success.');

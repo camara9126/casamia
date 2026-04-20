@@ -103,7 +103,7 @@ class ArticleController extends Controller
             'prix2' => 'nullable',
             'prix3' => 'nullable',
             'menu_id' => 'required', 'exists:menus,id',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
        
         // Gestion des l'images
@@ -111,9 +111,7 @@ class ArticleController extends Controller
             $filename = time().$request->file('image')->getClientOriginalName();
             $path = $request->file('image')->storeAs('imgArticles', $filename, 'public');
             $valitData['image'] = '/storage/' . $path;
-        } else {
-            dd('Aucun fichier image reçu');
-        }
+        } 
         
         // modification de l'article
         $articles->update([
@@ -123,7 +121,7 @@ class ArticleController extends Controller
             'prix2' => $request->prix2 ?? null,
             'prix3' => $request->prix3 ?? null,
             'menu_id' => $request->menu_id,
-            'image' => $path,
+            'image' => $path ?? $articles->image,
         ]);
             
              //dd($articles);

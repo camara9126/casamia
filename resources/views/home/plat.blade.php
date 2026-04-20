@@ -108,7 +108,7 @@
 
 
 <script>
-document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', function () {
 
     const modal = document.getElementById('productModal');
 

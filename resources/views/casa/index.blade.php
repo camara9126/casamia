@@ -953,3 +953,381 @@
     </style>
 </head>
 <body>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="spinner"></div>
+        <p class="mt-3">Chargement en cours...</p>
+    </div>
+
+    <!-- Sidebar (CACHÉE initialement) -->
+    @include('partials.sidebar')
+
+
+    <!-- Main Content (CACHÉ initialement) -->
+    <div class="main-content" id="mainContent">
+
+        <!-- Dashboard Tab -->
+        <div id="dashboardTab" class="tab-content active">
+            <!-- Header -->
+            <div class="dashboard-header">
+                <h1>Tableau de bord <span class="highlight">Admin</span></h1>
+                <div class="user-info">
+                    <div class="user-avatar">A</div>
+                    <div>
+                        <div style="font-weight: 600;" id="userName">Administrateur</div>
+                        <div style="font-size: 0.85rem; color: var(--text-light);" id="currentDate">Chargement...</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Statistics -->
+           @include('partials.stats')
+
+            <!-- Recent Orders -->
+            <div class="orders-section">
+                <div class="section-header">
+                    <h2 class="section-title">Commandes récentes</h2>
+                    <div class="btn-group">
+                        <button class="btn btn-sm btn-outline-primary" id="refreshOrders">
+                            <i class="fas fa-sync-alt me-1"></i> Actualiser
+                        </button>
+                        <button class="btn btn-sm btn-outline-warning ms-2" id="createTestOrder">
+                            <i class="fas fa-plus me-1"></i> Créer commande test
+                        </button>
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="orders-table" id="ordersTable">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Client</th>
+                                <th>Articles</th>
+                                <th>Total</th>
+                                <th>Date</th>
+                                <th>Statut</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ordersTableBody">
+                            <!-- Les commandes seront chargées ici -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Empty State -->
+                <div class="empty-state" id="emptyState" style="display: none;">
+                    <i class="fas fa-shopping-cart"></i>
+                    <h3>Aucune commande</h3>
+                    <p>Les commandes passées par les clients apparaîtront ici</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Orders Tab -->
+        <div id="ordersTab" class="tab-content">
+            <div class="dashboard-header">
+                <h1>Gestion des <span class="highlight">Commandes</span></h1>
+                <div class="btn-group">
+                    <button class="btn btn-primary" onclick="exportOrders()">
+                        <i class="fas fa-download me-1"></i> Exporter
+                    </button>
+                </div>
+            </div>
+
+            <div class="orders-section">
+                <div class="section-header">
+                    <h2 class="section-title">Toutes les commandes</h2>
+                    <div class="btn-group">
+                        <select class="form-select" id="filterStatus">
+                            <option value="all">Tous les statuts</option>
+                            <option value="en attente">En attente</option>
+                            <option value="en préparation">En préparation</option>
+                            <option value="prête">Prête</option>
+                            <option value="livrée">Livrée</option>
+                            <option value="annulée">Annulée</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="orders-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Client</th>
+                                <th>Articles</th>
+                                <th>Total</th>
+                                <th>Date</th>
+                                <th>Statut</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="allOrdersTable">
+                            <!-- All orders will be loaded here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Menu Tab -->
+        <div id="menuTab" class="tab-content">
+            <div class="dashboard-header">
+                <h1>Gestion du <span class="highlight">Menu</span></h1>
+                <div class="btn-group">
+                    <button class="btn btn-primary" onclick="openProductModal()">
+                        <i class="fas fa-plus me-1"></i> Ajouter un produit
+                    </button>
+                </div>
+            </div>
+
+            <div class="orders-section">
+                <div class="table-responsive">
+                    <table class="orders-table">
+                        <thead>
+                            <tr>
+                                <th>Nom</th>
+                                <th>Catégorie</th>
+                                <th>Description</th>
+                                <th>Prix</th>
+                                <th>Statut</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="menuTableBody">
+                            <!-- Menu items will be loaded here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Customers Tab -->
+        <div id="customersTab" class="tab-content">
+            <div class="dashboard-header">
+                <h1>Gestion des <span class="highlight">Clients</span></h1>
+                <div class="btn-group">
+                    <button class="btn btn-primary" onclick="exportCustomers()">
+                        <i class="fas fa-download me-1"></i> Exporter
+                    </button>
+                </div>
+            </div>
+
+            <div class="orders-section">
+                <div class="table-responsive">
+                    <table class="orders-table">
+                        <thead>
+                            <tr>
+                                <th>Nom</th>
+                                <th>Téléphone</th>
+                                <th>Email</th>
+                                <th>Commandes</th>
+                                <th>Total dépensé</th>
+                                <th>Dernière commande</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="customersTableBody">
+                            <!-- Customers will be loaded here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Inventory Tab -->
+        <div id="inventoryTab" class="tab-content">
+            <div class="dashboard-header">
+                <h1>Gestion de l'<span class="highlight">Inventaire</span></h1>
+                <div class="btn-group">
+                    <button class="btn btn-primary" onclick="addInventoryItem()">
+                        <i class="fas fa-plus me-1"></i> Ajouter un article
+                    </button>
+                </div>
+            </div>
+
+            <div class="orders-section">
+                <div class="table-responsive">
+                    <table class="orders-table">
+                        <thead>
+                            <tr>
+                                <th>Article</th>
+                                <th>Catégorie</th>
+                                <th>Stock actuel</th>
+                                <th>Stock minimum</th>
+                                <th>Unité</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="inventoryTableBody">
+                            <!-- Inventory items will be loaded here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Order Details Modal -->
+        <div class="modal fade" id="orderDetailsModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Détails de la commande <span id="modalOrderId"></span></h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h6>Informations client</h6>
+                                <div class="mb-3">
+                                    <strong>Nom:</strong> <span id="modalClientName"></span>
+                                </div>
+                                <div class="mb-3">
+                                    <strong>Téléphone:</strong> <span id="modalClientPhone"></span>
+                                </div>
+                                <div class="mb-3">
+                                    <strong>Adresse:</strong> <span id="modalClientAddress"></span>
+                                </div>
+                                <div class="mb-3">
+                                    <strong>Notes:</strong> <span id="modalClientNotes"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <h6>Détails de la commande</h6>
+                                <div class="mb-3">
+                                    <strong>Date:</strong> <span id="modalOrderDate"></span>
+                                </div>
+                                <div class="mb-3">
+                                    <strong>Statut:</strong> <span id="modalOrderStatus"></span>
+                                </div>
+                                <div class="mb-3">
+                                    <strong>Total:</strong> <span id="modalOrderTotal"></span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <h6 class="mt-4">Articles commandés</h6>
+                        <div class="table-responsive">
+                            <table class="table table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>Article</th>
+                                        <th>Prix unitaire</th>
+                                        <th>Quantité</th>
+                                        <th>Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="modalOrderItems">
+                                    <!-- Les articles seront ajoutés ici -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-warning" id="btnChangeStatus">
+                                <i class="fas fa-edit me-1"></i> Changer statut
+                            </button>
+                            <button type="button" class="btn btn-success" id="btnGenerateInvoice" onclick="generateInvoiceForOrder(selectedOrderId)">
+                                <i class="fas fa-file-pdf me-1"></i> Facture PDF
+                            </button>
+                            <button type="button" class="btn btn-danger" id="btnCancelOrder">
+                                <i class="fas fa-times me-1"></i> Annuler
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Invoice Modal -->
+        <div class="modal fade" id="invoiceModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header bg-warning text-dark">
+                        <h5 class="modal-title">
+                            <i class="fas fa-file-invoice me-2"></i>Facture <span id="invoiceModalNumber"></span>
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="invoiceContent" style="background: white; max-width: 800px; margin: 0 auto;">
+                            <!-- Le contenu de la facture sera injecté ici -->
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                            <i class="fas fa-times me-1"></i> Fermer
+                        </button>
+                        <button type="button" class="btn btn-primary" onclick="downloadInvoicePDF()">
+                            <i class="fas fa-download me-1"></i> Télécharger PDF
+                        </button>
+                        <button type="button" class="btn btn-success" onclick="printInvoice()">
+                            <i class="fas fa-print me-1"></i> Imprimer
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Product Modal -->
+        <div class="modal fade" id="productModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="productModalTitle">Ajouter un produit</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="productForm">
+                            <input type="hidden" id="productId">
+                            <div class="form-group">
+                                <label class="form-label" for="productName">Nom du produit *</label>
+                                <input type="text" class="form-control" id="productName" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="productCategory">Catégorie *</label>
+                                <select class="form-control" id="productCategory" required>
+                                    <option value="">Sélectionner une catégorie</option>
+                                    <option value="Plats principaux">Plats principaux</option>
+                                    <option value="Entrées">Entrées</option>
+                                    <option value="Desserts">Desserts</option>
+                                    <option value="Boissons">Boissons</option>
+                                    <option value="Apéritifs">Apéritifs</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="productDescription">Description</label>
+                                <textarea class="form-control" id="productDescription" rows="3"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="productPrice">Prix (FCFA) *</label>
+                                <input type="number" class="form-control" id="productPrice" min="0" step="100" required>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="productAvailable" checked>
+                                <label class="form-check-label" for="productAvailable">
+                                    Disponible à la vente
+                                </label>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                        <button type="button" class="btn btn-primary" onclick="saveProduct()">Enregistrer</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    
+</body>
+</html>

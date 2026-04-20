@@ -8,6 +8,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Scripts -->
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
     <!-- CSS Personnalisé -->
@@ -1779,31 +1781,31 @@
 </head>
 <body>
     <!-- Navigation FIXE -->
-    <nav class="navbar navbar-expand-lg navbar-light">
+   <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container">
-            <a class="navbar-brand" href="index.html">
-                <img src="images/logoo.png" alt="Logo Casa Mia" width="40" height="40" class="d-inline-block align-top me-2">
+            <a class="navbar-brand" href="/">
+                <img src="{{ asset('assets/image/logo.jpeg') }}" alt="Logo Casa Mia" class="d-inline-block align-top me-2">
                 <span class="brand-name d-none d-md-inline"><span class="brand-first">Casa</span> Mia</span>
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="index.html">Accueil</a>
+                        <a class="nav-link active" href="{{ route('accueil') }}">Accueil</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="apropos.html">À Propos</a>
+                        <a class="nav-link" href="{{ route('apropos') }}">À Propos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="menu.html">Menu</a>
+                        <a class="nav-link" href="{{ route('menu') }}">Menu</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="contact.html">Contact</a>
+                        <a class="nav-link" href="{{ route('contact') }}">Contact</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link btn-admin" href="dashboard.html">
+                        <a class="nav-link btn-admin" href="{{ route('login.index') }}">
                             <i class="fas fa-user-shield me-1"></i> Admin
                         </a>
                     </li>
@@ -1830,66 +1832,88 @@
                 <p class="section-subtitle">Découvrez nos 15 spécialités sénégalaises préparées avec des ingrédients frais</p>
             </div>
             
-            <div id="allDishesGrid" class="dishes-grid">
+            <div class="dishes-grid">
                 <!-- All dishes will be loaded here -->
+                @foreach($plats as $art)
+                    <div class="dish-card">
+                        <!--<div class="dish-badge">★</div>-->
+                        <div class="dish-image">
+                            <img src="{{ asset('storage/'.$art->image) }}">
+                        </div>
+                        <div class="dish-content">
+                            <div class="dish-header">
+                                <h3 class="dish-name">{{ $art->nom}}</h3>
+                                <div class="dish-price">{{ $art->prix}} FCFA</div>
+                            </div>
+                            <p class="dish-description">{{ $art->description}}</p>
+                            <div class="dish-tags">
+                                <span class="dish-tag recommande">recommandé</span>
+                                <!--<span class="dish-tag epice">épicé</span>-->
+                                <button class="add-to-cart ms-auto" data-bs-toggle="modal" data-bs-target="#productModal" data-id="{{ $art->id }}" data-image="{{ asset('storage/'.$art->image) }}" data-name="{{ $art->nom }}" data-description="{{ $art->description }}" data-price="{{ $art->prix }}">
+                                    <i class="fas fa-eye"></i> Voir
+                                </button>
+                            </div>
+                            <div class="dish-actions">
+                                
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+            <div class="d-flex justify-content-center">
+                {{$plats->links()}}
             </div>
         </div>
     </div>
+    <div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
 
-    <!-- Cart Sidebar -->
-    <div class="cart-sidebar">
-        <div class="cart-header">
-            <h4><i class="fas fa-shopping-cart me-2"></i> Votre Commande</h4>
-            <button class="close-cart"><i class="fas fa-times"></i></button>
-        </div>
-        
-        <div class="cart-content">
-            <!-- État vide -->
-            <div class="cart-empty">
-                <i class="fas fa-shopping-basket"></i>
-                <h5>Panier vide</h5>
-                <p>Ajoutez des plats depuis le menu pour voir votre commande ici</p>
-                <button class="btn btn-primary mt-3" id="closeEmptyCart">
-                    <i class="fas fa-times me-2"></i> Fermer
-                </button>
-            </div>
-            
-            <!-- État avec articles -->
-            <div class="cart-has-items">
-                <div class="cart-items" id="cartItemsContainer">
-                    <!-- Les articles du panier seront ajoutés ici -->
+                <div class="modal-header">
+                    <h5 class="modal-title" id="productModalLabel"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
                 </div>
-                
-                <!-- Résumé total des commandes -->
-                <div class="cart-summary" id="cartSummary" style="display: none;">
-                    <h5 class="summary-title">Résumé de la commande</h5>
-                    <div class="summary-details">
-                        <div class="summary-row">
-                            <span class="summary-label">Total des articles:</span>
-                            <span class="summary-value" id="itemsTotalAmount">0 FCFA</span>
+
+                <div class="modal-body">
+
+                    <!-- Image du produit -->
+                        <div class="d-flex justify-content-center">
+                            <img id="image" src="image" class="image" style="align-items: center;" width="300" alt="Image produit">
                         </div>
-                        <div class="summary-row">
-                            <span class="summary-label">Frais de service:</span>
-                            <span class="summary-value">0 FCFA</span>
+                        <div class="text-center">
+                            <span class="badge bg-success">Disponible</span>
                         </div>
-                    </div>
-                    <div class="summary-row summary-total">
-                        <span>Total à payer:</span>
-                        <span class="summary-total-amount" id="cartTotalAmount">0 FCFA</span>
+                        <div class="text-center">
+                            <i class="fa fa-star text-warning"></i>
+                            <i class="fa fa-star text-warning"></i>
+                            <i class="fa fa-star text-warning"></i>
+                            <i class="fa fa-star text-warning"></i>
+                            <i class="fa fa-star-half text-warning"></i>
+                            <small class="text-muted">(4.5)</small>
+                        </div>
+                    <h5 class=""><i class="fa fa-card-text"></i>Description</h5>
+                    <p class="description"></p>
+
+                    <form action="{{route('panier.store')}}" method="post">
+                        @csrf
+                        <input type="hidden" name="id" id="article_id">
+                            
+                        <h4 class="price fw-bold text-warning"></h4>
+
+                    <div class="d-grid gap-2 d-md-flex">
+                        <button class="btn btn-warning flex-fill">
+                            <i class="fa fa-cart-plus"></i> Ajouter
+                        </button>
+                        <a type="button" href="tel:+221771234567" target="_blank" class="btn btn-info border" title="Appeler-Nous">
+                            <i class="fa fa-phone"> Contacter-Nous</i>
+                        </a>
                     </div>
                 </div>
-            </div>
-        </div>
-        
-        <!-- Footer du panier (visible uniquement quand il y a des articles) -->
-        <div class="cart-footer" id="cartFooter" style="display: none;">
-            <div class="cart-actions">
-                <button class="cart-btn checkout-btn" id="checkoutBtn">
-                    <i class="fab fa-whatsapp me-2"></i> Commander via WhatsApp
-                </button>
-                <button class="cart-btn clear-cart-btn" id="clearCartBtn">
-                    <i class="fas fa-trash me-2"></i> Vider le panier
-                </button>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                </div>
+
             </div>
         </div>
     </div>
@@ -2020,455 +2044,40 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
     <script>
-        // Menu data with all 15 Senegalese dishes
-        const allDishes = [
-            {
-                id: 1,
-                name: "Thiebou Djeun",
-                description: "Riz au poisson avec légumes frais, le plat national sénégalais.",
-                price: 5500,
-                image: "https://images.unsplash.com/photo-1586190848861-99aa4a171e90?ixlib=rb-4.0.3&auto=format&fit=crop&w=1480&q=80",
-                type: "Poisson",
-                tags: ["recommandé", "épicé"]
-            },
-            {
-                id: 2,
-                name: "Mafé",
-                description: "Viande tendre en sauce arachide crémeuse, accompagnée de riz parfumé.",
-                price: 4800,
-                image: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1480&q=80",
-                type: "Viande",
-                tags: ["recommandé"]
-            },
-            {
-                id: 3,
-                name: "Thiou Curry Poulet",
-                description: "Poulet mijoté dans une sauce curry parfumée aux épices fraîches.",
-                price: 4500,
-                image: "https://images.unsplash.com/photo-1603360946369-dc9bb6258143?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80",
-                type: "Poulet",
-                tags: ["recommandé", "épicé"]
-            },
-            {
-                id: 4,
-                name: "Thiou Curry Viande",
-                description: "Viande de bœuf tendre en sauce curry riche, accompagnée de légumes frais.",
-                price: 4800,
-                image: "https://images.unsplash.com/photo-1603360946369-dc9bb6258143?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80",
-                type: "Viande",
-                tags: ["épicé"]
-            },
-            {
-                id: 5,
-                name: "Yassa Poulet",
-                description: "Poulet mariné au citron avec oignons caramélisés, une spécialité de la Casamance.",
-                price: 5000,
-                image: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80",
-                type: "Poulet",
-                tags: ["recommandé"]
-            },
-            {
-                id: 6,
-                name: "Yassa Poisson",
-                description: "Poisson grillé mariné au citron et oignons, accompagné de riz.",
-                price: 5200,
-                image: "https://images.unsplash.com/photo-1467003909585-2f8a72700288?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80",
-                type: "Poisson",
-                tags: ["recommandé"]
-            },
-            {
-                id: 7,
-                name: "Thiou Tomate Viande",
-                description: "Viande en sauce tomate maison avec épices fraîches.",
-                price: 4800,
-                image: "https://images.unsplash.com/photo-1603360946369-dc9bb6258143?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80",
-                type: "Viande",
-                tags: []
-            },
-            {
-                id: 8,
-                name: "Thiou Tomate Poulet",
-                description: "Poulet en sauce tomate aromatique, un délice pour les papilles.",
-                price: 4500,
-                image: "https://images.unsplash.com/photo-1603360946369-dc9bb6258143?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80",
-                type: "Poulet",
-                tags: []
-            },
-            {
-                id: 9,
-                name: "Paella",
-                description: "Riz aux fruits de mer et légumes, notre version adaptée aux saveurs locales.",
-                price: 6000,
-                image: "https://images.unsplash.com/photo-1569718212165-3a8278d5f624?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80",
-                type: "Poisson",
-                tags: ["recommandé"]
-            },
-            {
-                id: 10,
-                name: "Dakhine",
-                description: "Couscous de mil avec sauce raffinée et viande tendre, un plat du terroir.",
-                price: 4200,
-                image: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1480&q=80",
-                type: "Viande",
-                tags: []
-            },
-            {
-                id: 11,
-                name: "Attiéké Poulet",
-                description: "Semoule de manioc légère avec poulet grillé, accompagnée de sauce tomate.",
-                price: 4000,
-                image: "https://images.unsplash.com/photo-1563379926898-05f4575a45d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80",
-                type: "Poulet",
-                tags: []
-            },
-            {
-                id: 12,
-                name: "Attiéké Viande",
-                description: "Semoule de manioc traditionnelle avec viande grillée et légumes frais.",
-                price: 4200,
-                image: "https://images.unsplash.com/photo-1563379926898-05f4575a45d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80",
-                type: "Viande",
-                tags: []
-            },
-            {
-                id: 13,
-                name: "Mbakhalou Saloum",
-                description: "Sauce aux feuilles de baobab avec poisson frais, spécialité de la région du Saloum.",
-                price: 4500,
-                image: "https://images.unsplash.com/photo-1569718212165-3a8278d5f624?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80",
-                type: "Poisson",
-                tags: ["spécialité"]
-            },
-            {
-                id: 14,
-                name: "Domada Boulette Poisson",
-                description: "Boulettes de poisson maison en sauce arachide crémeuse, un régal.",
-                price: 5000,
-                image: "https://images.unsplash.com/photo-1467003909585-2f8a72700288?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80",
-                type: "Poisson",
-                tags: ["recommandé"]
-            },
-            {
-                id: 15,
-                name: "Domada Viande",
-                description: "Viande en sauce arachide crémeuse, un plat réconfortant et savoureux.",
-                price: 5200,
-                image: "https://images.unsplash.com/photo-1603360946369-dc9bb6258143?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80",
-                type: "Viande",
-                tags: ["recommandé"]
-            }
-        ];
-        
-        let cart = JSON.parse(localStorage.getItem('cart')) || [];
-        
-        function displayAllDishes() {
-            const container = document.getElementById('allDishesGrid');
-            container.innerHTML = '';
+        document.addEventListener('DOMContentLoaded', function () {
+
+            const modal = document.getElementById('productModal');
+
+            modal.addEventListener('show.bs.modal', function (event) {
+
+                const button = event.relatedTarget;
+
+                const id = button.getAttribute('data-id');
+                const name = button.getAttribute('data-name');
+                const image = button.getAttribute('data-image');
+                const description = button.getAttribute('data-description');
+                const price = button.getAttribute('data-price');
             
-            allDishes.forEach(dish => {
-                container.innerHTML += createDishCardHTML(dish);
+                modal.querySelector('#article_id').value = id;
+                modal.querySelector('.modal-title').textContent = name;
+                modal.querySelector('.modal-body .image').src = image;
+                modal.querySelector('.modal-body .title').textContent = name;
+                modal.querySelector('.modal-body .description').textContent = description;
+                modal.querySelector('.modal-body .price').textContent = price + ' FCFA';
+            
             });
-            
-            // Add event listeners
-            document.querySelectorAll('.qty-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const itemId = parseInt(this.closest('.dish-card').dataset.id);
-                    const isIncrease = this.classList.contains('increase');
-                    updateQuantity(itemId, isIncrease);
-                });
-            });
-            
-            document.querySelectorAll('.add-to-cart').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const itemId = parseInt(this.closest('.dish-card').dataset.id);
-                    const quantity = parseInt(this.closest('.dish-card').querySelector('.qty-value').textContent);
-                    addToCart(itemId, quantity);
-                });
-            });
-        }
-        
-        function createDishCardHTML(dish) {
-            const tagsHTML = dish.tags.map(tag => {
-                let tagClass = 'dish-tag';
-                if (tag === 'recommandé') tagClass += ' recommande';
-                if (tag === 'épicé') tagClass += ' epice';
-                if (tag === 'spécialité') tagClass += ' poisson';
-                return `<span class="${tagClass}">${tag}</span>`;
-            }).join('');
-            
-            const isRecommended = dish.tags.includes('recommandé');
-            
-            return `
-                <div class="dish-card" data-id="${dish.id}" data-name="${dish.name.toLowerCase()}" data-type="${dish.type.toLowerCase()}">
-                    ${isRecommended ? '<div class="dish-badge">★</div>' : ''}
-                    <div class="dish-image">
-                        <img src="${dish.image}" alt="${dish.name}">
-                    </div>
-                    <div class="dish-content">
-                        <div class="dish-header">
-                            <h3 class="dish-name">${dish.name}</h3>
-                            <div class="dish-price">${dish.price.toLocaleString()} FCFA</div>
-                        </div>
-                        <p class="dish-description">${dish.description}</p>
-                        ${tagsHTML ? `<div class="dish-tags">${tagsHTML}</div>` : ''}
-                        <div class="dish-actions">
-                            <div class="quantity-selector">
-                                <button class="qty-btn decrease"><i class="fas fa-minus"></i></button>
-                                <span class="qty-value">1</span>
-                                <button class="qty-btn increase"><i class="fas fa-plus"></i></button>
-                            </div>
-                            <button class="add-to-cart">
-                                <i class="fas fa-cart-plus"></i> Ajouter
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            `;
-        }
-        
-        function updateQuantity(itemId, isIncrease) {
-            const card = document.querySelector(`.dish-card[data-id="${itemId}"]`);
-            const qtyElement = card.querySelector('.qty-value');
-            let qty = parseInt(qtyElement.textContent);
-            
-            if (isIncrease) {
-                qty++;
-            } else if (qty > 1) {
-                qty--;
-            }
-            
-            qtyElement.textContent = qty;
-        }
-        
-        function addToCart(itemId, quantity) {
-            const dish = allDishes.find(d => d.id === itemId);
-            
-            if (!dish) return;
-            
-            // Check if item already in cart
-            const existingItemIndex = cart.findIndex(cartItem => cartItem.id === itemId);
-            
-            if (existingItemIndex > -1) {
-                cart[existingItemIndex].quantity += quantity;
-            } else {
-                cart.push({
-                    ...dish,
-                    quantity: quantity
-                });
-            }
-            
-            // Save to localStorage
-            localStorage.setItem('cart', JSON.stringify(cart));
+
+        });
+    </script>
+    <script>
             
             // Update cart UI
             updateCartUI();
-            
-            // Show success message
-            showNotification(`${dish.name} ajouté au panier!`, 'success');
-            
-            // Reset quantity
-            const card = document.querySelector(`.dish-card[data-id="${itemId}"]`);
-            card.querySelector('.qty-value').textContent = '1';
-            
-            // Ouvrir automatiquement le panier sur mobile
-            if (window.innerWidth <= 768) {
-                document.querySelector('.cart-sidebar').classList.add('open');
-            }
-        }
         
-        function updateCartUI() {
-            const cartItemsContainer = document.getElementById('cartItemsContainer');
-            const emptyCartDiv = document.querySelector('.cart-empty');
-            const hasItemsDiv = document.querySelector('.cart-has-items');
-            const cartFooter = document.getElementById('cartFooter');
-            const cartSummary = document.getElementById('cartSummary');
-            const cartCountElement = document.getElementById('cartCount');
-            const itemsTotalElement = document.getElementById('itemsTotalAmount');
-            const cartTotalElement = document.getElementById('cartTotalAmount');
-            
-            let totalItems = 0;
-            let itemsTotal = 0;
-            
-            cart.forEach(item => {
-                totalItems += item.quantity;
-                itemsTotal += item.price * item.quantity;
-            });
-            
-            const total = itemsTotal; // Pas de frais de livraison
-            
-            // Update cart count
-            cartCountElement.textContent = totalItems;
-            itemsTotalElement.textContent = `${itemsTotal.toLocaleString()} FCFA`;
-            cartTotalElement.textContent = `${total.toLocaleString()} FCFA`;
-            
-            // Si le panier est vide
-            if (cart.length === 0) {
-                emptyCartDiv.style.display = 'flex';
-                hasItemsDiv.style.display = 'none';
-                cartFooter.style.display = 'none';
-                cartSummary.style.display = 'none';
-                return;
-            }
-            
-            // Si le panier contient des articles
-            emptyCartDiv.style.display = 'none';
-            hasItemsDiv.style.display = 'flex';
-            cartFooter.style.display = 'block';
-            cartSummary.style.display = 'block';
-            
-            // Générer les articles du panier avec détails des prix
-            const cartItemsHTML = cart.map(item => {
-                const itemTotal = item.price * item.quantity;
-                return `
-                    <div class="cart-item" data-id="${item.id}">
-                        <div class="cart-item-header">
-                            <h5 class="cart-item-title">${item.name}</h5>
-                        </div>
-                        <div class="cart-item-body">
-                            <div class="price-details">
-                                <div class="price-row">
-                                    <span class="price-label">Prix unitaire:</span>
-                                    <span class="price-unit">${item.price.toLocaleString()} FCFA</span>
-                                </div>
-                                <div class="price-row">
-                                    <span class="price-label">Quantité:</span>
-                                    <span class="price-value">${item.quantity}</span>
-                                </div>
-                                <div class="price-row">
-                                    <span class="price-label">Total:</span>
-                                    <span class="price-total">${itemTotal.toLocaleString()} FCFA</span>
-                                </div>
-                            </div>
-                            <div class="cart-item-quantity">
-                                <div class="quantity-control">
-                                    <button class="qty-btn decrease-cart" data-id="${item.id}">
-                                        <i class="fas fa-minus"></i>
-                                    </button>
-                                    <span class="qty-value">${item.quantity}</span>
-                                    <button class="qty-btn increase-cart" data-id="${item.id}">
-                                        <i class="fas fa-plus"></i>
-                                    </button>
-                                </div>
-                                <div class="cart-item-actions">
-                                    <button class="btn btn-sm btn-outline-danger remove-item" data-id="${item.id}">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            }).join('');
-            
-            cartItemsContainer.innerHTML = cartItemsHTML;
-            
-            // Ajouter les événements
-            document.querySelectorAll('.remove-item').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const itemId = parseInt(this.dataset.id);
-                    removeFromCart(itemId);
-                });
-            });
-            
-            document.querySelectorAll('.decrease-cart').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const itemId = parseInt(this.dataset.id);
-                    updateCartQuantity(itemId, false);
-                });
-            });
-            
-            document.querySelectorAll('.increase-cart').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const itemId = parseInt(this.dataset.id);
-                    updateCartQuantity(itemId, true);
-                });
-            });
-        }
-        
-        function removeFromCart(itemId) {
-            cart = cart.filter(item => item.id !== itemId);
-            localStorage.setItem('cart', JSON.stringify(cart));
-            updateCartUI();
-            showNotification('Article retiré du panier', 'info');
-        }
-        
-        function updateCartQuantity(itemId, increase) {
-            const itemIndex = cart.findIndex(item => item.id === itemId);
-            if (itemIndex > -1) {
-                if (increase) {
-                    cart[itemIndex].quantity++;
-                } else if (cart[itemIndex].quantity > 1) {
-                    cart[itemIndex].quantity--;
-                } else {
-                    removeFromCart(itemId);
-                    return;
-                }
-                localStorage.setItem('cart', JSON.stringify(cart));
-                updateCartUI();
-            }
-        }
-        
-        function clearCart() {
-            if (cart.length === 0) return;
-            
-            if (confirm('Voulez-vous vraiment vider votre panier?')) {
-                cart = [];
-                localStorage.setItem('cart', JSON.stringify(cart));
-                updateCartUI();
-                showNotification('Panier vidé avec succès', 'info');
-            }
-        }
-        
-        function generateWhatsAppMessage(clientInfo) {
-            let message = `*Nouvelle Commande - Casa Mia Restaurant*\n\n`;
-            message += `*Client:* ${clientInfo.name}\n`;
-            message += `*Téléphone:* ${clientInfo.phone}\n`;
-            if (clientInfo.address) {
-                message += `*Adresse:* ${clientInfo.address}\n`;
-            }
-            message += `\n*Détails de la commande:*\n`;
-            
-            let itemsTotal = 0;
-            cart.forEach(item => {
-                const itemTotal = item.price * item.quantity;
-                itemsTotal += itemTotal;
-                message += `• ${item.name} × ${item.quantity} = ${itemTotal.toLocaleString()} FCFA\n`;
-            });
-            
-            const total = itemsTotal; // Pas de frais de livraison
-            
-            message += `\n*Récapitulatif:*\n`;
-            message += `Total articles: ${itemsTotal.toLocaleString()} FCFA\n`;
-            message += `Frais de service: 0 FCFA\n`;
-            message += `*TOTAL À PAYER: ${total.toLocaleString()} FCFA*\n\n`;
-            
-            if (clientInfo.notes) {
-                message += `*Notes supplémentaires:*\n${clientInfo.notes}\n\n`;
-            }
-            
-            message += `Merci pour votre commande! Nous vous contacterons pour confirmer.`;
-            
-            return encodeURIComponent(message);
-        }
-        
-        function showNotification(message, type) {
-            const notification = document.createElement('div');
-            notification.className = 'notification';
-            notification.innerHTML = `
-                <div class="d-flex align-items-center">
-                    <i class="fas fa-${type === 'success' ? 'check-circle' : 'info-circle'} me-2" style="color: var(--primary-color);"></i>
-                    <span>${message}</span>
-                </div>
-            `;
-            
-            document.body.appendChild(notification);
-            
-            setTimeout(() => {
-                notification.remove();
-            }, 3000);
-        }
-        
+      
         // IMPORTANT: Correction du scroll avec navbar fixe
         function setupSmoothScroll() {
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -2492,102 +2101,6 @@
             });
         }
         
-        document.addEventListener('DOMContentLoaded', function() {
-            displayAllDishes();
-            updateCartUI();
-            setupSmoothScroll();
-            
-            // Set active nav link
-            const currentPage = window.location.pathname.split('/').pop() || 'index.html';
-            document.querySelectorAll('.nav-link').forEach(link => {
-                if (link.getAttribute('href') === currentPage) {
-                    link.classList.add('active');
-                } else {
-                    link.classList.remove('active');
-                }
-            });
-
-            // Cart toggle
-            document.getElementById('cartToggle').addEventListener('click', function() {
-                document.querySelector('.cart-sidebar').classList.add('open');
-            });
-            
-            document.querySelector('.close-cart').addEventListener('click', function() {
-                document.querySelector('.cart-sidebar').classList.remove('open');
-            });
-            
-            document.getElementById('closeEmptyCart').addEventListener('click', function() {
-                document.querySelector('.cart-sidebar').classList.remove('open');
-            });
-            
-            // WhatsApp modal
-            document.getElementById('checkoutBtn').addEventListener('click', function() {
-                if (cart.length === 0) {
-                    showNotification('Votre panier est vide', 'info');
-                    return;
-                }
-                document.getElementById('whatsappModal').classList.add('active');
-            });
-            
-            document.querySelector('.close-modal').addEventListener('click', function() {
-                document.getElementById('whatsappModal').classList.remove('active');
-            });
-            
-            document.getElementById('cancelOrderBtn').addEventListener('click', function() {
-                document.getElementById('whatsappModal').classList.remove('active');
-            });
-            
-            document.getElementById('clearCartBtn').addEventListener('click', clearCart);
-            
-            document.getElementById('sendWhatsAppBtn').addEventListener('click', function() {
-                const clientName = document.getElementById('clientName').value.trim();
-                const clientPhone = document.getElementById('clientPhone').value.trim();
-                const clientAddress = document.getElementById('clientAddress').value.trim();
-                const clientNotes = document.getElementById('clientNotes').value.trim();
-                const acceptTerms = document.getElementById('acceptTerms').checked;
-                
-                if (!clientName || !clientPhone) {
-                    showNotification('Veuillez remplir les champs obligatoires', 'info');
-                    return;
-                }
-                
-                if (!acceptTerms) {
-                    showNotification('Veuillez accepter les conditions', 'info');
-                    return;
-                }
-                
-                const clientInfo = {
-                    name: clientName,
-                    phone: clientPhone,
-                    address: clientAddress,
-                    notes: clientNotes
-                };
-                
-                // Format the phone number for WhatsApp
-                const formattedPhone = clientPhone.replace(/\s/g, '');
-                
-                const message = generateWhatsAppMessage(clientInfo);
-                const whatsappURL = `https://wa.me/221772068181?text=${message}`;
-                
-                // Open WhatsApp in a new tab
-                window.open(whatsappURL, '_blank');
-                
-                // Close modal
-                document.getElementById('whatsappModal').classList.remove('active');
-                
-                // Clear form
-                document.getElementById('clientName').value = '';
-                document.getElementById('clientPhone').value = '';
-                document.getElementById('clientAddress').value = '';
-                document.getElementById('clientNotes').value = '';
-                document.getElementById('acceptTerms').checked = false;
-                
-                // Optionally clear cart after order
-                if (confirm('Commande envoyée! Voulez-vous vider le panier?')) {
-                    clearCart();
-                }
-            });
-            
             // Close modals when clicking outside
             document.getElementById('whatsappModal').addEventListener('click', function(e) {
                 if (e.target === this) {
@@ -2648,7 +2161,7 @@
             
             // Exécuter la correction au chargement
             fixMobileLayout();
-        });
+
         
         // Initialiser le panier au chargement de la page
         window.addEventListener('load', function() {

@@ -1,194 +1,1231 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
-    <meta charset="utf-8">
-    <meta name="crsf-token" content="{{ csrf_token() }}">
-    <title>O'Food - Restaurant Traiteur | Contactez-Nous</title>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="" name="keywords">
-    <meta content="" name="description">  
-    <meta name="theme-color" content="#ff9d1b">
-    <meta name="google-site-verification" content="Xwx1kjHgpd3Q2cyQyA7s-5_MuTO_d0QpTQtblZtgL08" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - Casa Mia Restaurant Sénégalais</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- CSS Personnalisé -->
+    <style>
+        /* ===== VARIABLES JAUNE ===== */
+        :root {
+            --primary-color: #FFC107;
+            --primary-dark: #FFA000;
+            --primary-light: #FFD54F;
+            --secondary-color: #333333;
+            --light-color: #FFFDE7;
+            --text-color: #333;
+            --text-light: #666;
+            --border-radius: 8px;
+            --box-shadow: 0 5px 15px rgba(255, 193, 7, 0.1);
+            --transition: all 0.3s ease;
+        }
 
-    <!-- Favicon -->
-    <link href="img/favicon.ico" rel="icon">
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    <!-- Google Web Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Nunito:wght@600;700;800&family=Pacifico&display=swap" rel="stylesheet">
+        /* CORRECTION DU BODY POUR ÉVITER LE CHEVAUCHEMENT */
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-color);
+            line-height: 1.6;
+            background-color: #f8f9fa;
+            padding-top: 56px;
+        }
 
-    <!-- Icon Font Stylesheet -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+        html {
+            scroll-padding-top: 56px;
+        }
 
-    <!-- Icon Font Stylesheet -->
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"/>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+        /* ===== NAVBAR JAUNE ===== */
+        .navbar {
+            background-color: white !important;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 0.5rem 0;
+            transition: var(--transition);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            height: 56px;
+        }
 
-    <!-- Boutton Reservation -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+        .navbar-brand img {
+            transition: var(--transition);
+        }
 
-    <!-- Libraries Stylesheet -->
-    <link href="{{ asset('assets/lib/animate/animate.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/lib/owlcarousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css') }}" rel="stylesheet" />
+        .navbar-brand:hover img {
+            transform: scale(1.05);
+        }
 
-    <!-- Customized Bootstrap Stylesheet -->
-    <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet">
+        .brand-name {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--secondary-color);
+        }
 
-    <!-- Template Stylesheet -->
-    <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
+        .brand-first {
+            color: var(--primary-color);
+        }
 
-    <!-- Icon Image -->
-     <link rel="shortcut icon" href="{{asset('assets/img/new-logo.png')}}"/>
+        .nav-link {
+            font-weight: 500;
+            color: var(--secondary-color) !important;
+            margin: 0 0.3rem;
+            padding: 0.4rem 0.8rem !important;
+            transition: var(--transition);
+            border-radius: var(--border-radius);
+        }
 
-    <!-- Manifest -->
-     <link rel="manifest" href="/manifest.json">
-     <meta name="theme-color" content="#ff9d1b">
+        .nav-link:hover, .nav-link.active {
+            color: var(--primary-dark) !important;
+            background-color: rgba(255, 193, 7, 0.1);
+        }
+
+        .btn-admin {
+            background-color: var(--primary-color);
+            color: var(--secondary-color) !important;
+            border-radius: var(--border-radius);
+            padding: 0.4rem 1rem !important;
+            font-weight: 600;
+        }
+
+        .btn-admin:hover {
+            background-color: var(--primary-dark);
+            color: white !important;
+        }
+
+        /* ===== HERO SECTION ===== */
+        .contact-hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                        url('https://images.unsplash.com/photo-1559925393-8be0ec4767c8?ixlib=rb-4.0.3&auto=format&fit=crop&w=1471&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 40vh;
+            min-height: 250px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            margin-top: 0;
+            border-bottom: 3px solid var(--primary-color);
+            padding-top: 56px;
+        }
+
+        .hero-content {
+            text-align: center;
+            color: white;
+            padding: 1.5rem;
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.8rem;
+        }
+
+        .hero-title .highlight {
+            color: var(--primary-color);
+        }
+
+        .hero-subtitle {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+        }
+
+        /* ===== SECTION TITRE ===== */
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.8rem;
+            color: var(--secondary-color);
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background-color: var(--primary-color);
+        }
+
+        .section-title.text-center::after {
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .highlight {
+            color: var(--primary-color);
+        }
+
+        .section-subtitle {
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
+        }
+
+        /* ===== SECTIONS ===== */
+        section {
+            padding: 2rem 0;
+        }
+
+        /* Contact Grid - SOLUTION PROPRE SANS BOOTSTRAP */
+        .contact-container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-bottom: 2rem;
+            width: 100%;
+        }
+
+        .contact-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            text-align: center;
+            transition: var(--transition);
+            border: 1px solid rgba(255, 193, 7, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            height: 100%;
+            width: 100%;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(255, 193, 7, 0.15);
+        }
+
+        .contact-icon {
+            width: 60px;
+            height: 60px;
+            background-color: var(--primary-color);
+            color: var(--secondary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 1.5rem;
+        }
+
+        .contact-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.8rem;
+            color: var(--secondary-color);
+            line-height: 1.3;
+        }
+
+        .contact-card p {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
+            line-height: 1.4;
+        }
+
+        .contact-card .btn {
+            margin-top: auto;
+            font-size: 0.85rem;
+            padding: 0.5rem 1rem;
+            background-color: transparent;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+            border-radius: 20px;
+            text-decoration: none;
+            transition: var(--transition);
+            display: inline-block;
+        }
+
+        .contact-card .btn:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        /* Form Sections */
+        .contact-form-section {
+            background-color: var(--light-color);
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            margin-bottom: 2rem;
+            border: 1px solid rgba(255, 193, 7, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-label {
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            color: var(--secondary-color);
+        }
+
+        .form-control, .form-select {
+            padding: 0.8rem;
+            border: 1px solid rgba(255, 193, 7, 0.2);
+            border-radius: var(--border-radius);
+            width: 100%;
+            transition: var(--transition);
+            font-size: 0.95rem;
+        }
+
+        .form-control:focus, .form-select:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.2rem rgba(255, 193, 7, 0.1);
+            outline: none;
+        }
+
+        .submit-btn {
+            background-color: var(--primary-color);
+            color: var(--secondary-color);
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            width: 100%;
+            font-size: 1rem;
+        }
+
+        .submit-btn:hover {
+            background-color: var(--primary-dark);
+            color: white;
+        }
+
+        /* Map Container */
+        .map-container {
+            height: 300px;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            margin-bottom: 2rem;
+            box-shadow: var(--box-shadow);
+            border: 1px solid rgba(255, 193, 7, 0.1);
+        }
+
+        .map-placeholder {
+            width: 100%;
+            height: 100%;
+            background-color: var(--light-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-light);
+        }
+
+        .map-placeholder i {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            margin-top: 3rem;
+        }
+
+        .faq-item {
+            background: white;
+            border-radius: var(--border-radius);
+            margin-bottom: 0.8rem;
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+            border: 1px solid rgba(255, 193, 7, 0.1);
+        }
+
+        .faq-question {
+            padding: 1rem;
+            background-color: var(--light-color);
+            border: none;
+            width: 100%;
+            text-align: left;
+            font-weight: 600;
+            font-size: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .faq-question:hover {
+            background-color: rgba(255, 193, 7, 0.05);
+        }
+
+        .faq-question.active {
+            background-color: var(--primary-color);
+            color: var(--secondary-color);
+        }
+
+        .faq-answer {
+            padding: 0 1rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .faq-answer.active {
+            padding: 1rem;
+            max-height: 500px;
+        }
+
+        /* ===== FOOTER RÉDUIT ===== */
+        .footer {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 2rem 0 1rem;
+            margin-top: 2rem;
+            font-size: 0.9rem;
+        }
+
+        .footer-brand {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .footer-brand img {
+            width: 40px;
+            height: 40px;
+        }
+
+        .footer-brand h3 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            color: white;
+            font-size: 1.2rem;
+            margin: 0;
+        }
+
+        .footer-description {
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 1rem;
+            font-size: 0.85rem;
+            line-height: 1.4;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 0.8rem;
+            margin-top: 0.5rem;
+        }
+
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 35px;
+            height: 35px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border-radius: 50%;
+            text-decoration: none;
+            transition: var(--transition);
+            font-size: 0.9rem;
+        }
+
+        .social-link:hover {
+            background: var(--primary-color);
+            color: var(--secondary-color);
+        }
+
+        .footer-title {
+            color: white;
+            font-size: 1rem;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: var(--transition);
+            font-size: 0.85rem;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-color);
+            padding-left: 3px;
+        }
+
+        .footer-contact {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 1rem 0;
+        }
+
+        .footer-contact li {
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: flex-start;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.85rem;
+            line-height: 1.3;
+        }
+
+        .footer-contact i {
+            margin-right: 8px;
+            color: var(--primary-color);
+            margin-top: 2px;
+            font-size: 0.9rem;
+        }
+
+        .newsletter {
+            margin-top: 1rem;
+        }
+
+        .newsletter h5 {
+            color: white;
+            font-size: 0.9rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .newsletter p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.8rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 0.5rem 0.8rem;
+            border: none;
+            border-radius: var(--border-radius);
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 0.85rem;
+        }
+
+        .newsletter-form input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .newsletter-form button {
+            background: var(--primary-color);
+            color: var(--secondary-color);
+            border: none;
+            width: 40px;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: bold;
+        }
+
+        .newsletter-form button:hover {
+            background: var(--primary-dark);
+            color: white;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 1.5rem;
+            padding-top: 1rem;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.8rem;
+        }
+
+        .heart-icon {
+            color: var(--primary-color);
+        }
+
+        /* ===== CORRECTIONS MOBILE ===== */
+        @media (max-width: 768px) {
+            body {
+                padding-top: 56px;
+                background-color: #f8f9fa;
+            }
+            
+            .navbar {
+                padding: 0.5rem;
+                height: 56px;
+            }
+            
+            .navbar-collapse {
+                background-color: white;
+                padding: 1rem;
+                border-radius: var(--border-radius);
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+                margin-top: 0.5rem;
+            }
+            
+            .contact-hero {
+                height: 30vh;
+                min-height: 200px;
+                margin-top: 0;
+                padding-top: 56px;
+            }
+            
+            .hero-title {
+                font-size: 1.8rem;
+                margin-bottom: 0.5rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1rem;
+                margin-bottom: 1rem;
+            }
+            
+            section {
+                padding: 1.5rem 0;
+            }
+            
+            /* MÊME DISPOSITION 2 COLONNES SUR MOBILE */
+            .contact-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 15px;
+                margin-bottom: 1.5rem;
+            }
+            
+            .contact-card {
+                padding: 1.2rem;
+                min-height: 180px;
+            }
+            
+            .contact-icon {
+                width: 50px;
+                height: 50px;
+                font-size: 1.2rem;
+                margin-bottom: 0.8rem;
+            }
+            
+            .contact-card h3 {
+                font-size: 1rem;
+                margin-bottom: 0.5rem;
+                line-height: 1.2;
+            }
+            
+            .contact-card p {
+                font-size: 0.8rem;
+                margin-bottom: 0.4rem;
+                line-height: 1.3;
+            }
+            
+            .contact-card .btn {
+                font-size: 0.75rem;
+                padding: 0.4rem 0.8rem;
+                margin-top: auto;
+            }
+            
+            /* Ajustements pour les cartes avec plus de contenu */
+            .contact-card:nth-child(4) p {
+                font-size: 0.75rem;
+            }
+            
+            .contact-form-section {
+                padding: 1.2rem;
+                margin-bottom: 1.5rem;
+            }
+            
+            .section-title {
+                font-size: 1.5rem;
+                text-align: center;
+                margin-bottom: 0.5rem;
+            }
+            
+            .section-title::after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+            
+            .form-group {
+                margin-bottom: 0.8rem;
+            }
+            
+            .form-control, .form-select {
+                padding: 0.7rem;
+                font-size: 0.9rem;
+            }
+            
+            .submit-btn {
+                padding: 0.8rem;
+                font-size: 0.9rem;
+            }
+            
+            .map-container {
+                height: 250px;
+                margin-bottom: 1.5rem;
+            }
+            
+            .map-placeholder {
+                padding: 1rem;
+            }
+            
+            .map-placeholder i {
+                font-size: 2rem;
+            }
+            
+            .map-placeholder h4 {
+                font-size: 1.1rem;
+            }
+            
+            .map-placeholder .btn {
+                padding: 0.5rem 1rem;
+                font-size: 0.85rem;
+            }
+            
+            .faq-section {
+                margin-top: 2rem;
+            }
+            
+            .faq-item {
+                margin-bottom: 0.5rem;
+            }
+            
+            .faq-question {
+                padding: 0.8rem;
+                font-size: 0.9rem;
+            }
+            
+            .faq-answer {
+                padding: 0 0.8rem;
+            }
+            
+            .faq-answer.active {
+                padding: 0.8rem;
+            }
+            
+            /* Footer mobile */
+            .footer {
+                padding: 1.5rem 0 1rem;
+                margin-top: 1.5rem;
+            }
+            
+            .footer-brand {
+                justify-content: center;
+                text-align: center;
+                flex-direction: column;
+                margin-bottom: 1.5rem;
+            }
+            
+            .footer-brand h3 {
+                margin-top: 0.5rem;
+            }
+            
+            .footer-description {
+                text-align: center;
+                margin-bottom: 1.5rem;
+            }
+            
+            .social-links {
+                justify-content: center;
+                margin-bottom: 1.5rem;
+            }
+            
+            .footer-title {
+                text-align: center;
+            }
+            
+            .footer-links {
+                text-align: center;
+            }
+            
+            .footer-contact {
+                text-align: center;
+            }
+            
+            .footer-contact li {
+                justify-content: center;
+            }
+            
+            .newsletter {
+                text-align: center;
+                max-width: 300px;
+                margin: 0 auto;
+            }
+            
+            .footer-bottom {
+                text-align: center;
+            }
+            
+            .footer-bottom .row {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+        }
+
+        /* Pour les très petits écrans (moins de 480px) */
+        @media (max-width: 480px) {
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            .contact-card {
+                min-height: auto;
+                padding: 1.2rem;
+            }
+            
+            .contact-card h3 {
+                font-size: 1.1rem;
+            }
+            
+            .contact-card p {
+                font-size: 0.85rem;
+            }
+            
+            .hero-title {
+                font-size: 1.5rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 0.9rem;
+            }
+            
+            .section-title {
+                font-size: 1.3rem;
+            }
+        }
+
+        /* Notification */
+        .notification {
+            position: fixed;
+            top: 60px;
+            right: 20px;
+            background: white;
+            color: var(--secondary-color);
+            padding: 1rem 1.5rem;
+            border-radius: var(--border-radius);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            z-index: 1060;
+            border-left: 4px solid var(--primary-color);
+            animation: slideIn 0.3s ease;
+            max-width: 350px;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .notification {
+                top: 60px;
+                right: 10px;
+                left: 10px;
+                max-width: calc(100% - 20px);
+                padding: 0.8rem 1rem;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
 </head>
-
 <body>
-       
-<div class="container-xxl bg-white p-0">
-    <!-- Spinner Start -->
-    <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
-        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
-            <span class="sr-only">Chargement...</span>
-        </div>
-    </div>
-    <!-- Spinner End -->
-            
-           
-
-    <!-- Navbar & Hero Start -->
-    <div class="container-xxl position-relative p-0">
-        
-        <nav class="navbar navbar-expand-lg navbar-white bg-white px-4 px-lg-5 py-3 py-lg-0">
-            <a href="{{route('home')}}" class="navbar-brand p-0">
-                    <img src="{{asset('assets/img/new-logo.png')}}" width="80" alt="Logo">
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <img src="{{ asset('assets/image/logo.jpeg') }}" alt="Logo Casa Mia" width="40" height="40" class="d-inline-block align-top me-2">
+                <span class="brand-name d-none d-md-inline"><span class="brand-first">Casa</span> Mia</span>
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-                <span class="fa fa-bars"></span>&nbsp;
-                <a href="{{route('panier.index')}}" class="">
-                    <i class="fa fa-shopping-cart text-primary"><sup><b class="text-dark">{{Cart::count()}}</b></sup></i>&nbsp;
-                </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
             </button>
-            
-            <div class="collapse navbar-collapse" id="navbarCollapse">
-                <div class="navbar-nav ms-auto py-0 pe-4">
-                    <a href="{{route('home')}}" class="nav-item nav-link active">Accueil</a>
-                    <a href="{{route('menu')}}" class="nav-item nav-link active">Nos Menus</a>
-                    <a href="{{route('contact')}}" class="nav-item nav-link active">Contact</a>
-                </div>                       
-                @auth
-                    <a href="{{route('dhome')}}" class="btn btn-success py-1 px-2">
-                        <i class="fas fa-user"></i>
-                    </a>
-                @endauth
+            <div class="collapse navbar-collapse" id="navbarNav">
+                                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('accueil') }}">Accueil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('apropos') }}">À Propos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('menu') }}">Menu</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{{ route('contact') }}">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn-admin" href="{{ route('login.index') }}">
+                            <i class="fas fa-user-shield me-1"></i> Admin
+                        </a>
+                    </li>
+                </ul>
+                
             </div>
-            </div>
-            
-        </nav>     
-        <!-- Navbar & Hero End -->
-
-
-        <!-- Icon Fixe -->
-        <a href="#" class="btn btn-lg btn-primary btn-lg-square icon-fixe dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-headset"></i></a>
-        <div class="dropdown-menu m-0">
-            <a href="tel:221785470838" type="button" target="_blank" class="dropdown-item text-primary mr-0 pr-0" style="font-size: 12px;">
-                <i class="fa fa-headset"></i>&nbsp;Service clientelle
-            </a>
-            <a href="" type="button" class="dropdown-item text-primary mr-0 pr-0" style="font-size: 12px;" data-bs-toggle="modal" data-bs-target="#loginModal">
-                <i class="fa fa-list"></i>&nbsp;Commande  speciale
-            </a>
         </div>
-        <div class="modal fade" id="loginModal" tabindex="-1">
-            <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                <h5 class="modal-title">Faire votre commande speciale en ligne !</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    @if ($errors->any())
-                        <div class="alert alert-danger">
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
-                    <form method="post" action="{{ route('commande.speciale')}}">
-                        @csrf
-                        <div class="mb-3">
-                            <label class="form-label">Nom Complet</label>
-                            <div class="input-group">
-                                <input type="text" class="form-control" name="nom" placeholder="Votre prénom et nom">
-                            </div>
-                        </div>
+    </nav>
 
-                        <div class="mb-3">
-                            <label class="form-label">Téléphone</label>
-                            <div class="input-group">
-                                <input type="text" class="form-control" name="telephone" placeholder="Entrer votre numéro de telephone">
-                            </div>
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label">Date de Livraison</label>
-                            <div class="input-group">
-                                <input type="date" class="form-control" name="date" placeholder="Entrer la date de livraison">
-                            </div>
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label">Details de la commande</label>
-                            <div class="input-group">
-                                <textarea class="form-control" name="commentaire"></textarea>
-                            </div>
-                        </div>
-
-                        <button type="submit" class="btn btn-login text-white">Commander</button>
-                    </form>
-                </div>
+    <!-- Hero Section -->
+    <section class="contact-hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">Contactez-<span class="highlight">Nous</span></h1>
+                <p class="hero-subtitle">Nous sommes là pour répondre à vos questions</p>
             </div>
+        </div>
+    </section>
+
+    <!-- Contact Information -->
+    <section>
+        <!-- UTILISER NOTRE PROPRE CONTAINER POUR LES BOX DE CONTACT -->
+        <div class="contact-container">
+            <div class="contact-grid">
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <h3>Notre Adresse</h3>
+                    <p>Saint Louis, Route de Khor<br>En face de l'ARD</p>
+                    <a href="#map" class="btn">Voir sur la carte</a>
+                </div>
+                
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-phone-alt"></i>
+                    </div>
+                    <h3>Téléphone</h3>
+                    <p><strong>77 206 81 81</strong></p>
+                    <p>Lun-Dim: 11h30 - 23h00</p>
+                    <a href="tel:772068181" class="btn">Appeler maintenant</a>
+                </div>
+                
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <h3>Email</h3>
+                    <p><strong>tafa.wade@gmail.com</strong></p>
+                    <p>Réponse sous 24h</p>
+                    <a href="mailto:tafa.wade@gmail.com" class="btn">Envoyer un email</a>
+                </div>
+                
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3>Horaires d'Ouverture</h3>
+                    <p><strong>Lundi - Vendredi</strong><br>11h30 - 22h00</p>
+                    <p><strong>Samedi - Dimanche</strong><br>12h00 - 23h00</p>
+                </div>
             </div>
         </div>
         
- <!-- Contact Start -->
-        <div class="container-xxl py-5">
-            <div class="container">
-                <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-                    <h5 class="section-title ff-secondary text-center text-primary fw-normal">Contactez-Nous</h5>
-                    <h1 class="mb-5">Contact pour toute question</h1>
-                </div>
-                <div class="row g-4">
-                    <div class="col-md-6">
-                        <div class="wow fadeInUp" data-wow-delay="0.2s">
-                            <p class="mb-2"><i class="fa fa-map-marker-alt"></i>St-Louis, SENEGAL</p>
-                            <p class="mb-2"><i class="fa fa-phone-alt"></i>(+221)78-547-08-38</p>
-                            <p class="mb-2"><i class="fa fa-envelope"></i>contact@ofood.com</p>
-                            
+        <!-- Le reste du contenu utilise Bootstrap normalement -->
+        <div class="container">
+            <!-- Contact Form -->
+            <div class="contact-form-section">
+                <h2 class="section-title mb-3">Envoyez-nous un <span class="highlight">Message</span></h2>
+                <form id="contactForm">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label" for="name">Nom Complet *</label>
+                                <input type="text" class="form-control" id="name" name="name" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label" for="email">Adresse Email *</label>
+                                <input type="email" class="form-control" id="email" name="email" required>
+                            </div>
                         </div>
                     </div>
-
-                    <div class="col-md-6 wow fadeIn" data-wow-delay="0.1s">
-                        <iframe class="position-relative rounded w-100 h-100" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3834.6519717366664!2d-16.508421624078398!3d16.03162264044197!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xe9557b6aef8b301%3A0xc80ca1adb5c8b87a!2sQuai%20Giraud%2C%20St%20Louis!5e0!3m2!1sfr!2ssn!4v1760959573618!5m2!1sfr!2ssn" frameborder="0" style="min-height: 350px; border:0;" allowfullscreen="" aria-hidden="false"
-                            tabindex="0"></iframe>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label" for="phone">Numéro de Téléphone</label>
+                                <input type="tel" class="form-control" id="phone" name="phone">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label" for="subject">Sujet *</label>
+                                <select class="form-select" id="subject" name="subject" required>
+                                    <option value="">Sélectionnez un sujet</option>
+                                    <option value="reservation">Réservation de table</option>
+                                    <option value="information">Demande d'information</option>
+                                    <option value="feedback">Retour client</option>
+                                    <option value="recrutement">Recrutement</option>
+                                    <option value="autre">Autre</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
-
-                    <div class="d-flex pt-2">
-                        <a class="btn btn-outline-primary btn-social" href="#"><i class="fab fa-instagram"></i></a>
-                        <a class="btn btn-outline-primary btn-social" href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a class="btn btn-outline-primary btn-social" href="#"><i class="fab fa-youtube"></i></a>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="message">Message *</label>
+                        <textarea class="form-control" id="message" name="message" rows="4" required></textarea>
                     </div>
+                    
+                    <button type="submit" class="submit-btn">
+                        <i class="fas fa-paper-plane me-2"></i> Envoyer le Message
+                    </button>
+                </form>
+            </div>
+            
+            <!-- Map Section -->
+            <div id="map" class="map-container">
+                <div class="map-placeholder">
+                    <i class="fas fa-map-marked-alt"></i>
+                    <h4>Saint Louis, Route de Khor</h4>
+                    <p>En face de l'ARD</p>
+                    <a href="https://www.google.com/maps/search/?api=1&query=Saint+Louis+Route+de+Khor+ARD" 
+                       target="_blank" class="btn btn-primary mt-2">
+                        <i class="fas fa-external-link-alt me-2"></i> Ouvrir dans Google Maps
+                    </a>
+                </div>
+            </div>
+            
+            <!-- FAQ Section -->
+            <div class="faq-section">
+                <h2 class="section-title mb-3 text-center">Questions <span class="highlight">Fréquentes</span></h2>
+                
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Quels sont les moyens de paiement acceptés ?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Nous acceptons les paiements en espèces (FCFA), par carte bancaire et par mobile money.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Proposez-vous des options végétariennes ?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Oui, nous avons plusieurs options végétariennes dans notre menu.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Puis-je annuler ou modifier ma réservation ?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Vous pouvez annuler ou modifier votre réservation jusqu'à 2 heures avant l'heure prévue.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Proposez-vous un service de livraison ?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Oui, nous offrons un service de livraison dans un rayon de 5km autour du restaurant.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Organisez-vous des événements privés ?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Absolument ! Nous pouvons organiser des événements privés pour des groupes de 10 à 50 personnes.</p>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- Contact End -->
+    </section>
 
-        @include('partials.footer')
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-3">
+                    <div class="footer-brand mb-2">
+                        <img src="images/logoo.png" alt="Logo Casa Mia" class="me-2">
+                        <h3><span class="brand-first">Casa</span> Mia</h3>
+                    </div>
+                    <p class="footer-description">Restaurant sénégalais authentique à Saint Louis.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                
+                <div class="col-lg-2 col-md-6 mb-3">
+                    <h4 class="footer-title">Menu</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Accueil</a></li>
+                        <li><a href="apropos.html">À Propos</a></li>
+                        <li><a href="menu.html">Menu</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="col-lg-3 col-md-6 mb-3">
+                    <h4 class="footer-title">Contact</h4>
+                    <ul class="footer-contact">
+                        <li><i class="fas fa-map-marker-alt"></i> Saint Louis, Route de Khor</li>
+                        <li><i class="fas fa-phone"></i> 77 206 81 81</li>
+                        <li><i class="fas fa-envelope"></i> tafa.wade@gmail.com</li>
+                    </ul>
+                </div>
+                
+                <div class="col-lg-3 col-md-6 mb-3">
+                    <div class="newsletter">
+                        <h5>Newsletter</h5>
+                        <p>Recevez nos offres</p>
+                        <form class="newsletter-form">
+                            <input type="email" placeholder="Email" required>
+                            <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="row">
+                    <div class="col-md-6">
+                        <p>&copy; 2023 Casa Mia. Tous droits réservés.</p>
+                    </div>
+                    <div class="col-md-6 text-md-end">
+                        <p>Conçu avec <i class="fas fa-heart heart-icon"></i></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            // Setup FAQ functionality
+            setupFAQ();
+            
+            // Setup form submissions
+            setupForms();
+            
+            // Set active nav link
+            document.querySelectorAll('.nav-link').forEach(link => {
+                if (link.getAttribute('href') === 'contact.html') {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+            
+            // Clear any pending order from localStorage since reservation is removed
+            localStorage.removeItem('pendingOrder');
+        });
+        
+        function setupFAQ() {
+            const faqQuestions = document.querySelectorAll('.faq-question');
+            
+            faqQuestions.forEach(question => {
+                question.addEventListener('click', function() {
+                    const answer = this.nextElementSibling;
+                    const isActive = this.classList.contains('active');
+                    
+                    // Close all other FAQs
+                    document.querySelectorAll('.faq-question').forEach(q => {
+                        q.classList.remove('active');
+                        q.querySelector('i').className = 'fas fa-chevron-down';
+                    });
+                    
+                    document.querySelectorAll('.faq-answer').forEach(a => {
+                        a.classList.remove('active');
+                    });
+                    
+                    // Open clicked FAQ if it wasn't active
+                    if (!isActive) {
+                        this.classList.add('active');
+                        answer.classList.add('active');
+                        this.querySelector('i').className = 'fas fa-chevron-up';
+                    }
+                });
+            });
+        }
+        
+        function setupForms() {
+            const contactForm = document.getElementById('contactForm');
+            
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    // Get form data
+                    const formData = new FormData(this);
+                    const data = Object.fromEntries(formData);
+                    
+                    // Show success message
+                    showNotification('Message envoyé avec succès!', 'success');
+                    contactForm.reset();
+                });
+            }
+        }
+        
+        function showNotification(message, type) {
+            const notification = document.createElement('div');
+            notification.className = `notification`;
+            notification.innerHTML = `
+                <div class="d-flex align-items-center">
+                    <i class="fas fa-${type === 'success' ? 'check-circle' : 'info-circle'} me-2" style="color: ${type === 'success' ? '#28a745' : '#ffc107'}"></i>
+                    <div>${message}</div>
+                </div>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.opacity = '0';
+                setTimeout(() => {
+                    notification.remove();
+                }, 300);
+            }, 3000);
+        }
+        
+        // Handle back button to clear pending order
+        window.addEventListener('pageshow', function(event) {
+            // Clear pending order if user navigated away
+            localStorage.removeItem('pendingOrder');
+        });
+    </script>
+</body>
+</html>

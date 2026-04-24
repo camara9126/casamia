@@ -28,29 +28,31 @@
                 </a>
             </li>
             <li>
-                <a href="#" id="ordersLink">
-                    <i class="fas fa-shopping-cart"></i>
-                    <span>Commandes</span>
-                    <span class="badge bg-warning ms-auto" id="ordersBadge">0</span>
-                </a>
-            </li>
-            <li>
                 <a href="{{ route('darticle.index') }}" >
                     <i class="fas fa-utensils"></i>
                     <span>Menu</span>
                     <span class="badge bg-warning ms-auto" id="ordersBadge">{{ $articles->count() }}</span>
                 </a>
             </li>
+
             <li>
-                <a href="#" id="customersLink">
-                    <i class="fas fa-users"></i>
-                    <span>Clients</span>
+                <a href="{{ route('commercial') }}">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span>Commercial</span>
+                    <!--<span class="badge bg-warning ms-auto" id="ordersBadge"></span>-->
+                </a>
+            </li>
+           
+            <li>
+                <a href="{{ route('inventaire') }}">
+                    <i class="fas fa-boxes"></i>
+                    <span>Inventaire</span>
                 </a>
             </li>
             <li>
-                <a href="#" id="inventoryLink">
-                    <i class="fas fa-boxes"></i>
-                    <span>Inventaire</span>
+                <a href="{{ route('finance') }}">
+                    <i class="fas fa-money-bill-1-wave"></i>
+                    <span>Finance</span>
                 </a>
             </li>
             <li>

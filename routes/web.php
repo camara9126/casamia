@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CardController;
+use App\Http\Controllers\Commercial\ClientController;
+use App\Http\Controllers\Commercial\DevisController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\PersonnelController;
 use App\Http\Controllers\UserController;
@@ -77,6 +79,43 @@ Route::get('/menu/{id}',[MenuController::class, 'show'])->name('menu.show');
 
 //Article
 Route::resource('/darticle', ArticleController::class)->middleware(['auth','verified']);
+
+
+// Route Commercial - Inventaire - Finanace
+Route::get('/commercial', function () {
+    $menus= Menu::latest()->get();
+    $articles= Article::latest()->get();
+    return view('dashboard.commercial.index', compact('menus','articles'));
+
+})->middleware(['auth','verified'])->name('commercial');
+
+
+Route::get('/inventaire', function () {
+    $menus= Menu::latest()->get();
+    $articles= Article::latest()->get();
+
+    return view('dashboard.inventaire.index', compact('menus','articles'));
+
+})->middleware(['auth','verified'])->name('inventaire');
+
+
+Route::get('/finance', function () {
+    $menus= Menu::latest()->get();
+    $articles= Article::latest()->get();
+
+    return view('dashboard.finance.index', compact('menus','articles'));
+
+})->middleware(['auth','verified'])->name('finance');
+
+
+// Routes Commercial
+Route::resource('/clients', ClientController::class)->middleware(['auth','verified']);
+Route::resource('/devis', DevisController::class)->middleware(['auth','verified']);
+    Route::get('/vailde/{devis}/valider', [DevisController::class, 'valider'])->name('dValider');
+    Route::get('/refuse/{devis}/refuser', [DevisController::class, 'refuser'])->name('dRefuser');
+    Route::get('/convert/{devis}/convertir', [DevisController::class, 'convertir'])->name('dConvertir');
+//Route::resource('/darticle', ArticleController::class)->middleware(['auth','verified']);
+
 
 //Route whatsapp
 Route::get('/whatsapp', [CardController::class, 'whatsapp'])->name('cart.whatsapp');

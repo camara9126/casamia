@@ -22,6 +22,11 @@ class Article extends Model
             return $this->belongsTo(menu::class);
         }
 
+    public function ventes() 
+        {
+            return $this->hasMany(Vente::class);
+        }
+
      // creation de slug a chaque article
         protected static function boot()
             {

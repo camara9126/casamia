@@ -1808,8 +1808,8 @@
                         <h1 class="hero-title">Bienvenue à <span class="highlight">Casa Mia</span></h1>
                         <p class="hero-subtitle">Saveurs authentiques du Sénégal au cœur de Saint Louis</p>
                         <div class="hero-buttons">
-                            <a href="menu.html" class="btn btn-primary btn-hero">Voir Notre Menu</a>
-                            <a href="contact.html#reservation" class="btn btn-outline-light btn-hero">Réserver une Table</a>
+                            <a href="{{ route('menu') }}" class="btn btn-primary btn-hero">Voir Notre Menu</a>
+                            <!--<a href="contact.html#reservation" class="btn btn-outline-light btn-hero">Réserver une Table</a>-->
                         </div>
                     </div>
                 </div>
@@ -1859,7 +1859,7 @@
                                 <p>Riz au poisson avec légumes et sauce tomate traditionnelle</p>
                                 <div class="specialty-footer">
                                     <span class="price">4 500 FCFA</span>
-                                    <a href="menu.html#senegalais" class="btn-order">Commander</a>
+                                    <a href="{{ route('menu') }}" class="btn-order">Commander</a>
                                 </div>
                             </div>
                         </div>
@@ -1877,7 +1877,7 @@
                                 <p>Poulet mariné au citron et oignons, servi avec riz blanc</p>
                                 <div class="specialty-footer">
                                     <span class="price">5 000 FCFA</span>
-                                    <a href="menu.html#senegalais" class="btn-order">Commander</a>
+                                    <a href="{{ route('menu') }}" class="btn-order">Commander</a>
                                 </div>
                             </div>
                         </div>
@@ -1895,7 +1895,7 @@
                                 <p>Ragoût dans une sauce arachide, servi avec du riz</p>
                                 <div class="specialty-footer">
                                     <span class="price">4 800 FCFA</span>
-                                    <a href="menu.html#senegalais" class="btn-order">Commander</a>
+                                    <a href="{{ route('menu') }}" class="btn-order">Commander</a>
                                 </div>
                             </div>
                         </div>
@@ -1913,7 +1913,7 @@
                                 <p>Beignets farcis au poisson ou viande, frits à l'huile</p>
                                 <div class="specialty-footer">
                                     <span class="price">2 500 FCFA</span>
-                                    <a href="menu.html#entrees" class="btn-order">Commander</a>
+                                    <a href="{{ route('menu') }}" class="btn-order">Commander</a>
                                 </div>
                             </div>
                         </div>
@@ -1931,7 +1931,7 @@
                                 <p>Sauce à base de gombo avec poisson ou viande et riz</p>
                                 <div class="specialty-footer">
                                     <span class="price">4 000 FCFA</span>
-                                    <a href="menu.html#vegetarien" class="btn-order">Commander</a>
+                                    <a href="{{ route('menu') }}" class="btn-order">Commander</a>
                                 </div>
                             </div>
                         </div>
@@ -1949,7 +1949,7 @@
                                 <p>Dessert à base de mil, yaourt et fruits secs sucrés</p>
                                 <div class="specialty-footer">
                                     <span class="price">2 000 FCFA</span>
-                                    <a href="menu.html#desserts" class="btn-order">Commander</a>
+                                    <a href="{{ route('menu') }}" class="btn-order">Commander</a>
                                 </div>
                             </div>
                         </div>
@@ -2009,7 +2009,7 @@
                     </div>
                 </div>        
                 <div class="text-center mt-4 fade-in-up">
-                    <a href="menu.html" class="btn btn-primary px-3 py-1">Voir Tout le Menu <i class="fas fa-arrow-right ms-2"></i></a>
+                    <a href="{{ route('menu') }}" class="btn btn-primary px-3 py-1">Voir Tout le Menu <i class="fas fa-arrow-right ms-2"></i></a>
                 </div>
             </div>
         </section>
@@ -2039,7 +2039,7 @@
                                     <i class="fas fa-calendar-alt"></i>
                                     <span>Chaque vendredi</span>
                                 </div>
-                                <a href="contact.html#reservation" class="btn-event">Réserver</a>
+                                <a href="{{ route('contact') }}" class="btn-event">Réserver</a>
                             </div>
                         </div>
                     </div>
@@ -2060,7 +2060,7 @@
                                     <i class="fas fa-calendar-alt"></i>
                                     <span>1er samedi du mois</span>
                                 </div>
-                                <a href="contact.html#atelier" class="btn-event">S'inscrire</a>
+                                <a href="{{ route('contact') }}" class="btn-event">S'inscrire</a>
                             </div>
                         </div>
                     </div>
@@ -2081,7 +2081,7 @@
                                     <i class="fas fa-calendar-alt"></i>
                                     <span>Chaque dimanche</span>
                                 </div>
-                                <a href="contact.html#brunch" class="btn-event">Réserver</a>
+                                <a href="{{ route('contact') }}" class="btn-event">Réserver</a>
                             </div>
                         </div>
                     </div>
@@ -2231,7 +2231,7 @@
                             </div>
                             <h4>Réservation</h4>
                             <p><strong>77 206 81 81</strong></p>
-                            <a href="contact.html#reservation" class="btn btn-sm btn-primary mt-2">Réserver</a>
+                            <a href="{{ route('contact') }}" class="btn btn-sm btn-primary mt-2">Réserver</a>
                         </div>
                     </div>
                 </div>
@@ -2259,10 +2259,10 @@
                 <div class="col-lg-2 col-md-6 mb-4">
                     <h4 class="footer-title">Menu</h4>
                     <ul class="footer-links">
-                        <li><a href="index.html">Accueil</a></li>
-                        <li><a href="menu.html#thiebou">Thiebou Djeun</a></li>
-                        <li><a href="menu.html#yassa">Poulet Yassa</a></li>
-                        <li><a href="menu.html#mafe">Mafé</a></li>
+                        <li><a href="/">Accueil</a></li>
+                        @foreach($articles->take(5) as $a)
+                            <li><a href="#">{{$a->nom}}</a></li>
+                        @endforeach
                     </ul>
                 </div>
                 
@@ -2336,7 +2336,7 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Navigation active
-            const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+            const currentPage = window.location.pathname.split('/').pop() || '/';
             document.querySelectorAll('.nav-link').forEach(link => {
                 if (link.getAttribute('href') === currentPage) {
                     link.classList.add('active');

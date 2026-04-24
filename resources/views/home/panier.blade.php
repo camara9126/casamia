@@ -1944,9 +1944,9 @@
                 <div class="col-lg-2 col-md-6 mb-3">
                     <h4 class="footer-title">Menu</h4>
                     <ul class="footer-links">
-                        <li><a href="index.html">Accueil</a></li>
-                        <li><a href="menu.html">Plats</a></li>
-                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="/">Accueil</a></li>
+                        <li><a href="{{ route('menu') }}">Plats</a></li>
+                        <li><a href="{{ route('contact') }}">Contact</a></li>
                     </ul>
                 </div>
                 

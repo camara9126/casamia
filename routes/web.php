@@ -37,7 +37,7 @@ Route::get('/contact', function () {
 //menu
 Route::get('/menu', function () {
    $menus= Menu::latest()->get();
-    $plats= Article::latest()->paginate(1);
+    $plats= Article::latest()->paginate(10);
 
     return view('home.menu', compact('menus','plats'));
 })->name('menu');

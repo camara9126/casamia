@@ -1875,9 +1875,10 @@
                         </div>
                     </div>
                 @endforeach
-                <div class="d-flex justify-content-center">
-                    {{$plats->links()}}
-                </div>
+                
+            </div>
+            <div class="d-flex justify-content-center">
+                {{$plats->links()}}
             </div>
                 <div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered">

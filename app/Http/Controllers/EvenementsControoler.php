@@ -115,7 +115,12 @@ class EvenementsControoler extends Controller
     {
         $evenements= Evenements::findOrFail($id);
         $evenements->delete();
-        
+
         return redirect()->back()->with('success', 'Evenement supprimé avec success');
+    }
+
+    public function reserve()
+    {
+        return redirect()->back()->with('success', 'Fonctionnalite en cours de construction');
     }
 }

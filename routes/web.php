@@ -129,6 +129,7 @@ Route::resource('/devis', DevisController::class)->middleware(['auth','verified'
 
 // Route Evenements
 Route::resource('/evenements', EvenementsControoler::class)->middleware(['auth','verified']);
+Route::get('/evenements/reserve', [EvenementsControoler::class, 'reserve'])->name('evenements.reserve');
 //Route whatsapp
 Route::get('/whatsapp', [CardController::class, 'whatsapp'])->name('cart.whatsapp');
 Route::post('/commande', [CardController::class, 'commande'])->name('commande.speciale');

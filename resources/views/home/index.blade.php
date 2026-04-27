@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Icon Image -->
+    <link rel="shortcut icon" href="{{asset('assets/image/logo.jpeg')}}"/>
     <!-- CSS Personnalisé -->
     <style>
             /* ===== VARIABLES JAUNE ===== */
@@ -141,9 +143,9 @@
         }
 
         .hero-overlay {
-            background: rgba(0, 0, 0, 0.6);
+            /*background: rgba(0, 0, 0, 0.6);*/
             width: 100%;
-            padding: 2rem 0;
+            padding: 1rem 0;
         }
 
         .hero-content {
@@ -1823,7 +1825,15 @@
                     <h2 class="section-title">Nos <span class="highlight">Spécialités</span></h2>
                     <p class="section-subtitle">Découvrez nos plats les plus appréciés</p>
                 </div>
-                
+                 @if(Session::has('success'))
+                        <div class="alert alert-success" role="alert">
+                            {{ Session::get('success') }}
+                        </div>
+                    @elseif(Session::has('danger'))
+                        <div class="alert alert-danger" role="alert">
+                            {{ Session::get('danger') }}
+                        </div>
+                    @endif
                 <!-- Première ligne - 3 spécialités sur desktop, 2 sur mobile -->
                 <div class="row g-4 justify-content-center">
                     @foreach($articles as $art)
@@ -1836,7 +1846,7 @@
                                 </div>
                                 <div class="specialty-content">
                                     <h4>{{ $art->nom}}</h4>
-                                    <!--<p>{{ $art->description}}</p>-->
+                                    <p>{{ $art->description}}</p>
                                     <div class="specialty-footer">
                                         <span class="price">{{ $art->prix}} FCFA</span>
                                         <a href="" class="btn-order" data-bs-toggle="modal" data-bs-target="#productModal" data-id="{{ $art->id }}" data-image="{{ asset('storage/'.$art->image) }}" data-name="{{ $art->nom }}" data-description="{{ $art->description }}" data-price="{{ $art->prix }}">
@@ -1982,8 +1992,8 @@
                                         <i class="fa fa-star-half text-warning"></i>
                                         <small class="text-muted">(4.5)</small>
                                     </div>
-                                <h5 class=""><i class="fa fa-card-text"></i>Description</h5>
-                                <p class="description"></p>
+                                <!--<h5 class=""><i class="fa fa-card-text"></i>Description</h5>-->
+                                <p class="description"  style="font-style: italic;"></p>
 
                                 <form action="{{route('panier.store')}}" method="post">
                                     @csrf
@@ -1991,14 +2001,15 @@
                                         
                                     <h4 class="price fw-bold text-warning"></h4>
 
-                                <div class="d-grid gap-2 d-md-flex">
-                                    <button class="btn btn-warning flex-fill">
-                                        <i class="fa fa-cart-plus"></i> Ajouter
-                                    </button>
-                                    <a type="button" href="tel:+221771234567" target="_blank" class="btn btn-info border" title="Appeler-Nous">
-                                        <i class="fa fa-phone"> Contacter-Nous</i>
-                                    </a>
-                                </div>
+                                    <div class="d-grid gap-2 d-md-flex">
+                                        <button class="btn btn-warning flex-fill">
+                                            <i class="fa fa-cart-plus"></i> Ajouter
+                                        </button>
+                                        <a type="button" href="tel:+221771234567" target="_blank" class="btn btn-info border" title="Appeler-Nous">
+                                            <i class="fa fa-phone"> Contacter-Nous</i>
+                                        </a>
+                                    </div>
+                                </form>
                             </div>
 
                             <div class="modal-footer">
@@ -2023,27 +2034,188 @@
                 </div>
                 
                 <div class="row g-4">
-                    <div class="col-md-4 fade-in-up" style="animation-delay: 0.1s">
-                        <div class="event-card">
-                            <div class="event-date">
-                                <span>Vendredi</span>
+                    @foreach($evenements as $e)
+                        <div class="col-md-4 fade-in-up" style="animation-delay: 0.1s">
+                            <div class="event-card">
+                                <div class="event-date">
+                                    <span>{{$e->date}}</span>
+                                </div>
+                                <div class="event-content">
+                                    <h4>{{strtoupper($e->titre)}}</h4>
+                                    <p>{{$e->description}}.</p>
+                                    <div class="event-details">
+                                        <i class="fas fa-clock"></i>
+                                        <span>{{$e->heure}}</span>
+                                    </div>
+                                    <div class="event-details">
+                                        <i class="fas fa-calendar-alt"></i>
+                                        <span>{{$e->date}}</span>
+                                    </div>
+                                    <a href="" class="btn-event" data-bs-toggle="modal" data-bs-target="#reservationWhatsappModal">Réserver</a>
+                                </div>
                             </div>
-                            <div class="event-content">
-                                <h4>Soirée Live Music</h4>
-                                <p>Venez profiter d'une soirée musicale avec des artistes locaux tout en dégustant nos spécialités sénégalaises.</p>
-                                <div class="event-details">
-                                    <i class="fas fa-clock"></i>
-                                    <span>20h00 - 23h00</span>
+                        </div>
+                    @endforeach
+                    <div class="modal fade" id="reservationWhatsappModal" tabindex="-1" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content" style="border-radius: 20px; border: none; overflow: hidden;">
+                                <!-- En-tête avec effet WhatsApp -->
+                                <div class="modal-header" style="background: linear-gradient(135deg, #25D366 0%, #128C7E 100%); border: none; padding: 1.5rem;">
+                                    <div class="d-flex align-items-center gap-3">
+                                        <div style="background: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                                            <i class="fab fa-whatsapp" style="font-size: 30px; color: #25D366;"></i>
+                                        </div>
+                                        <div>
+                                            <h5 class="modal-title text-white" style="font-weight: 700; font-size: 1.3rem;">Réservation WhatsApp</h5>
+                                            <p class="text-white-50 mb-0" style="font-size: 0.85rem;">Réponse rapide garantie</p>
+                                        </div>
+                                    </div>
+                                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                                 </div>
-                                <div class="event-details">
-                                    <i class="fas fa-calendar-alt"></i>
-                                    <span>Chaque vendredi</span>
-                                </div>
-                                <a href="{{ route('contact') }}" class="btn-event">Réserver</a>
+
+                                <form id="" method="post" action="{{route('evenements.serve')}}" style="background: #FFFDE7;">
+                                    <div class="modal-body" style="padding: 1.8rem;">
+                                        <!-- Message de bienvenue -->
+                                        <div class="text-center mb-4">
+                                            <div style="background: rgba(255, 193, 7, 0.15); border-radius: 50px; padding: 0.5rem 1rem; display: inline-block;">
+                                                <i class="fas fa-calendar-check" style="color: #FFC107;"></i>
+                                                <span style="color: #FFA000; font-weight: 500; margin-left: 0.5rem;">Réservation en 2 minutes</span>
+                                            </div>
+                                        </div>
+
+                                        <!-- Informations client -->
+                                        <div class="mb-4">
+                                            <h6 style="color: #333; font-weight: 600; margin-bottom: 1rem; border-left: 4px solid #FFC107; padding-left: 0.8rem;">
+                                                <i class="fas fa-user-circle me-2" style="color: #FFC107;"></i>Vos informations
+                                            </h6>
+                                            
+                                            <div class="row g-3">
+                                                <div class="col-md-6">
+                                                    <label class="form-label" style="font-weight: 500; color: #555;">
+                                                        <i class="fas fa-user me-1" style="color: #FFC107;"></i>Nom complet *
+                                                    </label>
+                                                    <input type="text" class="form-control" name="nom" required 
+                                                        style="border: 2px solid rgba(255, 193, 7, 0.2); border-radius: 12px; padding: 0.7rem 1rem;">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="form-label" style="font-weight: 500; color: #555;">
+                                                        <i class="fas fa-phone me-1" style="color: #FFC107;"></i>Téléphone WhatsApp *
+                                                    </label>
+                                                    <input type="tel" class="form-control" name="phone" required 
+                                                        placeholder="+221 77 123 45 67"
+                                                        style="border: 2px solid rgba(255, 193, 7, 0.2); border-radius: 12px; padding: 0.7rem 1rem;">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Détails réservation -->
+                                        <div class="mb-4">
+                                            <h6 style="color: #333; font-weight: 600; margin-bottom: 1rem; border-left: 4px solid #FFC107; padding-left: 0.8rem;">
+                                                <i class="fas fa-calendar-alt me-2" style="color: #FFC107;"></i>Détails de la réservation
+                                            </h6>
+
+                                            <div class="row g-3">
+                                                <!--<div class="col-md-6">
+                                                    <label class="form-label" style="font-weight: 500; color: #555;">Date *</label>
+                                                    <input type="date" class="form-control" id="reservationDate" required
+                                                        style="border: 2px solid rgba(255, 193, 7, 0.2); border-radius: 12px; padding: 0.7rem 1rem;">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="form-label" style="font-weight: 500; color: #555;">Heure *</label>
+                                                    <input type="time" class="form-control" id="reservationDate" required
+                                                        style="border: 2px solid rgba(255, 193, 7, 0.2); border-radius: 12px; padding: 0.7rem 1rem;">
+                                                </div>-->
+                                                <div class="col-md-6">
+                                                    <label class="form-label" style="font-weight: 500; color: #555;">Nombre de personnes *</label>
+                                                    <select class="form-control" name="personne" required
+                                                            style="border: 2px solid rgba(255, 193, 7, 0.2); border-radius: 12px; padding: 0.7rem 1rem;">
+                                                        <option value="1">1 personne</option>
+                                                        <option value="2">2 personnes</option>
+                                                        <option value="3">3 personnes</option>
+                                                        <option value="4">4 personnes</option>
+                                                        <option value="5">5 personnes</option>
+                                                        <option value="6">6 personnes</option>
+                                                        <option value="7">7 personnes</option>
+                                                        <option value="8">8 personnes</option>
+                                                        <option value="9">9 personnes</option>
+                                                        <option value="10">10+ personnes</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="form-label" style="font-weight: 500; color: #555;">Type de table</label>
+                                                    <select class="form-control" name="table"
+                                                            style="border: 2px solid rgba(255, 193, 7, 0.2); border-radius: 12px; padding: 0.7rem 1rem;">
+                                                        <option value="Standard">Standard</option>
+                                                        <option value="Famille">Famille</option>
+                                                        <option value="VIP">VIP</option>
+                                                        <option value="Terrasse">Terrasse</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Options supplémentaires -->
+                                        <!--<div class="mb-4">
+                                            <h6 style="color: #333; font-weight: 600; margin-bottom: 1rem; border-left: 4px solid #FFC107; padding-left: 0.8rem;">
+                                                <i class="fas fa-concierge-bell me-2" style="color: #FFC107;"></i>Options supplémentaires
+                                            </h6>
+
+                                            <div style="background: white; border-radius: 12px; padding: 1rem; border: 2px solid rgba(255, 193, 7, 0.15);">
+                                                <div class="form-check mb-2">
+                                                    <input class="form-check-input" type="checkbox" id="vegetarianMeal" style="border-color: #FFC107;">
+                                                    <label class="form-check-label" for="vegetarianMeal">
+                                                        <i class="fas fa-leaf" style="color: #4CAF50;"></i> Repas végétarien
+                                                    </label>
+                                                </div>
+                                                <div class="form-check mb-2">
+                                                    <input class="form-check-input" type="checkbox" id="allergenInfo" style="border-color: #FFC107;">
+                                                    <label class="form-check-label" for="allergenInfo">
+                                                        <i class="fas fa-exclamation-triangle" style="color: #FF9800;"></i> Informations allergènes
+                                                    </label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="parkingSpace" style="border-color: #FFC107;">
+                                                    <label class="form-check-label" for="parkingSpace">
+                                                        <i class="fas fa-parking" style="color: #2196F3;"></i> Besoin de place de parking
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>-->
+
+                                        <!-- Message spécial -->
+                                        <div class="mb-3">
+                                            <label class="form-label" style="font-weight: 500; color: #555;">
+                                                <i class="fas fa-comment-dots me-1" style="color: #FFC107;"></i>Message spécial (optionnel)
+                                            </label>
+                                            <textarea class="form-control" name="message" rows="3" 
+                                                    placeholder="Anniversaire, demande spéciale, etc..."
+                                                    style="border: 2px solid rgba(255, 193, 7, 0.2); border-radius: 12px; padding: 0.7rem 1rem;"></textarea>
+                                        </div>
+
+                                        <!-- Résumé de la commande -->
+                                        <div class="mt-4 p-3" style="background: rgba(255, 193, 7, 0.08); border-radius: 12px; border-left: 4px solid #FFC107;">
+                                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                                <span style="color: #666;"><i class="fas fa-receipt me-2"></i>Total estimé</span>
+                                                <span style="font-size: 1.3rem; font-weight: 700; color: #FFA000;">À confirmer</span>
+                                            </div>
+                                            <small style="color: #888;">* Le montant exact sera confirmé par WhatsApp</small>
+                                        </div>
+                                    </div>
+
+                                    <div class="modal-footer" style="border: none; padding: 1.5rem; background: #FFFDE7;">
+                                        <button type="button" class="btn" data-bs-dismiss="modal" 
+                                                style="border: 2px solid #FFC107; border-radius: 50px; padding: 0.6rem 1.5rem; color: #FFA000; font-weight: 600;">
+                                            Annuler
+                                        </button>
+                                        <button type="button" class="btn" id="sendWhatsappReservation"
+                                                style="background: linear-gradient(135deg, #25D366 0%, #128C7E 100%); border: none; border-radius: 50px; padding: 0.6rem 2rem; color: white; font-weight: 600;">
+                                            <i class="fab fa-whatsapp me-2"></i>Réserver via WhatsApp
+                                        </button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
-                    
                     <div class="col-md-4 fade-in-up" style="animation-delay: 0.2s">
                         <div class="event-card">
                             <div class="event-date">
@@ -2323,13 +2495,60 @@
                 modal.querySelector('#article_id').value = id;
                 modal.querySelector('.modal-title').textContent = name;
                 modal.querySelector('.modal-body .image').src = image;
-                modal.querySelector('.modal-body .title').textContent = name;
                 modal.querySelector('.modal-body .description').textContent = description;
                 modal.querySelector('.modal-body .price').textContent = price + ' FCFA';
             
             });
 
         });
+    </script>
+
+    <!-- Reservation Modal -->
+    <script>
+        document.getElementById('sendWhatsappReservation').addEventListener('click', function() {
+            // Récupération des valeurs
+            const name = document.getElementById('clientName').value.trim();
+            const phone = document.getElementById('clientPhone').value.trim();
+            const date = '$e->date';
+            const time = '$e->heure';
+            const guests = document.getElementById('guestsCount').value;
+            const tableType = document.getElementById('tableType').value;
+            const allergen = document.getElementById('allergenInfo').checked;
+            const parking = document.getElementById('parkingSpace').checked;
+            const specialMessage = document.getElementById('specialMessage').value.trim();
+
+            // Validation
+            if (!name || !phone || !date || !time || !guests) {
+                alert('Veuillez remplir tous les champs obligatoires (*)');
+                return;
+            }
+
+            // Formatage du message WhatsApp
+            let message = `🍽️ *NOUVELLE RÉSERVATION CASA MIA* 🍽️%0A%0A`;
+            message += `👤 *Client:* ${name}%0A`;
+            message += `📞 *Téléphone:* ${phone}%0A`;
+            message += `📅 *Date:* ${new Date(date).toLocaleDateString('fr-FR')}%0A`;
+            message += `⏰ *Heure:* ${time}%0A`;
+            message += `👥 *Personnes:* ${guests}%0A`;
+            message += `🪑 *Type de table:* ${tableType}%0A%0A`;
+            
+            message += `✨ *Options:*%0A`;
+            message += vegetarian ? `✅ Repas végétarien%0A` : `❌ Repas végétarien%0A`;
+            message += allergen ? `✅ Allergies signalées%0A` : `❌ Allergies%0A`;
+            message += parking ? `✅ Parking requis%0A` : `❌ Parking%0A`;
+            
+            if (specialMessage) {
+                message += `%0A💬 *Message spécial:*%0A${specialMessage}%0A`;
+            }
+            
+            message += `%0A---%0A`;
+            message += `⏳ *Statut:* En attente de confirmation%0A`;
+            message += `📍 *Restaurant:* Casa Mia Sénégal%0A%0A`;
+            message += `_Message généré automatiquement_`;
+
+            // Numéro WhatsApp du restaurant (à remplacer)
+            const restaurantWhatsapp = "221772068181"; // Numéro du restaurant
+        })
     </script>
 
     <!-- JS Personnalisé -->

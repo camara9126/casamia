@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Icon Image -->
+    <link rel="shortcut icon" href="{{asset('assets/image/logo.jpeg')}}"/>
     <!-- CSS Personnalisé -->
     <style>
         /* ===== VARIABLES JAUNE ===== */
@@ -1468,7 +1470,7 @@
             <div class="row">
                 <div class="col-lg-4 col-md-6 mb-3">
                     <div class="footer-brand mb-2">
-                        <img src="images/logoo.png" alt="Logo Casa Mia" class="me-2">
+                        <img src="{{ asset('assets/image/logo.jpeg') }}" alt="Logo Casa Mia" class="me-2">
                         <h3><span class="brand-first">Casa</span> Mia</h3>
                     </div>
                     <p class="footer-description">Restaurant sénégalais authentique à Saint Louis.</p>

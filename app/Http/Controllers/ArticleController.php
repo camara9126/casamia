@@ -133,7 +133,7 @@ class ArticleController extends Controller
      */
     public function destroy($article)
     {
-         $article= Article::findOrFail($article);
+        $article= Article::findOrFail($article);
         $article->delete();
         return redirect()->back()->with('success', 'Article supprimé avec success');
     }

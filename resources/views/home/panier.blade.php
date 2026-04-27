@@ -13,6 +13,8 @@
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
     <!-- CSS Personnalisé -->
+        <!-- Icon Image -->
+    <link rel="shortcut icon" href="{{asset('assets/image/logo.jpeg')}}"/>
     <style>
         /* ===== VARIABLES JAUNE ===== */
         :root {
@@ -51,6 +53,7 @@
         }
 
         /* ===== NAVBAR CORRIGÉE POUR ÊTRE FIXE ===== */
+       /* ===== NAVBAR CORRIGÉE POUR ÊTRE FIXE ===== */
         .navbar {
             background-color: white !important;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
@@ -216,691 +219,87 @@
             border: 1px solid rgba(255, 193, 7, 0.1);
         }
 
-        /* Grid des plats */
-        .dishes-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 1.5rem;
-            margin-top: 2rem;
+        .cart-wrapper {
+            background-color: #f8f9fa;
+            min-height: 100vh;
+            padding: 40px 0;
         }
 
-        /* Carte de plat */
-        .dish-card {
+        .product-card {
             background: white;
-            border-radius: var(--border-radius);
-            overflow: hidden;
-            box-shadow: var(--box-shadow);
-            transition: var(--transition);
-            height: 100%;
-            border: 1px solid rgba(255, 193, 7, 0.1);
-        }
-
-        .dish-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(255, 193, 7, 0.15);
-            border-color: var(--primary-color);
-        }
-
-        .dish-image {
-            position: relative;
-            height: 180px;
-            overflow: hidden;
-        }
-
-        .dish-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-
-        .dish-card:hover .dish-image img {
-            transform: scale(1.05);
-        }
-
-        .dish-badge {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: var(--primary-color);
-            color: var(--secondary-color);
-            padding: 0.2rem 0.6rem;
-            border-radius: 15px;
-            font-size: 0.7rem;
-            font-weight: 600;
-        }
-
-        .dish-content {
-            padding: 1.2rem;
-        }
-
-        .dish-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 0.8rem;
-        }
-
-        .dish-name {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: var(--secondary-color);
-            margin-bottom: 0.5rem;
-            flex: 1;
-        }
-
-        .dish-price {
-            color: var(--primary-dark);
-            font-weight: 700;
-            font-size: 1.2rem;
-            white-space: nowrap;
-            margin-left: 1rem;
-        }
-
-        .dish-description {
-            color: var(--text-light);
-            font-size: 0.9rem;
-            line-height: 1.5;
-            margin-bottom: 1rem;
-        }
-
-        .dish-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .dish-tag {
-            background-color: rgba(255, 193, 7, 0.1);
-            color: var(--text-light);
-            padding: 0.2rem 0.6rem;
             border-radius: 12px;
-            font-size: 0.75rem;
-            font-weight: 500;
-            border: 1px solid rgba(255, 193, 7, 0.2);
+            transition: transform 0.2s;
         }
 
-        .dish-tag.recommande {
-            background-color: rgba(255, 193, 7, 0.2);
-            color: #856404;
-            border-color: rgba(255, 193, 7, 0.3);
+        .product-card:hover {
+            transform: translateY(-2px);
         }
 
-        .dish-tag.epice {
-            background-color: rgba(255, 87, 34, 0.1);
-            color: #721C24;
-            border-color: rgba(255, 87, 34, 0.2);
-        }
-
-        .dish-tag.poisson {
-            background-color: rgba(33, 150, 243, 0.1);
-            color: #0C5460;
-            border-color: rgba(33, 150, 243, 0.2);
-        }
-
-        .dish-actions {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: auto;
-        }
-
-        .quantity-selector {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            background-color: var(--light-color);
-            padding: 0.3rem 0.8rem;
-            border-radius: 20px;
-            border: 1px solid rgba(255, 193, 7, 0.2);
-        }
-
-        .qty-btn {
-            width: 25px;
-            height: 25px;
-            border-radius: 50%;
-            background-color: white;
-            border: 1px solid var(--primary-color);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: var(--transition);
-            color: var(--primary-color);
-            font-size: 0.8rem;
-        }
-
-        .qty-btn:hover {
-            background-color: var(--primary-color);
-            color: white;
-        }
-
-        .qty-value {
-            font-weight: 700;
-            min-width: 20px;
-            text-align: center;
-            font-size: 1rem;
-            color: var(--secondary-color);
-        }
-
-        .add-to-cart {
-            background: var(--primary-color);
-            color: var(--secondary-color);
-            border: none;
-            padding: 0.5rem 1rem;
-            border-radius: var(--border-radius);
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 0.9rem;
-        }
-
-        .add-to-cart:hover {
-            background: var(--primary-dark);
-            color: white;
-        }
-
-        /* Panier flottant */
-        .cart-toggle {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: var(--primary-color);
-            color: var(--secondary-color);
+        .quantity-input {
             width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 12px rgba(255, 193, 7, 0.3);
-            cursor: pointer;
-            z-index: 1000;
-            transition: var(--transition);
-            border: 2px solid white;
-        }
-
-        .cart-toggle:hover {
-            transform: scale(1.1);
-        }
-
-        .cart-count {
-            position: absolute;
-            top: -5px;
-            right: -5px;
-            background-color: #FF5722;
-            color: white;
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.8rem;
-            font-weight: 700;
-            border: 2px solid white;
-        }
-
-        /* Panier sidebar amélioré */
-        .cart-sidebar {
-            position: fixed;
-            right: -100%;
-            top: 0;
-            width: 100%;
-            height: 100vh;
-            background-color: white;
-            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
-            transition: right 0.4s ease;
-            z-index: 1050;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .cart-sidebar.open {
-            right: 0;
-        }
-
-        .cart-header {
-            padding: 1.5rem;
-            background: var(--secondary-color);
-            color: white;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 2px solid var(--primary-color);
-        }
-
-        .cart-header h4 {
-            margin: 0;
-            font-size: 1.2rem;
-        }
-
-        .close-cart {
-            background: none;
-            border: none;
-            font-size: 1.2rem;
-            cursor: pointer;
-            color: white;
-        }
-
-        .cart-content {
-            flex: 1;
-            overflow-y: auto;
-            background-color: var(--light-color);
-            padding: 1rem;
-        }
-
-        /* État vide du panier */
-        .cart-empty {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100%;
-            padding: 2rem;
             text-align: center;
-            color: var(--text-light);
+            border: 1px solid #dee2e6;
+            border-radius: 6px;
         }
 
-        .cart-empty i {
-            font-size: 3.5rem;
-            color: rgba(255, 193, 7, 0.3);
-            margin-bottom: 1rem;
+        .product-image {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 8px;
         }
 
-        .cart-empty h5 {
-            font-size: 1.2rem;
-            margin-bottom: 0.5rem;
-            color: var(--text-color);
-        }
-
-        .cart-empty p {
-            font-size: 0.9rem;
-            max-width: 250px;
-        }
-
-        /* État avec articles */
-        .cart-has-items {
-            display: none;
-            flex-direction: column;
-            height: 100%;
-        }
-
-        .cart-items {
-            flex: 1;
-            overflow-y: auto;
-            margin-bottom: 1rem;
-        }
-
-        .cart-item {
+        .summary-card {
             background: white;
-            border-radius: var(--border-radius);
-            margin-bottom: 0.8rem;
-            border: 1px solid rgba(255, 193, 7, 0.1);
-            box-shadow: var(--box-shadow);
-            overflow: hidden;
-        }
-
-        .cart-item-header {
-            padding: 1rem;
-            background-color: rgba(255, 193, 7, 0.05);
-            border-bottom: 1px solid rgba(255, 193, 7, 0.1);
-        }
-
-        .cart-item-title {
-            font-size: 1rem;
-            font-weight: 600;
-            color: var(--secondary-color);
-            margin: 0 0 0.3rem 0;
-        }
-
-        .cart-item-body {
-            padding: 1rem;
-        }
-
-        .price-details {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .price-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 0.9rem;
-        }
-
-        .price-label {
-            color: var(--text-light);
-        }
-
-        .price-value {
-            font-weight: 500;
-            color: var(--secondary-color);
-        }
-
-        .price-unit {
-            color: var(--primary-dark);
-            font-weight: 600;
-        }
-
-        .price-total {
-            color: var(--primary-dark);
-            font-weight: 700;
-            font-size: 1rem;
-        }
-
-        .cart-item-quantity {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-top: 1rem;
-            padding-top: 1rem;
-            border-top: 1px solid rgba(255, 193, 7, 0.1);
-        }
-
-        .quantity-control {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            background-color: var(--light-color);
-            padding: 0.3rem 0.8rem;
-            border-radius: 20px;
-            border: 1px solid rgba(255, 193, 7, 0.2);
-        }
-
-        .quantity-control .qty-btn {
-            width: 28px;
-            height: 28px;
-            font-size: 0.9rem;
-        }
-
-        .quantity-control .qty-value {
-            min-width: 25px;
-            font-size: 1rem;
-        }
-
-        .cart-item-actions {
-            display: flex;
-            gap: 0.5rem;
-        }
-
-        /* Résumé total amélioré */
-        .cart-summary {
-            background: white;
-            padding: 1.5rem;
-            border-radius: var(--border-radius);
-            margin-bottom: 1.5rem;
-            border: 1px solid rgba(255, 193, 7, 0.1);
-            box-shadow: var(--box-shadow);
-        }
-
-        .summary-title {
-            font-size: 1rem;
-            font-weight: 600;
-            color: var(--secondary-color);
-            margin-bottom: 1rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 1px solid rgba(255, 193, 7, 0.2);
-        }
-
-        .summary-details {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .summary-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0.3rem 0;
-            font-size: 0.95rem;
-        }
-
-        .summary-label {
-            color: var(--text-light);
-        }
-
-        .summary-value {
-            font-weight: 500;
-            color: var(--secondary-color);
-        }
-
-        .summary-total {
-            border-top: 2px solid rgba(255, 193, 7, 0.2);
-            padding-top: 0.8rem;
-            margin-top: 0.8rem;
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: var(--secondary-color);
-        }
-
-        .summary-total-amount {
-            color: var(--primary-dark);
-            font-size: 1.3rem;
-        }
-
-        /* Actions du panier */
-        .cart-actions {
-            display: flex;
-            flex-direction: column;
-            gap: 0.8rem;
-        }
-
-        .cart-btn {
-            padding: 1rem;
-            border: none;
-            border-radius: var(--border-radius);
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            font-size: 1rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
+            border-radius: 12px;
+            position: sticky;
+            top: 20px;
         }
 
         .checkout-btn {
-            background: var(--primary-color);
-            color: var(--secondary-color);
+            background: linear-gradient(135deg, #FFC107, #FFA000);
+            border: none;
+            transition: transform 0.2s;
         }
 
         .checkout-btn:hover {
-            background: var(--primary-dark);
-            color: white;
+            transform: translateY(-2px);
+            background: linear-gradient(135deg, #FFC107, #FFA000);
         }
 
-        .clear-cart-btn {
-            background: transparent;
-            color: var(--text-light);
-            border: 1px solid var(--text-light);
-        }
-
-        .clear-cart-btn:hover {
-            background: var(--text-light);
-            color: white;
-        }
-
-        /* Footer du panier */
-        .cart-footer {
-            padding: 1rem;
-            background: white;
-            border-top: 1px solid rgba(255, 193, 7, 0.2);
-        }
-
-        /* Modal de confirmation WhatsApp */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: rgba(0, 0, 0, 0.7);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 1100;
-            padding: 1rem;
-        }
-
-        .modal-overlay.active {
-            display: flex;
-        }
-
-        .whatsapp-modal {
-            background: white;
-            border-radius: var(--border-radius);
-            width: 100%;
-            max-width: 500px;
-            max-height: 90vh;
-            overflow-y: auto;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            animation: modalSlideIn 0.3s ease;
-        }
-
-        @keyframes modalSlideIn {
-            from {
-                opacity: 0;
-                transform: translateY(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .modal-header {
-            padding: 1.5rem;
-            background: linear-gradient(135deg, #25D366, #128C7E);
-            color: white;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .modal-header h4 {
-            margin: 0;
-            font-size: 1.3rem;
-        }
-
-        .close-modal {
-            background: none;
-            border: none;
-            font-size: 1.5rem;
+        .remove-btn {
+            color: #dc2626;
             cursor: pointer;
-            color: white;
+            transition: all 0.2s;
         }
 
-        .modal-body {
-            padding: 1.5rem;
+        .remove-btn:hover {
+            color: #991b1b;
         }
 
-        .whatsapp-icon {
-            font-size: 3rem;
-            color: #25D366;
-            text-align: center;
-            margin-bottom: 1rem;
-        }
-
-        .order-confirmation {
-            text-align: center;
-            margin-bottom: 1.5rem;
-        }
-
-        .order-confirmation h5 {
-            color: var(--secondary-color);
-            margin-bottom: 0.5rem;
-        }
-
-        .order-confirmation p {
-            color: var(--text-light);
-            font-size: 0.9rem;
-        }
-
-        .client-info-form {
-            margin-top: 1.5rem;
-        }
-
-        .form-group {
-            margin-bottom: 1rem;
-        }
-
-        .form-label {
-            font-weight: 500;
-            margin-bottom: 0.3rem;
-            display: block;
-            color: var(--secondary-color);
-        }
-
-        .form-control {
-            width: 100%;
-            padding: 0.8rem;
-            border: 1px solid rgba(255, 193, 7, 0.2);
-            border-radius: var(--border-radius);
-            font-size: 0.95rem;
-            transition: var(--transition);
-        }
-
-        .form-control:focus {
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 0.2rem rgba(255, 193, 7, 0.1);
-            outline: none;
-        }
-
-        .form-control::placeholder {
-            color: rgba(0, 0, 0, 0.5);
-        }
-
-        .modal-footer {
-            padding: 1rem 1.5rem;
-            background: var(--light-color);
-            display: flex;
-            gap: 1rem;
-            flex-direction: column;
-        }
-
-        .modal-btn {
-            padding: 0.8rem;
-            border: none;
-            border-radius: var(--border-radius);
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            font-size: 1rem;
-            width: 100%;
-        }
-
-        .cancel-btn {
-            background: transparent;
-            color: var(--text-light);
-            border: 1px solid var(--text-light);
-        }
-
-        .cancel-btn:hover {
-            background: var(--text-light);
-            color: white;
-        }
-
-        .send-btn {
-            background: #25D366;
-            color: white;
-            display: flex;
+        .quantity-btn {
+            width: 28px;
+            height: 28px;
+            padding: 0;
+            display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 0.5rem;
+            border-radius: 6px;
+            background: #f3f4f6;
+            border: none;
+            transition: all 0.2s;
         }
 
-        .send-btn:hover {
-            background: #128C7E;
+        .quantity-btn:hover {
+            background: #e5e7eb;
+        }
+
+        .discount-badge {
+            background: #dcfce7;
+            color: #166534;
+            font-size: 0.875rem;
+            padding: 4px 8px;
+            border-radius: 6px;
         }
 
         /* ===== FOOTER RÉDUIT ===== */
@@ -1781,33 +1180,39 @@
 </head>
 <body>
     <!-- Navigation FIXE -->
-   <nav class="navbar navbar-expand-lg navbar-light">
+    <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container">
             <a class="navbar-brand" href="/">
-                <img src="{{ asset('assets/image/logo.jpeg') }}" alt="Logo Casa Mia" class="d-inline-block align-top me-2">
+                <img src="{{ asset('assets/image/logo.jpeg') }}" alt="Logo Casa Mia" width="40" height="40" class="d-inline-block align-top me-2">
                 <span class="brand-name d-none d-md-inline"><span class="brand-first">Casa</span> Mia</span>
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link active" href="{{ route('accueil') }}">Accueil</a>
+                        <a class="nav-link" href="/">Accueil</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('apropos') }}">À Propos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('menu') }}">Menu</a>
+                        <a class="nav-link active" href="{{ route('menu') }}">Menu</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('contact') }}">Contact</a>
                     </li>
                     <li class="nav-item">
+                        @auth
+                            <a class="nav-link btn-admin" href="{{ route('dhome') }}">
+                                <i class="fas fa-user-shield me-1"></i> Dashboard
+                            </a>
+                        @else
                         <a class="nav-link btn-admin" href="{{ route('login.index') }}">
                             <i class="fas fa-user-shield me-1"></i> Admin
                         </a>
+                        @endauth
                     </li>
                 </ul>
             </div>
@@ -1824,105 +1229,115 @@
         </div>
     </section>
 
-      <!-- Cart Sidebar -->
-    <div class="cart-sidebar">
-        <div class="cart-header">
-            <h4><i class="fas fa-shopping-cart me-2"></i> Votre Commande</h4>
-            <button class="close-cart"><i class="fas fa-times"></i></button>
-        </div>
-        
-        <div class="cart-content">
-            <!-- État vide -->
-            <div class="cart-empty">
-                <i class="fas fa-shopping-basket"></i>
-                <h5>Panier vide</h5>
-                <p>Ajoutez des plats depuis le menu pour voir votre commande ici</p>
-                <button class="btn btn-primary mt-3" id="closeEmptyCart">
-                    <i class="fas fa-times me-2"></i> Fermer
-                </button>
-            </div>
-            
-            <!-- État avec articles -->
-            <div class="cart-has-items">
-                <div class="cart-items">
-                    <div class="cart-item">
-                        <div class="cart-item-header">
-                            <h5 class="cart-item-title">${item.name}</h5>
+    <!-- Cart Start-->
+    <div class="cart-wrapper">
+        <div class="container">
+            <div class="row g-4">
+                @if(Cart::count() > 0)
+                    <!-- Cart Items Section -->
+                    <div class="col-lg-8">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h4 class="mb-0">
+                                Votre Panier
+                                <a href="/" class="btn btn-outline-primary">
+                                    <i class="fa fa-arrow-left me-1"></i>
+                                </a>
+                            </h4>
+                            <span class="text-muted">{{Cart::content()->count()}} articles</span>
                         </div>
-                        <div class="cart-item-body">
-                            <div class="price-details">
-                                <div class="price-row">
-                                    <span class="price-label">Prix unitaire:</span>
-                                    <span class="price-unit">${item.price.toLocaleString()} FCFA</span>
-                                </div>
-                                <div class="price-row">
-                                    <span class="price-label">Quantité:</span>
-                                    <span class="price-value">${item.quantity}</span>
-                                </div>
-                                <div class="price-row">
-                                    <span class="price-label">Total:</span>
-                                    <span class="price-total">${itemTotal.toLocaleString()} FCFA</span>
-                                </div>
-                            </div>
-                            <div class="cart-item-quantity">
-                                <div class="quantity-control">
-                                    <button class="qty-btn decrease-cart" data-id="${item.id}">
-                                        <i class="fas fa-minus"></i>
-                                    </button>
-                                    <span class="qty-value">${item.quantity}</span>
-                                    <button class="qty-btn increase-cart" data-id="${item.id}">
-                                        <i class="fas fa-plus"></i>
-                                    </button>
-                                </div>
-                                <div class="cart-item-actions">
-                                    <button class="btn btn-sm btn-outline-danger remove-item" data-id="${item.id}">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Résumé total des commandes -->
-                <div class="cart-summary" id="cartSummary" style="display: none;">
-                    <h5 class="summary-title">Résumé de la commande</h5>
-                    <div class="summary-details">
-                        <div class="summary-row">
-                            <span class="summary-label">Total des articles:</span>
-                            <span class="summary-value" id="itemsTotalAmount">0 FCFA</span>
-                        </div>
-                        <div class="summary-row">
-                            <span class="summary-label">Frais de service:</span>
-                            <span class="summary-value">0 FCFA</span>
-                        </div>
-                    </div>
-                    <div class="summary-row summary-total">
-                        <span>Total à payer:</span>
-                        <span class="summary-total-amount" id="cartTotalAmount">0 FCFA</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Footer du panier (visible uniquement quand il y a des articles) -->
-        <div class="cart-footer" id="cartFooter" style="display: none;">
-            <div class="cart-actions">
-                <button class="cart-btn checkout-btn" id="checkoutBtn">
-                    <i class="fab fa-whatsapp me-2"></i> Commander via WhatsApp
-                </button>
-                <button class="cart-btn clear-cart-btn" id="clearCartBtn">
-                    <i class="fas fa-trash me-2"></i> Vider le panier
-                </button>
-            </div>
-        </div>
-    </div>
 
-    <!-- Cart Toggle Button -->
-    <div class="cart-toggle" id="cartToggle">
-        <i class="fas fa-shopping-cart fa-lg"></i>
-        <div class="cart-count" id="cartCount">0</div>
-    </div>
+                        @if(Session::has('success'))
+                            <div class="alert alert-success" role="alert">
+                                {{ Session::get('success') }}
+                            </div>
+                        @elseif(Session::has('danger'))
+                            <div class="alert alert-danger" role="alert">
+                                {{ Session::get('danger') }}
+                            </div>
+                        @endif
+                        
+                        <!-- Product Cards -->
+                        <div class="d-flex flex-column gap-3">
+                            <!-- Product 1 -->
+                            @foreach(Cart::content() as $articles)
+                                <div class="product-card p-2 shadow-sm">
+                                    <div class="row align-items-center">
+                                        <div class="col-3 col-md-2">
+                                            <img src="{{asset('storage/'.$articles->model->image)}}" alt="Product" class="product-image">
+                                        </div>
+                                        <div class="col-4 col-md-4">
+                                            <h6 class="mb-1"><?= strtoupper($articles->name)?></h6>
+                                            <p class="text-muted mb-0">{{$articles->menu_id}}</p>
+                                            <span class="discount-badge mt-2">{{ number_format($articles->price, 0, ',', ' ') }} FCFA</span>
+                                        </div>
+                                        <div class="col-5 col-md-3">
+                                            <div class="d-flex align-items-center gap-2">
+                                                <a href="{{ route('panier.moins', $articles->rowId) }}" class="quantity-btn" id="qty-{{$articles->rowId}}">-</a>
+                                                <input type="number" class="quantity-input" value="{{$articles->qty}}" min="1">
+                                                <a href="{{ route('panier.plus', $articles->rowId) }}" class="quantity-btn" id="qty-{{$articles->rowId}}">+</a>
+                                            </div>
+                                        </div>
+                                        <div class="col-8 col-md-2">
+                                            <span class="fw-bold">Total <br> {{ number_format($articles->price * $articles->qty) }} FCFA</span>
+                                        </div>
+                                        <div class="col-4 col-md-1">
+                                            <form action="{{route('panier.destroy', $articles->rowId)}}" method="post">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button class="btn btn" title="supprimer cette article">
+                                                    <i class="fa fa-trash remove-btn"></i>
+                                                </button>
+                                            </form>
+                                                
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                        
+                    </div>
+
+                    <!-- Summary Section -->
+                    <div class="col-lg-4">
+                        <div class="summary-card p-4 shadow-sm">
+                            <h5 class="mb-4">Récapitulatif de la commande</h5>
+                            
+                            <div class="d-flex justify-content-between mb-3">
+                                <span class="text-muted">Sous total</span>
+                                <span>{{ Cart::subtotal() }} FCFA</span>
+                            </div>
+                            <hr>
+                            <!--<div class="d-flex justify-content-between mb-4">
+                                <span class="fw-bold">Total</span>
+                                <span class="fw-bold">$458.97</span>
+                            </div>-->
+
+                            <!-- Promo Code 
+                            <div class="mb-4">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Promo code">
+                                    <button class="btn btn-outline-secondary" type="button">Apply</button>
+                                </div>
+                            </div>-->
+
+                            <a href="{{route('cart.whatsapp')}}" class="btn btn-primary checkout-btn w-100 mb-3">
+                                Passer au commande
+                            </a>
+                            
+                            <div class="d-flex justify-content-center gap-2">
+                                <i class="fa fa-shield-check text-success"></i>
+                                <small class="text-muted">Paiement sécurisé</small>
+                            </div>
+                        </div>
+                    </div>
+                @else
+                    <h5 class="text-center">Votre panier est vide !</h5>
+                @endif
+            </div>
+        </div>
+    </div>   
+    <!-- Cart End -->
+        
 
     <!-- Footer -->
     <footer class="footer">
@@ -1930,7 +1345,7 @@
             <div class="row">
                 <div class="col-lg-4 col-md-6 mb-3">
                     <div class="footer-brand mb-2">
-                        <img src="images/logoo.png" alt="Logo Casa Mia" class="me-2">
+                        <img src="{{ asset('assets/image/logo.jpeg') }}" alt="Logo Casa Mia" class="me-2">
                         <h3><span class="brand-first">Casa</span> Mia</h3>
                     </div>
                     <p class="footer-description">Restaurant sénégalais authentique à Saint Louis.</p>
@@ -1974,7 +1389,7 @@
             <div class="footer-bottom">
                 <div class="row">
                     <div class="col-md-6">
-                        <p>&copy; 2023 Casa Mia. Tous droits réservés.</p>
+                        <p>&copy; <?= now()->year ?> Casa Mia. Tous droits réservés.</p>
                     </div>
                     <div class="col-md-6 text-md-end">
                         <p>Conçu avec <i class="fas fa-heart heart-icon"></i></p>
@@ -1985,40 +1400,9 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-
-            const modal = document.getElementById('productModal');
-
-            modal.addEventListener('show.bs.modal', function (event) {
-
-                const button = event.relatedTarget;
-
-                const id = button.getAttribute('data-id');
-                const name = button.getAttribute('data-name');
-                const image = button.getAttribute('data-image');
-                const description = button.getAttribute('data-description');
-                const price = button.getAttribute('data-price');
-            
-                modal.querySelector('#article_id').value = id;
-                modal.querySelector('.modal-title').textContent = name;
-                modal.querySelector('.modal-body .image').src = image;
-                modal.querySelector('.modal-body .title').textContent = name;
-                modal.querySelector('.modal-body .description').textContent = description;
-                modal.querySelector('.modal-body .price').textContent = price + ' FCFA';
-            
-            });
-
-        });
-    </script>
-    <script>
-            
-            // Update cart UI
-            updateCartUI();
+  
+     <script>
         
-      
         // IMPORTANT: Correction du scroll avec navbar fixe
         function setupSmoothScroll() {
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -2041,9 +1425,103 @@
                 });
             });
         }
-        ;
-            
         
+        document.addEventListener('DOMContentLoaded', function() {
+            displayAllDishes();
+            updateCartUI();
+            setupSmoothScroll();
+            
+            // Set active nav link
+            const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+            document.querySelectorAll('.nav-link').forEach(link => {
+                if (link.getAttribute('href') === currentPage) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+
+            // Cart toggle
+            document.getElementById('cartToggle').addEventListener('click', function() {
+                document.querySelector('.cart-sidebar').classList.add('open');
+            });
+            
+            document.querySelector('.close-cart').addEventListener('click', function() {
+                document.querySelector('.cart-sidebar').classList.remove('open');
+            });
+            
+            document.getElementById('closeEmptyCart').addEventListener('click', function() {
+                document.querySelector('.cart-sidebar').classList.remove('open');
+            });
+            
+            // WhatsApp modal
+            document.getElementById('checkoutBtn').addEventListener('click', function() {
+                if (cart.length === 0) {
+                    showNotification('Votre panier est vide', 'info');
+                    return;
+                }
+                document.getElementById('whatsappModal').classList.add('active');
+            });
+            
+            document.querySelector('.close-modal').addEventListener('click', function() {
+                document.getElementById('whatsappModal').classList.remove('active');
+            });
+            
+            document.getElementById('cancelOrderBtn').addEventListener('click', function() {
+                document.getElementById('whatsappModal').classList.remove('active');
+            });
+            
+            document.getElementById('clearCartBtn').addEventListener('click', clearCart);
+            
+            document.getElementById('sendWhatsAppBtn').addEventListener('click', function() {
+                const clientName = document.getElementById('clientName').value.trim();
+                const clientPhone = document.getElementById('clientPhone').value.trim();
+                const clientAddress = document.getElementById('clientAddress').value.trim();
+                const clientNotes = document.getElementById('clientNotes').value.trim();
+                const acceptTerms = document.getElementById('acceptTerms').checked;
+                
+                if (!clientName || !clientPhone) {
+                    showNotification('Veuillez remplir les champs obligatoires', 'info');
+                    return;
+                }
+                
+                if (!acceptTerms) {
+                    showNotification('Veuillez accepter les conditions', 'info');
+                    return;
+                }
+                
+                const clientInfo = {
+                    name: clientName,
+                    phone: clientPhone,
+                    address: clientAddress,
+                    notes: clientNotes
+                };
+                
+                // Format the phone number for WhatsApp
+                const formattedPhone = clientPhone.replace(/\s/g, '');
+                
+                const message = generateWhatsAppMessage(clientInfo);
+                const whatsappURL = `https://wa.me/221772068181?text=${message}`;
+                
+                // Open WhatsApp in a new tab
+                window.open(whatsappURL, '_blank');
+                
+                // Close modal
+                document.getElementById('whatsappModal').classList.remove('active');
+                
+                // Clear form
+                document.getElementById('clientName').value = '';
+                document.getElementById('clientPhone').value = '';
+                document.getElementById('clientAddress').value = '';
+                document.getElementById('clientNotes').value = '';
+                document.getElementById('acceptTerms').checked = false;
+                
+                // Optionally clear cart after order
+                if (confirm('Commande envoyée! Voulez-vous vider le panier?')) {
+                    clearCart();
+                }
+            });
+            
             // Fix pour le menu mobile
             const navbarToggler = document.querySelector('.navbar-toggler');
             const navbarCollapse = document.querySelector('.navbar-collapse');
@@ -2090,7 +1568,7 @@
             
             // Exécuter la correction au chargement
             fixMobileLayout();
-
+        });
         
         // Initialiser le panier au chargement de la page
         window.addEventListener('load', function() {

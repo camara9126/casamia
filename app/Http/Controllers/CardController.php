@@ -47,33 +47,20 @@ class CardController extends Controller
 
         $articles= Article::findOrFail($request->id);
         
-        // Determiner le prix)
-        if($request->model == 3000) {
-            $price= $articles->prix;
-            $label= "Petit Model";
-        } elseif($request->model == 4000) {
-            $price= $articles->prix2;
-             $label= "Moyen";
-        } elseif($request->model == 5000) {
-            $price= $articles->prix3;
-             $label= "Grand Model";
-        } else {
-            $price= $articles->prix;
-            $label= "Standart";
-        }
+        
         Cart::add([
             'id'=> $request->id,
             'name'=> $articles->nom,
             'qty'=> 1,
-            'price'=> $price,
+            'price'=> $articles->prix,
             'options'=> [
-                'model'=> $label,
+                'model'=> $articles->menu_id,
                 'image'=> $articles->image,
                 ]
             ])->associate('App\Models\Article');
         //dd($articles);
 
-        return redirect()->route('panier.index')->with('success', 'Plat ajouté au panier');
+        return redirect()->back()->with('success', 'Plat ajouté au panier');
     }
 
     /**
@@ -84,12 +71,6 @@ class CardController extends Controller
         Cart::remove($rowId);
 
         return back()->with('success', 'Le plat a été supprime');
-    }
-
-    public function delete()
-    {
-        Cart::destroy();
-        return redirect()->route('home');
     }
 
 
@@ -106,7 +87,7 @@ class CardController extends Controller
 
          //dd($request);
          // Numero whatsapp
-         $whatsapp = '221785470838';
+         $whatsapp = '221772068181';
 
          // message commande
          $message .= "Nom : {$request->nom}\n\n";
@@ -135,9 +116,9 @@ class CardController extends Controller
 
             //$lineTotal = $item->price * $item->qty;
 
-            $message .= "🍽 {$item->name} ";
-            $message .= "PU : " . number_format($item->price, 0, ',', ' ') . " FCFA - ";
-            $message .= "Quantité : {$item->qty} ";
+            $message .= "🍽 {$item->name} \n";
+            $message .= "PU : " . number_format($item->price, 0, ',', ' ') . " FCFA - \n";
+            $message .= "Quantité : {$item->qty} \n";
             //$message .= "Total : " . number_format($lineTotal, 0, ',', ' ') . " FCFA - ";
 
             if (!empty($articles->model->image)) {
@@ -152,7 +133,7 @@ class CardController extends Controller
 
         $message .= "🥡 Montant total : {$total} FCFA";
 
-        $phone = "221785470838"; // Remplacez par le numéro de téléphone du destinataire avec l'indicatif pays
+        $phone = "221772068181"; // Remplacez par le numéro de téléphone du destinataire avec l'indicatif pays
 
         return redirect()->away("https://wa.me/{$phone}?text=" . urlencode($message));
 

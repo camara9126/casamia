@@ -62,6 +62,12 @@
                 </a>
             </li>
             <li>
+                <a href="{{route('evenements.index')}}" id="homeLink">
+                    <i class="fas fa-home"></i>
+                    <span>Evenements</span>
+                </a>
+            </li>
+            <li>
                 <a href="">
                 @auth
                     <form action="{{route('logout')}}" method="post">

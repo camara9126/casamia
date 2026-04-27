@@ -8,10 +8,10 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Scripts -->
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Icon Image -->
+    <link rel="shortcut icon" href="{{asset('assets/image/logo.jpeg')}}"/>
     <!-- CSS Personnalisé -->
     <style>
         /* ===== VARIABLES JAUNE ===== */
@@ -1781,33 +1781,39 @@
 </head>
 <body>
     <!-- Navigation FIXE -->
-   <nav class="navbar navbar-expand-lg navbar-light">
+    <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container">
             <a class="navbar-brand" href="/">
-                <img src="{{ asset('assets/image/logo.jpeg') }}" alt="Logo Casa Mia" class="d-inline-block align-top me-2">
+                <img src="{{ asset('assets/image/logo.jpeg') }}" alt="Logo Casa Mia" width="40" height="40" class="d-inline-block align-top me-2">
                 <span class="brand-name d-none d-md-inline"><span class="brand-first">Casa</span> Mia</span>
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link active" href="{{ route('accueil') }}">Accueil</a>
+                        <a class="nav-link" href="/">Accueil</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('apropos') }}">À Propos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('menu') }}">Menu</a>
+                        <a class="nav-link active" href="{{ route('menu') }}">Menu</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('contact') }}">Contact</a>
                     </li>
                     <li class="nav-item">
+                        @auth
+                            <a class="nav-link btn-admin" href="{{ route('dhome') }}">
+                                <i class="fas fa-user-shield me-1"></i> Dashboard
+                            </a>
+                        @else
                         <a class="nav-link btn-admin" href="{{ route('login.index') }}">
                             <i class="fas fa-user-shield me-1"></i> Admin
                         </a>
+                        @endauth
                     </li>
                 </ul>
             </div>
@@ -1831,8 +1837,16 @@
                 <h2 class="section-title">Tous nos <span class="highlight">Plats</span></h2>
                 <p class="section-subtitle">Découvrez nos 15 spécialités sénégalaises préparées avec des ingrédients frais</p>
             </div>
-            
-            <div class="dishes-grid">
+             @if(Session::has('success'))
+                <div class="alert alert-success" role="alert">
+                    {{ Session::get('success') }}
+                </div>
+            @elseif(Session::has('danger'))
+                <div class="alert alert-danger" role="alert">
+                    {{ Session::get('danger') }}
+                </div>
+            @endif
+            <div id="allDishesGrid" class="dishes-grid">
                 <!-- All dishes will be loaded here -->
                 @foreach($plats as $art)
                     <div class="dish-card">
@@ -1859,129 +1873,73 @@
                         </div>
                     </div>
                 @endforeach
-            </div>
-            <div class="d-flex justify-content-center">
-                {{$plats->links()}}
-            </div>
-        </div>
-    </div>
-    <div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-
-                <div class="modal-header">
-                    <h5 class="modal-title" id="productModalLabel"></h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+                <div class="d-flex justify-content-center">
+                    {{$plats->links()}}
                 </div>
+            </div>
+                <div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
 
-                <div class="modal-body">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="productModalLabel"></h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+                            </div>
 
-                    <!-- Image du produit -->
-                        <div class="d-flex justify-content-center">
-                            <img id="image" src="image" class="image" style="align-items: center;" width="300" alt="Image produit">
+                            <div class="modal-body">
+
+                                <!-- Image du produit -->
+                                    <div class="d-flex justify-content-center">
+                                        <img id="image" src="image" class="image" style="align-items: center;" width="300" alt="Image produit">
+                                    </div>
+                                    <div class="text-center">
+                                        <span class="badge bg-success">Disponible</span>
+                                    </div>
+                                    <div class="text-center">
+                                        <i class="fa fa-star text-warning"></i>
+                                        <i class="fa fa-star text-warning"></i>
+                                        <i class="fa fa-star text-warning"></i>
+                                        <i class="fa fa-star text-warning"></i>
+                                        <i class="fa fa-star-half text-warning"></i>
+                                        <small class="text-muted">(4.5)</small>
+                                    </div>
+                                <!--<h5><i class="fa fa-card-text"></i>Description</h5>-->
+                                <p class="description" style="font-style: italic;"></p>
+
+                                <form action="{{route('panier.store')}}" method="post">
+                                    @csrf
+                                    <input type="hidden" name="id" id="article_id">
+                                        
+                                    <h4 class="price fw-bold text-warning"></h4>
+
+                                    <div class="d-grid gap-2 d-md-flex">
+                                        <button class="btn btn-warning flex-fill">
+                                            <i class="fa fa-cart-plus"></i> Ajouter
+                                        </button>
+                                        <a type="button" href="tel:+221771234567" target="_blank" class="btn btn-info border" title="Appeler-Nous">
+                                            <i class="fa fa-phone"> Contacter-Nous</i>
+                                        </a>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                            </div>
+
                         </div>
-                        <div class="text-center">
-                            <span class="badge bg-success">Disponible</span>
-                        </div>
-                        <div class="text-center">
-                            <i class="fa fa-star text-warning"></i>
-                            <i class="fa fa-star text-warning"></i>
-                            <i class="fa fa-star text-warning"></i>
-                            <i class="fa fa-star text-warning"></i>
-                            <i class="fa fa-star-half text-warning"></i>
-                            <small class="text-muted">(4.5)</small>
-                        </div>
-                    <h5 class=""><i class="fa fa-card-text"></i>Description</h5>
-                    <p class="description"></p>
-
-                    <form action="{{route('panier.store')}}" method="post">
-                        @csrf
-                        <input type="hidden" name="id" id="article_id">
-                            
-                        <h4 class="price fw-bold text-warning"></h4>
-
-                    <div class="d-grid gap-2 d-md-flex">
-                        <button class="btn btn-warning flex-fill">
-                            <i class="fa fa-cart-plus"></i> Ajouter
-                        </button>
-                        <a type="button" href="tel:+221771234567" target="_blank" class="btn btn-info border" title="Appeler-Nous">
-                            <i class="fa fa-phone"> Contacter-Nous</i>
-                        </a>
                     </div>
                 </div>
-
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-                </div>
-
-            </div>
         </div>
     </div>
+
 
     <!-- Cart Toggle Button -->
-    <div class="cart-toggle" id="cartToggle">
+    <a href="{{route('panier.index')}}" class="cart-toggle">
         <i class="fas fa-shopping-cart fa-lg"></i>
-        <div class="cart-count" id="cartCount">0</div>
-    </div>
+        <div class="cart-count">{{Cart::content()->count()}}</div>
+    </a>
 
-    <!-- WhatsApp Confirmation Modal -->
-    <div class="modal-overlay" id="whatsappModal">
-        <div class="whatsapp-modal">
-            <div class="modal-header">
-                <h4><i class="fab fa-whatsapp me-2"></i> Commander via WhatsApp</h4>
-                <button class="close-modal"><i class="fas fa-times"></i></button>
-            </div>
-            <div class="modal-body">
-                <div class="whatsapp-icon">
-                    <i class="fab fa-whatsapp"></i>
-                </div>
-                
-                <div class="order-confirmation">
-                    <h5>Confirmation de commande</h5>
-                    <p>Remplissez vos informations pour finaliser votre commande via WhatsApp</p>
-                </div>
-                
-                <div class="client-info-form">
-                    <div class="form-group">
-                        <label class="form-label" for="clientName">Nom complet *</label>
-                        <input type="text" class="form-control" id="clientName" placeholder="Votre nom" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="form-label" for="clientPhone">Numéro WhatsApp *</label>
-                        <input type="tel" class="form-control" id="clientPhone" placeholder="77 123 45 67" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="form-label" for="clientAddress">Adresse de livraison</label>
-                        <input type="text" class="form-control" id="clientAddress" placeholder="Votre adresse pour la livraison">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="form-label" for="clientNotes">Notes supplémentaires</label>
-                        <textarea class="form-control" id="clientNotes" rows="2" placeholder="Instructions spéciales, allergies, etc."></textarea>
-                    </div>
-                    
-                    <div class="form-group">
-                        <div class="form-check">
-                            <input type="checkbox" class="form-check-input" id="acceptTerms" required>
-                            <label class="form-check-label" for="acceptTerms">
-                                J'accepte les conditions de commande et de livraison
-                            </label>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button class="modal-btn cancel-btn" id="cancelOrderBtn">
-                    Annuler
-                </button>
-                <button class="modal-btn send-btn" id="sendWhatsAppBtn">
-                    <i class="fab fa-whatsapp me-2"></i> Envoyer sur WhatsApp
-                </button>
-            </div>
-        </div>
-    </div>
 
     <!-- Footer -->
     <footer class="footer">
@@ -1989,7 +1947,7 @@
             <div class="row">
                 <div class="col-lg-4 col-md-6 mb-3">
                     <div class="footer-brand mb-2">
-                        <img src="images/logoo.png" alt="Logo Casa Mia" class="me-2">
+                        <img src="{{ asset('assets/image/logo.jpeg') }}" alt="Logo Casa Mia" class="me-2">
                         <h3><span class="brand-first">Casa</span> Mia</h3>
                     </div>
                     <p class="footer-description">Restaurant sénégalais authentique à Saint Louis.</p>
@@ -2003,9 +1961,9 @@
                 <div class="col-lg-2 col-md-6 mb-3">
                     <h4 class="footer-title">Menu</h4>
                     <ul class="footer-links">
-                        <li><a href="/">Accueil</a></li>
-                        <li><a href="{{ route('menu') }}">Plats</a></li>
-                        <li><a href="{{ route('contact') }}">Contact</a></li>
+                        <li><a href="index.html">Accueil</a></li>
+                        <li><a href="menu.html">Plats</a></li>
+                        <li><a href="contact.html">Contact</a></li>
                     </ul>
                 </div>
                 
@@ -2043,10 +2001,7 @@
         </div>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-
-    <script>
+        <script>
         document.addEventListener('DOMContentLoaded', function () {
 
             const modal = document.getElementById('productModal');
@@ -2064,7 +2019,6 @@
                 modal.querySelector('#article_id').value = id;
                 modal.querySelector('.modal-title').textContent = name;
                 modal.querySelector('.modal-body .image').src = image;
-                modal.querySelector('.modal-body .title').textContent = name;
                 modal.querySelector('.modal-body .description').textContent = description;
                 modal.querySelector('.modal-body .price').textContent = price + ' FCFA';
             
@@ -2072,12 +2026,10 @@
 
         });
     </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-            
-            // Update cart UI
-            updateCartUI();
         
-      
         // IMPORTANT: Correction du scroll avec navbar fixe
         function setupSmoothScroll() {
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -2101,20 +2053,102 @@
             });
         }
         
-            // Close modals when clicking outside
-            document.getElementById('whatsappModal').addEventListener('click', function(e) {
-                if (e.target === this) {
-                    this.classList.remove('active');
-                }
-            });
+        document.addEventListener('DOMContentLoaded', function() {
+            displayAllDishes();
+            updateCartUI();
+            setupSmoothScroll();
             
-            // Fermer le panier en cliquant en dehors sur mobile
-            document.querySelector('.cart-sidebar').addEventListener('click', function(e) {
-                if (window.innerWidth <= 768 && e.target === this) {
-                    this.classList.remove('open');
+            // Set active nav link
+            const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+            document.querySelectorAll('.nav-link').forEach(link => {
+                if (link.getAttribute('href') === currentPage) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
                 }
             });
 
+            // Cart toggle
+            document.getElementById('cartToggle').addEventListener('click', function() {
+                document.querySelector('.cart-sidebar').classList.add('open');
+            });
+            
+            document.querySelector('.close-cart').addEventListener('click', function() {
+                document.querySelector('.cart-sidebar').classList.remove('open');
+            });
+            
+            document.getElementById('closeEmptyCart').addEventListener('click', function() {
+                document.querySelector('.cart-sidebar').classList.remove('open');
+            });
+            
+            // WhatsApp modal
+            document.getElementById('checkoutBtn').addEventListener('click', function() {
+                if (cart.length === 0) {
+                    showNotification('Votre panier est vide', 'info');
+                    return;
+                }
+                document.getElementById('whatsappModal').classList.add('active');
+            });
+            
+            document.querySelector('.close-modal').addEventListener('click', function() {
+                document.getElementById('whatsappModal').classList.remove('active');
+            });
+            
+            document.getElementById('cancelOrderBtn').addEventListener('click', function() {
+                document.getElementById('whatsappModal').classList.remove('active');
+            });
+            
+            document.getElementById('clearCartBtn').addEventListener('click', clearCart);
+            
+            document.getElementById('sendWhatsAppBtn').addEventListener('click', function() {
+                const clientName = document.getElementById('clientName').value.trim();
+                const clientPhone = document.getElementById('clientPhone').value.trim();
+                const clientAddress = document.getElementById('clientAddress').value.trim();
+                const clientNotes = document.getElementById('clientNotes').value.trim();
+                const acceptTerms = document.getElementById('acceptTerms').checked;
+                
+                if (!clientName || !clientPhone) {
+                    showNotification('Veuillez remplir les champs obligatoires', 'info');
+                    return;
+                }
+                
+                if (!acceptTerms) {
+                    showNotification('Veuillez accepter les conditions', 'info');
+                    return;
+                }
+                
+                const clientInfo = {
+                    name: clientName,
+                    phone: clientPhone,
+                    address: clientAddress,
+                    notes: clientNotes
+                };
+                
+                // Format the phone number for WhatsApp
+                const formattedPhone = clientPhone.replace(/\s/g, '');
+                
+                const message = generateWhatsAppMessage(clientInfo);
+                const whatsappURL = `https://wa.me/221772068181?text=${message}`;
+                
+                // Open WhatsApp in a new tab
+                window.open(whatsappURL, '_blank');
+                
+                // Close modal
+                document.getElementById('whatsappModal').classList.remove('active');
+                
+                // Clear form
+                document.getElementById('clientName').value = '';
+                document.getElementById('clientPhone').value = '';
+                document.getElementById('clientAddress').value = '';
+                document.getElementById('clientNotes').value = '';
+                document.getElementById('acceptTerms').checked = false;
+                
+                // Optionally clear cart after order
+                if (confirm('Commande envoyée! Voulez-vous vider le panier?')) {
+                    clearCart();
+                }
+            });
+            
             // Fix pour le menu mobile
             const navbarToggler = document.querySelector('.navbar-toggler');
             const navbarCollapse = document.querySelector('.navbar-collapse');
@@ -2161,7 +2195,7 @@
             
             // Exécuter la correction au chargement
             fixMobileLayout();
-
+        });
         
         // Initialiser le panier au chargement de la page
         window.addEventListener('load', function() {

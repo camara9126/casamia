@@ -4,31 +4,42 @@ use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CardController;
 use App\Http\Controllers\Commercial\ClientController;
 use App\Http\Controllers\Commercial\DevisController;
+use App\Http\Controllers\EvenementsControoler;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\PersonnelController;
 use App\Http\Controllers\UserController;
 use App\Models\Article;
+use App\Models\Evenements;
 use App\Models\Menu;
+use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Facades\Route;
 
 
 // page d'accueil
 Route::get('/', function () {
     $menus= Menu::latest()->get();
-    $articles= Article::latest()->paginate(4);
-    return view('home.index', compact('menus','articles'));
+    $articles= Article::latest()->paginate(6);
+    $evenements= Evenements::latest()->paginate(3);
+
+    return view('home.index', compact('menus','articles','evenements'));
 })->name('accueil');
 
+// a propos
+Route::get('/plat', function () {
+   // $categorie= Categorie::all();
+    $menus= Menu::all();
+    $plats= Article::latest()->paginate(10);
+    return view('home.plat', compact('menus','plats'));
+})->name('plat');
 
-
-//a propos
+// a propos
 Route::get('/apropos', function () {
    // $categorie= Categorie::all();
     return view('home.apropos');
 })->name('apropos');
 
 
-//contact
+// contact
 Route::get('/contact', function () {
    // $categorie= Categorie::all();
     return view('home.contact');
@@ -116,7 +127,8 @@ Route::resource('/devis', DevisController::class)->middleware(['auth','verified'
     Route::get('/convert/{devis}/convertir', [DevisController::class, 'convertir'])->name('dConvertir');
 //Route::resource('/darticle', ArticleController::class)->middleware(['auth','verified']);
 
-
+// Route Evenements
+Route::resource('/evenements', EvenementsControoler::class)->middleware(['auth','verified']);
 //Route whatsapp
 Route::get('/whatsapp', [CardController::class, 'whatsapp'])->name('cart.whatsapp');
 Route::post('/commande', [CardController::class, 'commande'])->name('commande.speciale');

@@ -1839,7 +1839,7 @@
                 <h2 class="section-title">Tous nos <span class="highlight">Plats</span></h2>
                 <p class="section-subtitle">Découvrez nos 15 spécialités sénégalaises préparées avec des ingrédients frais</p>
             </div>
-             @if(Session::has('success'))
+            @if(Session::has('success'))
                 <div class="alert alert-success" role="alert">
                     {{ Session::get('success') }}
                 </div>
@@ -1877,7 +1877,11 @@
                 @endforeach
                 
             </div>
-                <div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
+
+                
+        </div>
+    </div>
+<div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
 
@@ -1930,9 +1934,6 @@
                         </div>
                     </div>
                 </div>
-        </div>
-    </div>
-
 
     <!-- Cart Toggle Button -->
     <a href="{{route('panier.index')}}" class="cart-toggle">

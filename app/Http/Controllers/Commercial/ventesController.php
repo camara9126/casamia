@@ -64,21 +64,7 @@ class ventesController extends Controller
         ]);
 
 
-             //dd($request->montant);
-                $vente = Vente::create([
-                    'client_id' => $request->client_id,
-                    'reference' => 'VNT-' . time(),
-                    'date' => now(),
-                    'total' => 0,
-                    'total_tva' => 0,
-                    'total_ttc' => 0,
-                    'statut' => 'impayee',
-                    'user_id' => $request->user()->id,
-                ]);
-
-                $total = 0;
-                $total_tva = 0;
-                $total_ttc = 0;
+            
 
             foreach ($request->articles as $item) {
     
@@ -104,7 +90,23 @@ class ventesController extends Controller
                     
                     return redirect()->back()->with('danger','Stock insuffisant pour cette article ');
                 }
-               
+
+                
+                //dd($request->montant);
+                $vente = Vente::create([
+                    'client_id' => $request->client_id,
+                    'reference' => 'VNT-' . time(),
+                    'date' => now(),
+                    'total' => 0,
+                    'total_tva' => 0,
+                    'total_ttc' => 0,
+                    'statut' => 'impayee',
+                    'user_id' => $request->user()->id,
+                ]);
+
+                $total = 0;
+                $total_tva = 0;
+                $total_ttc = 0;
 
                 // Creation vente item     
                 VenteItem::create([

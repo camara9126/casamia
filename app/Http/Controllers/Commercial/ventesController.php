@@ -44,7 +44,7 @@ class ventesController extends Controller
     public function create(Request $request)
     {
         $clients = Client::latest()->get();
-        $articles = Article::where('statut', true)->latest()->get();
+        $articles = Article::where('statut', true)->latest()->paginate(15);
 
         $article= $request->pdvSearch;
 

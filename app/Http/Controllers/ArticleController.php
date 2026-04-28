@@ -13,7 +13,7 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        $articles= Article::latest()->simplePaginate(5);
+        $articles= Article::latest()->get();
         $menus= Menu::all();
 
         return view('dashboard.articles.index', compact('articles','menus'));

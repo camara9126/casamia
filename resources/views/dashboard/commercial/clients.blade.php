@@ -18,7 +18,7 @@
             <a href="{{ route('commercial') }}" class="tab-btn active">Retour</a>
             <a href="{{ route('clients.index') }}" class="tab-btn">Clients</a>
             <a href="{{ route('devis.index') }}" class="tab-btn">Devis</a>
-            <a href="" class="tab-btn">Vente</a>
+            <a href="{{ route('ventes.index') }}" class="tab-btn">Vente</a>
         </div>
 
         <!-- Menu Tab -->

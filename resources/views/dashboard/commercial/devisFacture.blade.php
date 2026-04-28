@@ -18,7 +18,7 @@
     <!-- ENTREPRISE -->
     <div class="header">
         <div>
-            <h3>{{ $devis->entreprise->nom ?? 'Entreprise' }}</h3>
+            <h3>{{ $devis->entreprise->nom ?? 'CasaMia' }}</h3>
             <p>Date : {{ $devis->date_devis }}</p>
             <p>Référence : {{ $devis->reference }}</p>
         </div>

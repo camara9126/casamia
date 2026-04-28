@@ -1124,10 +1124,10 @@
             <div class="footer-bottom">
                 <div class="row">
                     <div class="col-md-6">
-                        <p>&copy; 2023 Casa Mia. Tous droits réservés.</p>
+                        <p>&copy; <?= now()->year ?> Casa Mia. Tous droits réservés.</p>
                     </div>
                     <div class="col-md-6 text-md-end">
-                        <p>Conçu avec <i class="fas fa-heart heart-icon"></i></p>
+                        <p>Conçu avec <i class="fas fa-heart heart-icon"></i> par <a href="https://bcmgroupe.com" target="_blank">BCM Groupe</a></p>
                     </div>
                 </div>
             </div>

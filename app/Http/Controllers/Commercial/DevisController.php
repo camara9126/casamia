@@ -72,7 +72,6 @@ class DevisController extends Controller
             'client_id' => $request->client_id,
             'total' => 0,
             'statut' => 'en_attente',
-            'entreprise_id' => 1,
             'date_devis' => now(),
             'date_expiration' => now()->addDays(7),
         ]);
@@ -125,7 +124,7 @@ class DevisController extends Controller
         $clients = Client::all();
         $articles = Article::all();
 
-        return view('dashboard.commande.devisEdit', compact('devis', 'clients', 'articles'));
+        return view('dashboard.commercial.devisEdit', compact('devis', 'clients', 'articles'));
     }
 
     /**
@@ -148,7 +147,7 @@ class DevisController extends Controller
         $devis->details()->delete();
 
         $total = 0;
-//dd($devis);
+//dd($request->all());
 
         // Recreer les nouveaux details
         foreach ($request->articles as $item) {

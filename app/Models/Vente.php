@@ -33,6 +33,11 @@ class Vente extends Model
         return $this->belongsTo(Client::class);
     }
 
+    public function paiements()
+    {
+        return $this->hasMany(Paiements::class);
+    }
+
      //calcule montant payee
     public function getMontantPayeAttribute()
     {

@@ -4,7 +4,12 @@ use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CardController;
 use App\Http\Controllers\Commercial\ClientController;
 use App\Http\Controllers\Commercial\DevisController;
+use App\Http\Controllers\Commercial\ventesController;
 use App\Http\Controllers\EvenementsControoler;
+use App\Http\Controllers\Finance\DepenseController;
+use App\Http\Controllers\Finance\PaiementController;
+use App\Http\Controllers\Finance\RecetteController;
+use App\Http\Controllers\Inventaire\MouvementStockController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\PersonnelController;
 use App\Http\Controllers\UserController;
@@ -119,13 +124,28 @@ Route::get('/finance', function () {
 })->middleware(['auth','verified'])->name('finance');
 
 
-// Routes Commercial
+// Routes Clients - Ventes - Devis
 Route::resource('/clients', ClientController::class)->middleware(['auth','verified']);
+
+Route::resource('/ventes', ventesController::class)->middleware(['auth','verified']);
+
 Route::resource('/devis', DevisController::class)->middleware(['auth','verified']);
     Route::get('/vailde/{devis}/valider', [DevisController::class, 'valider'])->name('dValider');
     Route::get('/refuse/{devis}/refuser', [DevisController::class, 'refuser'])->name('dRefuser');
     Route::get('/convert/{devis}/convertir', [DevisController::class, 'convertir'])->name('dConvertir');
-//Route::resource('/darticle', ArticleController::class)->middleware(['auth','verified']);
+
+
+// Route  Stock
+Route::resource('/stocks', MouvementStockController::class)->middleware(['auth','verified']);
+
+
+//Route Paiements - Recettes - Depenses
+Route::resource('/paiements', PaiementController::class)->middleware(['auth','verified']);
+    Route::put('/paiements/{id}/annuler', [PaiementController::class, 'annuler'])->name('paiements.annuler');
+
+Route::resource('/recettes', RecetteController::class)->middleware(['auth','verified']);
+
+Route::resource('/depenses', DepenseController::class)->middleware(['auth','verified']);
 
 // Route Evenements
 Route::resource('/evenements', EvenementsControoler::class)->middleware(['auth','verified']);

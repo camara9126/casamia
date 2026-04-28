@@ -24,7 +24,7 @@
         <!-- Menu Tab -->
         <div  class="">
             <div class="dashboard-header">
-                <h1>Nouveau <span class="highlight">Devis</span></h1>
+                <h1>Modification <span class="highlight">Devis</span></h1>
                 <div class="btn-group">
                     <a href="{{ route('devis.index') }}" class="btn btn-danger">
                         <i class="fas fa-arrow-right me-1"></i> Retour
@@ -51,14 +51,15 @@
                     </div>
                 @endif
                 <div class="table-responsive">
-                    <form action="{{ route('devis.store') }}" method="POST">
+                    <form action="{{ route('devis.update', $devis) }}" method="POST">
                         @csrf
+                        @method('PUT')
 
                         <!-- CLIENT -->
                         <div class="mb-3">
                             <label>Client</label>
                             <select name="client_id" class="form-control" required>
-                                <option value="">-- Choisir un client --</option>
+                                <option value="{{$devis->client->id}}">{{$devis->client->nom}}</option>
                                 @foreach($clients as $client)
                                     <option value="{{ $client->id }}">{{ $client->nom }}</option>
                                 @endforeach
@@ -78,49 +79,53 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>
-                                        <select name="articles[0][article_id]" class="form-control produit-select">
-                                            <option value="">Choisir</option>
-                                            @foreach($articles as $article)
-                                                <option value="{{ $article->id }}" data-prix="{{ $article->prix }}">
-                                                    {{ $article->nom }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                    </td>
 
-                                    <td>
-                                        <input type="number" name="articles[0][prix]" class="form-control prix" >
-                                    </td>
+                                    @foreach($devis->details as $index => $detail)
+                                    <tr>
+                                        <td>
+                                            <select name="articles[{{$index}}][article_id]" class="form-control produit-select">
+                                                <option value="{{$detail->article->id}}" data-prix="{{ $detail->article->prix }}">{{$detail->article->nom}}</option>
+                                                @foreach($articles as $article)
+                                                    <option value="{{ $article->id }}" data-prix="{{ $article->prix }}">
+                                                        {{ $article->nom }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </td>
 
-                                    <td>
-                                        <input type="number" name="articles[0][quantite]" class="form-control quantite" value="1">
-                                    </td>
+                                        <td>
+                                            <input type="number" name="articles[{{$index}}][prix]" value="{{$detail->prix_unitaire}}" class="form-control prix" >
+                                        </td>
 
-                                    <td>
-                                        <input type="number" class="form-control total-ligne" readonly>
-                                    </td>
+                                        <td>
+                                            <input type="number" name="articles[{{$index}}][quantite]" value="{{$detail->quantite}}" class="form-control quantite" value="1">
+                                        </td>
 
-                                    <td>
-                                        <button type="button" class="btn btn-danger remove">X</button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                                        <td>
+                                            <input type="number" value="{{$detail->total}}" class="form-control total-ligne" readonly>
+                                        </td>
 
-                        <button type="button" id="addRow" class="btn btn-primary">+ Ajouter produit</button>
+                                        <td>
+                                            <button type="button" class="btn btn-danger remove">X</button>
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
 
-                        <!-- TOTAL -->
-                        <div class="mt-3">
-                            <h4>Total : <span id="total-global">0</span> FCFA</h4>
-                        </div>
+                            <button type="button" id="addRow" class="btn btn-primary">+ Ajouter produit</button>
 
-                        <button type="submit" class="btn btn-success mt-3">Enregistrer</button>
-                    </form>                      
+                            <!-- TOTAL -->
+                            <div class="mt-3">
+                                <h4>Total : <span id="total-global">0</span> FCFA</h4>
+                            </div>
+
+                            <button type="submit" class="btn btn-success mt-3">Modifier</button>
+                        </form>
+                    </div>
                 </div>
-            </div>  
- 
-                
+
+
     <script>
         let index = 1;
 

@@ -43,7 +43,7 @@
                                 <th>Nom</th>
                                 <th>Catégorie</th>
                                 <th>Prix</th>
-                                <th>Description</th>
+                                <th>Stock</th>
                                 <th>Statut</th>
                                 <th>Actions</th>
                             </tr>
@@ -59,7 +59,7 @@
                                         <span class="badge bg-warning">{{$art->menu->nom}}</span>
                                     </td>
                                     <td>{{$art->prix}}</td>
-                                    <td>{{$art->description}}</td>
+                                    <td>{{$art->stock}}</td>
                                     <td>
                                         @if($art->statut)
                                             <span class="badge bg-success">Disponnible</span>

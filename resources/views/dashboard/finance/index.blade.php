@@ -970,9 +970,9 @@
         <!-- Tabs Navigation -->
         <div class="tabs-navigation mb-4" id="tabsNav">
             <a href="{{ route('dhome') }}" class="tab-btn active">Tableau de bord</a>
-            <a href="{{ route('clients.index') }}" class="tab-btn">Clients</a>
-            <a href="{{ route('devis.index') }}" class="tab-btn">Devis</a>
-            <a href="{{ route('ventes.index') }}" class="tab-btn">Vente</a>
+            <a href="{{ route('paiements.index') }}" class="tab-btn">Paiements</a>
+            <a href="{{ route('recettes.index') }}" class="tab-btn">Recettes</a>
+            <a href="{{ route('depenses.index') }}" class="tab-btn">Depenses</a>
         </div>
 
         <!-- Dashboard Tab -->

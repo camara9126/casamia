@@ -17,8 +17,8 @@
         <div class="tabs-navigation mb-4" id="tabsNav">
             <a href="{{ route('commercial') }}" class="tab-btn active">Retour</a>
             <a href="{{ route('clients.index') }}" class="tab-btn">Clients</a>
-            <a href="" class="tab-btn">Devis</a>
-            <a href="" class="tab-btn">Vente</a>
+            <a href="{{ route('devis.index') }}" class="tab-btn">Devis</a>
+            <a href="{{ route('ventes.index') }}" class="tab-btn">Vente</a>
         </div>
 
         <!-- Menu Tab -->
@@ -26,8 +26,8 @@
             <div class="dashboard-header">
                 <h1>Gestion du <span class="highlight">Menu</span></h1>
                 <div class="btn-group">
-                    <a href="{{ route('devis.create') }}" class="btn btn-primary">
-                        <i class="fas fa-plus me-1"></i> Nouveau devis
+                    <a href="{{ route('devis.index') }}" class="btn btn-danger">
+                        <i class="fas fa-arrow-right me-1"></i> Retour
                     </a>
                 </div>
             </div>
@@ -45,7 +45,7 @@
             <div class="orders-section">
                     <!-- INFOS ENTREPRISE -->
                 <div class="mb-4">
-                    <h4>{{ $devis->entreprise->nom ?? 'Entreprise' }}</h4>
+                    <h4>{{ $devis->entreprise->nom ?? 'CasaMia' }}</h4>
                     <p>Date : {{ $devis->date_devis }}</p>
                     <p>Référence : {{ $devis->reference }}</p>
 
@@ -69,7 +69,7 @@
                 </div>
 
                 <!-- TABLE PRODUITS -->
-                <table class="">
+                <table class="orders-table">
                     <thead>
                         <tr>
                             <th>Produit</th>

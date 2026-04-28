@@ -17,14 +17,14 @@
         <div class="tabs-navigation mb-4" id="tabsNav">
             <a href="{{ route('commercial') }}" class="tab-btn active">Retour</a>
             <a href="{{ route('clients.index') }}" class="tab-btn">Clients</a>
-            <a href="" class="tab-btn">Devis</a>
-            <a href="" class="tab-btn">Vente</a>
+            <a href="{{ route('devis.index') }}" class="tab-btn">Devis</a>
+            <a href="{{ route('ventes.index') }}" class="tab-btn">Vente</a>
         </div>
 
         <!-- Menu Tab -->
         <div  class="">
             <div class="dashboard-header">
-                <h1>Gestion du <span class="highlight">Menu</span></h1>
+                <h1>Gestion du <span class="highlight">Devis</span></h1>
                 <div class="btn-group">
                     <a href="{{ route('devis.create') }}" class="btn btn-primary">
                         <i class="fas fa-plus me-1"></i> Nouveau devis

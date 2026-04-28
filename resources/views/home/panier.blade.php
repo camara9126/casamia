@@ -8,8 +8,6 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Scripts -->
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
     <!-- CSS Personnalisé -->
@@ -1239,11 +1237,11 @@
                         <div class="d-flex justify-content-between align-items-center mb-4">
                             <h4 class="mb-0">
                                 Votre Panier
-                                <a href="/" class="btn btn-outline-primary">
+                                <a href="{{ route('menu') }}" class="btn btn-outline-primary">
                                     <i class="fa fa-arrow-left me-1"></i>
                                 </a>
                             </h4>
-                            <span class="text-muted">{{Cart::content()->count()}} articles</span>
+                            <span class="text-muted">{{Cart::content()->count()}} article(s)</span>
                         </div>
 
                         @if(Session::has('success'))
@@ -1266,7 +1264,7 @@
                                             <img src="{{asset('storage/'.$articles->model->image)}}" alt="Product" class="product-image">
                                         </div>
                                         <div class="col-4 col-md-4">
-                                            <h6 class="mb-1"><?= strtoupper($articles->name)?></h6>
+                                            <h6 class="mb-1">{{strtoupper($articles->name)}}</h6>
                                             <p class="text-muted mb-0">{{$articles->menu_id}}</p>
                                             <span class="discount-badge mt-2">{{ number_format($articles->price, 0, ',', ' ') }} FCFA</span>
                                         </div>
@@ -1392,7 +1390,7 @@
                         <p>&copy; <?= now()->year ?> Casa Mia. Tous droits réservés.</p>
                     </div>
                     <div class="col-md-6 text-md-end">
-                        <p>Conçu avec <i class="fas fa-heart heart-icon"></i></p>
+                        <p>Conçu avec <i class="fas fa-heart heart-icon"></i> par <a href="https://bcmgroupe.com" target="_blank">BCM Groupe</a></p>
                     </div>
                 </div>
             </div>

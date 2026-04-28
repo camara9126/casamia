@@ -11,16 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('vente_items', function (Blueprint $table) {
+        Schema::create('stocks', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('vente_id')->constrained()->cascadeOnDelete();
             $table->foreignId('article_id')->constrained()->cascadeOnDelete();
+            $table->enum('type', ['entree', 'sortie']);
             $table->integer('quantite');
-            $table->decimal('prix_unitaire', 10, 2);
-            $table->decimal('total', 12, 2);        
-            $table->decimal('total_tva', 12, 2)->nullable();
-            $table->decimal('montant_tva', 12, 2)->nullable();
-            $table->decimal('total_ttc', 12, 2)->nullable();    
+            $table->string('reference')->nullable();
             $table->timestamps();
         });
     }
@@ -30,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('vente_items');
+        Schema::dropIfExists('stocks');
     }
 };

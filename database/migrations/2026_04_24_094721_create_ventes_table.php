@@ -17,6 +17,8 @@ return new class extends Migration
             $table->string('reference')->unique();
             $table->date('date');
             $table->decimal('total', 12, 2)->nullable();
+            $table->decimal('total_tva', 12, 2)->nullable();
+            $table->decimal('total_ttc', 12, 2)->nullable();
             $table->enum('statut', ['payee', 'impayee', 'partielle'])->default('impayee');
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();            
             $table->timestamps();

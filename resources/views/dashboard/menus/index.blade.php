@@ -42,7 +42,7 @@
                             <tr>
                                 <th>Image</th>
                                 <th>Nom</th>
-                                <th>Description</th>
+                                <th>Nbr d'article</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -54,7 +54,7 @@
                                     </td>
                                     <td><strong>{{$m->nom}}</strong></td>
                                     
-                                    <td>{{$m->description}}</td>
+                                    <td>{{$m->articles->count()}}</td>
                                     <td>
                                         <div class="action-buttons">
                                             <button class="btn-action btn-edit" data-bs-toggle="modal" data-id="{{ $m->id }}" data-name="{{ $m->nom }}" data-description="{{ $m->description }}" data-image="{{ asset('storage/'.$m->image) }}" data-bs-target="#menuEditModal">

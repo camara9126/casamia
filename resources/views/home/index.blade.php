@@ -1858,113 +1858,6 @@
                             </div>
                         </div>
                     @endforeach
-                    <div class="col-md-4 fade-in-up" style="animation-delay: 0.1s">
-                        <div class="specialty-card">
-                            <div class="specialty-image">
-                                <img src="https://images.unsplash.com/photo-1586190848861-99aa4a171e90?ixlib=rb-4.0.3&auto=format&fit=crop&w=1480&q=80" 
-                                     alt="Thiebou Djeun" class="img-fluid">
-                                <div class="specialty-badge">Spécialité</div>
-                            </div>
-                            <div class="specialty-content">
-                                <h4>Thiebou Djeun</h4>
-                                <p>Riz au poisson avec légumes et sauce tomate traditionnelle</p>
-                                <div class="specialty-footer">
-                                    <span class="price">4 500 FCFA</span>
-                                    <a href="{{ route('menu') }}" class="btn-order">Commander</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="col-md-4 fade-in-up" style="animation-delay: 0.2s">
-                        <div class="specialty-card">
-                            <div class="specialty-image">
-                                <img src="https://images.unsplash.com/photo-1546833999-b9f581a1996d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1480&q=80" 
-                                     alt="Poulet Yassa" class="img-fluid">
-                                <div class="specialty-badge">Populaire</div>
-                            </div>
-                            <div class="specialty-content">
-                                <h4>Poulet Yassa</h4>
-                                <p>Poulet mariné au citron et oignons, servi avec riz blanc</p>
-                                <div class="specialty-footer">
-                                    <span class="price">5 000 FCFA</span>
-                                    <a href="{{ route('menu') }}" class="btn-order">Commander</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="col-md-4 fade-in-up" style="animation-delay: 0.3s">
-                        <div class="specialty-card">
-                            <div class="specialty-image">
-                                <img src="https://images.unsplash.com/photo-1603360946369-dc9bb6258143?ixlib=rb-4.0.3&auto=format&fit=crop&w=1480&q=80" 
-                                     alt="Mafé" class="img-fluid">
-                                <div class="specialty-badge">Onctueux</div>
-                            </div>
-                            <div class="specialty-content">
-                                <h4>Mafé</h4>
-                                <p>Ragoût dans une sauce arachide, servi avec du riz</p>
-                                <div class="specialty-footer">
-                                    <span class="price">4 800 FCFA</span>
-                                    <a href="{{ route('menu') }}" class="btn-order">Commander</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="col-md-4 fade-in-up" style="animation-delay: 0.4s">
-                        <div class="specialty-card">
-                            <div class="specialty-image">
-                                <img src="https://images.unsplash.com/photo-1563379091339-03246963d9d6?ixlib=rb-4.0.3&auto=format&fit=crop&w=1480&q=80" 
-                                     alt="Pastels" class="img-fluid">
-                                <div class="specialty-badge">Entrée</div>
-                            </div>
-                            <div class="specialty-content">
-                                <h4>Pastels Sénégalais</h4>
-                                <p>Beignets farcis au poisson ou viande, frits à l'huile</p>
-                                <div class="specialty-footer">
-                                    <span class="price">2 500 FCFA</span>
-                                    <a href="{{ route('menu') }}" class="btn-order">Commander</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="col-md-4 fade-in-up" style="animation-delay: 0.5s">
-                        <div class="specialty-card">
-                            <div class="specialty-image">
-                                <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?ixlib=rb-4.0.3&auto=format&fit=crop&w=1480&q=80" 
-                                     alt="Sauce Gombo" class="img-fluid">
-                                <div class="specialty-badge">Végétarien</div>
-                            </div>
-                            <div class="specialty-content">
-                                <h4>Sauce Gombo</h4>
-                                <p>Sauce à base de gombo avec poisson ou viande et riz</p>
-                                <div class="specialty-footer">
-                                    <span class="price">4 000 FCFA</span>
-                                    <a href="{{ route('menu') }}" class="btn-order">Commander</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="col-md-4 fade-in-up" style="animation-delay: 0.6s">
-                        <div class="specialty-card">
-                            <div class="specialty-image">
-                                <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-4.0.3&auto=format&fit=crop&w=1480&q=80" 
-                                     alt="Thiakry" class="img-fluid">
-                                <div class="specialty-badge">Dessert</div>
-                            </div>
-                            <div class="specialty-content">
-                                <h4>Thiakry</h4>
-                                <p>Dessert à base de mil, yaourt et fruits secs sucrés</p>
-                                <div class="specialty-footer">
-                                    <span class="price">2 000 FCFA</span>
-                                    <a href="{{ route('menu') }}" class="btn-order">Commander</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
                 
                  <div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
@@ -2466,7 +2359,7 @@
                         <p>&copy; <?= now()->year ?> Casa Mia. Tous droits réservés.</p>
                     </div>
                     <div class="col-md-6 text-md-end">
-                        <p>Conçu avec <i class="fas fa-heart heart-icon"></i></p>
+                        <p>Conçu avec <i class="fas fa-heart heart-icon"></i> par <a href="https://bcmgroupe.com" target="_blank">BCM Groupe</a></p>
                     </div>
                 </div>
             </div>

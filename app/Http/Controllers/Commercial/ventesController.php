@@ -77,21 +77,21 @@ class ventesController extends Controller
                 // Verification stock mouvement
                 if ($produit->stock == 0) {
 
-                    return redirect()->back()->with('danger','Vous devez enregister un mouvement d"abord');
+                    //return redirect()->back()->with('danger','Vous devez enregister un mouvement d"abord');
                 }
 
                 // Alert stock minimum depasse
                 if ($produit->stock <= $produit->stock_min) {
-                    return redirect()->back()->with('danger','Votre stock minimum est depasse');
+                    //return redirect()->back()->with('danger','Votre stock minimum est depasse');
                 }
 
                 // Verification quantite de stock
                 if ($produit->stock < $item['quantite']) {
                     
-                    return redirect()->back()->with('danger','Stock insuffisant pour cette article ');
+                    //return redirect()->back()->with('danger','Stock insuffisant pour cette article ');
                 }
 
-                
+
                 //dd($request->montant);
                 $vente = Vente::create([
                     'client_id' => $request->client_id,

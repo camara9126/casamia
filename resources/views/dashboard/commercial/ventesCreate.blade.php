@@ -354,7 +354,7 @@
                                                                 <img src="{{ asset('storage/'.$article->image) }}" width="20">
                                                             </div>-->
                                                             <div class="product-name">{{ $article->nom }}</div>
-                                                            <div class="product-price">{{ number_format($article->prix, 0, ',', ' ') }} CFA</div>
+                                                            <div class="product-price">{{$article->prix }} CFA</div>
                                                         </div>
                                                     @endforeach
                                                 </div>

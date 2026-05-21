@@ -15,6 +15,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
     <!-- Icon Image -->
     <link rel="shortcut icon" href="{{asset('assets/image/logo.jpeg')}}"/>
+    <!-- Google Search Console -->
+    <meta name="google-site-verification" content="M1FpZdJOGZBZCF8JmtYV4wzTKbbozQuIVJkMoUyP-sA" />
     <!-- CSS Personnalisé -->
     <style>
             /* ===== VARIABLES JAUNE ===== */

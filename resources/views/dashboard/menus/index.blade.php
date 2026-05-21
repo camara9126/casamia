@@ -40,6 +40,7 @@
                     <table class="orders-table">
                         <thead>
                             <tr>
+                                <th>ID</th>
                                 <th>Image</th>
                                 <th>Nom</th>
                                 <th>Nbr d'article</th>
@@ -49,6 +50,7 @@
                         <tbody >
                              @forelse($menus as $m)
                                 <tr>
+                                    <td>{{$m->id}}</td>
                                     <td>
                                         <img src="{{asset('storage/'.$m->image)}}" width="50" alt="{{$m->title}}">
                                     </td>

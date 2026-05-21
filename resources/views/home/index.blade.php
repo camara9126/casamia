@@ -1842,7 +1842,7 @@
                             <div class="specialty-card">
                                 <div class="specialty-image">
                                     <img src="{{ asset('storage/'.$art->image) }}" 
-                                        alt="{{ $art->nom}}" class="img-fluid">
+                                        alt="{{ $art->nom}}">
                                     <div class="specialty-badge">Spécialité</div>
                                 </div>
                                 <div class="specialty-content">

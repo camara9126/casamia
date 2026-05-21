@@ -1721,6 +1721,27 @@
             animation: fadeInUp 0.5s ease-out;
         }
 
+        /* Petit mobile (jusqu'à 480px) */
+        @media (max-width: 480px) {
+            .specialty-image {
+                height: 130px;
+            }
+            
+            .specialty-content {
+                padding: 0.8rem;
+            }
+            
+            .specialty-content h4 {
+                font-size: 0.95rem;
+            }
+            
+            .specialty-content p {
+                font-size: 0.75rem;
+                -webkit-line-clamp: 2; /* Moins de lignes sur très petit écran */
+            }
+        }
+    
+
         /* Correction pour les effets hover sur mobile */
         @media (max-width: 768px) {
             .specialty-card:hover, 
@@ -1730,6 +1751,43 @@
                 transform: translateY(-4px) !important;
                 background: linear-gradient(135deg, #FFF8E1 0%, #FFECB3 100%) !important;
                 transition: all 0.3s ease !important;
+            }
+
+            .specialty-image {
+                height: 150px; /* Légèrement réduit sur mobile */
+            }
+            
+            .specialty-content {
+                padding: 1rem;
+            }
+            
+            .specialty-content h4 {
+                font-size: 1rem;
+                margin-bottom: 0.5rem;
+            }
+            
+            .specialty-content p {
+                font-size: 0.8rem;
+                margin-bottom: 0.8rem;
+                /* Limiter le texte sur mobile */
+                display: -webkit-box;
+                -webkit-line-clamp: 3;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+            }
+            
+            .specialty-footer {
+                flex-wrap: wrap; /* Permet de passer à la ligne si nécessaire */
+                gap: 0.8rem;
+            }
+            
+            .price {
+                font-size: 0.9rem;
+            }
+            
+            .btn-order {
+                padding: 0.35rem 0.9rem;
+                font-size: 0.75rem;
             }
             
             /* Effet de pulse sur les boutons mobile */

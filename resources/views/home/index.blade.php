@@ -1899,8 +1899,7 @@
                         <div class="col-md-4 fade-in-up" style="animation-delay: 0.1s">
                             <div class="specialty-card">
                                 <div class="specialty-image">
-                                    <img src="{{ asset('storage/'.$art->image) }}" 
-                                        alt="{{ $art->nom}}">
+                                    <img src="{{ asset('storage/'.$art->image) }}" alt="{{ $art->nom}}" class="img-fluid">
                                     <div class="specialty-badge">Spécialité</div>
                                 </div>
                                 <div class="specialty-content">

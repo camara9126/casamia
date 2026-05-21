@@ -29,7 +29,7 @@ Route::get('/', function () {
     return view('home.index', compact('menus','articles','evenements'));
 })->name('accueil');
 
-// a propos
+// plat
 Route::get('/plat', function () {
    // $categorie= Categorie::all();
     $menus= Menu::all();

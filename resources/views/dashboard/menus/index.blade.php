@@ -87,7 +87,7 @@
                         </div>
                     @endif 
 
-                    <!-- Nouveau client -->
+                    <!-- Nouveau categorie -->
                     <div class="modal fade" id="menuModal" tabindex="-1">
                         <div class="modal-dialog">
                             <form method="post" action="{{route('dmenu.store')}}"  enctype="multipart/form-data" >
@@ -123,7 +123,7 @@
                         </div>
                     </div>
 
-                        <!-- Edit catagorie -->
+                    <!-- Edit catagorie -->
                     <div class="modal fade" id="menuEditModal" tabindex="-1">
                         <div class="modal-dialog">
 

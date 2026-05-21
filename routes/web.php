@@ -23,7 +23,7 @@ use Illuminate\Support\Facades\Route;
 // page d'accueil
 Route::get('/', function () {
     $menus= Menu::latest()->get();
-    $articles= Article::where('menu_id', '==', 5)->latest()->paginate(6);
+    $articles= Article::where('menu_id', '==', 3)->latest()->paginate(6);
     $evenements= Evenements::latest()->paginate(3);
 
     return view('home.index', compact('menus','articles','evenements'));

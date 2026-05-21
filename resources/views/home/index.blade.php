@@ -1900,7 +1900,7 @@
                             <div class="specialty-card">
                                 <div class="specialty-image">
                                     <img src="{{ asset('storage/'.$art->image) }}" alt="{{ $art->nom}}" class="img-fluid">
-                                    <div class="specialty-badge">Spécialité</div>
+                                    <div class="specialty-badge">{{ $art->menu->nom}}</div>
                                 </div>
                                 <div class="specialty-content">
                                     <h4>{{ $art->nom}}</h4>

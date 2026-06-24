@@ -2009,6 +2009,7 @@
                             </div>
                         </div>
                     @endforeach
+
                     <div class="modal fade" id="reservationWhatsappModal" tabindex="-1" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered">
                             <div class="modal-content" style="border-radius: 20px; border: none; overflow: hidden;">
@@ -2027,10 +2028,11 @@
                                 </div>
 
                                 <form id="" method="post" action="{{route('evenements.reserve')}}" style="background: #FFFDE7;">
+                                    @csrf
                                     <div class="modal-body" style="padding: 1.8rem;">
                                         <!-- Message de bienvenue -->
                                         <div class="text-center mb-4">
-                                            <div style="background: rgba(255, 193, 7, 0.15); border-radius: 50px; padding: 0.5rem 1rem; display: inline-block;">
+                                            <div style="background: rgba(255, 193, 7, 0.15); border-radius: 50px; padding: 0.5rem; display: inline-block;">
                                                 <i class="fas fa-calendar-check" style="color: #FFC107;"></i>
                                                 <span style="color: #FFA000; font-weight: 500; margin-left: 0.5rem;">Réservation en 2 minutes</span>
                                             </div>
@@ -2047,16 +2049,13 @@
                                                     <label class="form-label" style="font-weight: 500; color: #555;">
                                                         <i class="fas fa-user me-1" style="color: #FFC107;"></i>Nom complet *
                                                     </label>
-                                                    <input type="text" class="form-control" name="nom" required 
-                                                        style="border: 2px solid rgba(255, 193, 7, 0.2); border-radius: 12px; padding: 0.7rem 1rem;">
+                                                    <input type="text" class="form-control" name="nom" style="border: 2px solid rgba(255, 193, 7, 0.2); border-radius: 12px; padding: 0.7rem 1rem;">
                                                 </div>
                                                 <div class="col-md-6">
                                                     <label class="form-label" style="font-weight: 500; color: #555;">
                                                         <i class="fas fa-phone me-1" style="color: #FFC107;"></i>Téléphone WhatsApp *
                                                     </label>
-                                                    <input type="tel" class="form-control" name="phone" required 
-                                                        placeholder="+221 77 123 45 67"
-                                                        style="border: 2px solid rgba(255, 193, 7, 0.2); border-radius: 12px; padding: 0.7rem 1rem;">
+                                                    <input type="tel" class="form-control" name="telephone" placeholder="+221 77 123 45 67" style="border: 2px solid rgba(255, 193, 7, 0.2); border-radius: 12px; padding: 0.7rem 1rem;">
                                                 </div>
                                             </div>
                                         </div>
@@ -2068,16 +2067,14 @@
                                             </h6>
 
                                             <div class="row g-3">
-                                                <!--<div class="col-md-6">
+                                                <div class="col-md-6">
                                                     <label class="form-label" style="font-weight: 500; color: #555;">Date *</label>
-                                                    <input type="date" class="form-control" id="reservationDate" required
-                                                        style="border: 2px solid rgba(255, 193, 7, 0.2); border-radius: 12px; padding: 0.7rem 1rem;">
+                                                    <input type="date" name="date" class="form-control" id="reservationDate" required style="border: 2px solid rgba(255, 193, 7, 0.2); border-radius: 12px; padding: 0.7rem 1rem;">
                                                 </div>
                                                 <div class="col-md-6">
                                                     <label class="form-label" style="font-weight: 500; color: #555;">Heure *</label>
-                                                    <input type="time" class="form-control" id="reservationDate" required
-                                                        style="border: 2px solid rgba(255, 193, 7, 0.2); border-radius: 12px; padding: 0.7rem 1rem;">
-                                                </div>-->
+                                                    <input type="time" name="heure" class="form-control" id="reservationDate" required style="border: 2px solid rgba(255, 193, 7, 0.2); border-radius: 12px; padding: 0.7rem 1rem;">
+                                                </div>
                                                 <div class="col-md-6">
                                                     <label class="form-label" style="font-weight: 500; color: #555;">Nombre de personnes *</label>
                                                     <select class="form-control" name="personne" required
@@ -2096,8 +2093,7 @@
                                                 </div>
                                                 <div class="col-md-6">
                                                     <label class="form-label" style="font-weight: 500; color: #555;">Type de table</label>
-                                                    <select class="form-control" name="table"
-                                                            style="border: 2px solid rgba(255, 193, 7, 0.2); border-radius: 12px; padding: 0.7rem 1rem;">
+                                                    <select class="form-control" name="table" style="border: 2px solid rgba(255, 193, 7, 02); border-radius: 12px; padding: 0.7rem 1rem;">
                                                         <option value="Standard">Standard</option>
                                                         <option value="Famille">Famille</option>
                                                         <option value="VIP">VIP</option>
@@ -2107,52 +2103,14 @@
                                             </div>
                                         </div>
 
-                                        <!-- Options supplémentaires -->
-                                        <!--<div class="mb-4">
-                                            <h6 style="color: #333; font-weight: 600; margin-bottom: 1rem; border-left: 4px solid #FFC107; padding-left: 0.8rem;">
-                                                <i class="fas fa-concierge-bell me-2" style="color: #FFC107;"></i>Options supplémentaires
-                                            </h6>
-
-                                            <div style="background: white; border-radius: 12px; padding: 1rem; border: 2px solid rgba(255, 193, 7, 0.15);">
-                                                <div class="form-check mb-2">
-                                                    <input class="form-check-input" type="checkbox" id="vegetarianMeal" style="border-color: #FFC107;">
-                                                    <label class="form-check-label" for="vegetarianMeal">
-                                                        <i class="fas fa-leaf" style="color: #4CAF50;"></i> Repas végétarien
-                                                    </label>
-                                                </div>
-                                                <div class="form-check mb-2">
-                                                    <input class="form-check-input" type="checkbox" id="allergenInfo" style="border-color: #FFC107;">
-                                                    <label class="form-check-label" for="allergenInfo">
-                                                        <i class="fas fa-exclamation-triangle" style="color: #FF9800;"></i> Informations allergènes
-                                                    </label>
-                                                </div>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" id="parkingSpace" style="border-color: #FFC107;">
-                                                    <label class="form-check-label" for="parkingSpace">
-                                                        <i class="fas fa-parking" style="color: #2196F3;"></i> Besoin de place de parking
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </div>-->
-
                                         <!-- Message spécial -->
                                         <div class="mb-3">
                                             <label class="form-label" style="font-weight: 500; color: #555;">
                                                 <i class="fas fa-comment-dots me-1" style="color: #FFC107;"></i>Message spécial (optionnel)
                                             </label>
-                                            <textarea class="form-control" name="message" rows="3" 
-                                                    placeholder="Anniversaire, demande spéciale, etc..."
-                                                    style="border: 2px solid rgba(255, 193, 7, 0.2); border-radius: 12px; padding: 0.7rem 1rem;"></textarea>
+                                            <textarea class="form-control" name="message" rows="3" placeholder="Anniversaire, spéciale, etc..." style="border: 2px solid rgba(255, 193, 7, 0.2); border-radius: 12px; padding: 0.7rem 1rem;"></textarea>
                                         </div>
 
-                                        <!-- Résumé de la commande -->
-                                        <div class="mt-4 p-3" style="background: rgba(255, 193, 7, 0.08); border-radius: 12px; border-left: 4px solid #FFC107;">
-                                            <div class="d-flex justify-content-between align-items-center mb-2">
-                                                <span style="color: #666;"><i class="fas fa-receipt me-2"></i>Total estimé</span>
-                                                <span style="font-size: 1.3rem; font-weight: 700; color: #FFA000;">À confirmer</span>
-                                            </div>
-                                            <small style="color: #888;">* Le montant exact sera confirmé par WhatsApp</small>
-                                        </div>
                                     </div>
 
                                     <div class="modal-footer" style="border: none; padding: 1.5rem; background: #FFFDE7;">
@@ -2160,7 +2118,7 @@
                                                 style="border: 2px solid #FFC107; border-radius: 50px; padding: 0.6rem 1.5rem; color: #FFA000; font-weight: 600;">
                                             Annuler
                                         </button>
-                                        <button type="button" class="btn" id="sendWhatsappReservation"
+                                        <button type="submit" class="btn" id="sendWhatsappReservation"
                                                 style="background: linear-gradient(135deg, #25D366 0%, #128C7E 100%); border: none; border-radius: 50px; padding: 0.6rem 2rem; color: white; font-weight: 600;">
                                             <i class="fab fa-whatsapp me-2"></i>Réserver via WhatsApp
                                         </button>
@@ -2169,47 +2127,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4 fade-in-up" style="animation-delay: 0.2s">
-                        <div class="event-card">
-                            <div class="event-date">
-                                <span>Samedi</span>
-                            </div>
-                            <div class="event-content">
-                                <h4>Atelier Cuisine</h4>
-                                <p>Apprenez à préparer le célèbre Thiebou Djeun avec notre chef. Dégustation incluse à la fin de l'atelier.</p>
-                                <div class="event-details">
-                                    <i class="fas fa-clock"></i>
-                                    <span>15h00 - 17h00</span>
-                                </div>
-                                <div class="event-details">
-                                    <i class="fas fa-calendar-alt"></i>
-                                    <span>1er samedi du mois</span>
-                                </div>
-                                <a href="{{ route('contact') }}" class="btn-event">S'inscrire</a>
-                            </div>
-                        </div>
-                    </div>
                     
-                    <div class="col-md-4 fade-in-up" style="animation-delay: 0.3s">
-                        <div class="event-card">
-                            <div class="event-date">
-                                <span>Dimanche</span>
-                            </div>
-                            <div class="event-content">
-                                <h4>Brunch Familial</h4>
-                                <p>Un brunch spécial le dimanche avec buffet à volonté et animations pour les enfants. Ambiance conviviale garantie.</p>
-                                <div class="event-details">
-                                    <i class="fas fa-clock"></i>
-                                    <span>11h30 - 15h00</span>
-                                </div>
-                                <div class="event-details">
-                                    <i class="fas fa-calendar-alt"></i>
-                                    <span>Chaque dimanche</span>
-                                </div>
-                                <a href="{{ route('contact') }}" class="btn-event">Réserver</a>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </section>
@@ -2230,84 +2148,26 @@
                     <div class="carousel-container">
                         <div class="carousel-track">
                             <!-- Slide 1 -->
-                            <div class="carousel-slide">
-                                <div class="testimonial-card">
-                                    <div class="testimonial-header">
-                                        <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="Amina Diop" class="testimonial-avatar">
-                                        <div class="testimonial-info">
-                                            <h5>Amina Diop</h5>
-                                            <div class="testimonial-rating">
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
+                            @foreach($temoignages as $t)
+                                <div class="carousel-slide">
+                                    <div class="testimonial-card">
+                                        <div class="testimonial-header">
+                                            <img src="{{ asset('assets/image/profil.png') }}" alt="{{$t->nom}}" class="testimonial-avatar">
+                                            <div class="testimonial-info">
+                                                <h5>{{$t->nom}}</h5>
+                                                <div class="testimonial-rating">
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                </div>
                                             </div>
                                         </div>
+                                        <p class="testimonial-text">"{{$t->message}}"</p>
                                     </div>
-                                    <p class="testimonial-text">"Le meilleur Thiebou Djeun de Saint Louis ! Les saveurs authentiques et les ingrédients frais me rappellent ceux de ma grand-mère. Une expérience culinaire exceptionnelle !"</p>
                                 </div>
-                            </div>
-                            
-                            <!-- Slide 2 -->
-                            <div class="carousel-slide">
-                                <div class="testimonial-card">
-                                    <div class="testimonial-header">
-                                        <img src="https://randomuser.me/api/portraits/men/54.jpg" alt="Jean Dupont" class="testimonial-avatar">
-                                        <div class="testimonial-info">
-                                            <h5>Jean Dupont</h5>
-                                            <div class="testimonial-rating">
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star-half-alt"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <p class="testimonial-text">"Un véritable voyage culinaire ! Le Mafé est délicieusement onctueux et le service est impeccable. Je recommande vivement à tous les amateurs de cuisine sénégalaise authentique."</p>
-                                </div>
-                            </div>
-                            
-                            <!-- Slide 3 -->
-                            <div class="carousel-slide">
-                                <div class="testimonial-card">
-                                    <div class="testimonial-header">
-                                        <img src="https://randomuser.me/api/portraits/women/67.jpg" alt="Sophie Diallo" class="testimonial-avatar">
-                                        <div class="testimonial-info">
-                                            <h5>Sophie Diallo</h5>
-                                            <div class="testimonial-rating">
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <p class="testimonial-text">"Endroit parfait pour un dîner en famille. Ambiance chaleureuse, personnel accueillant et plats délicieux. Le poulet yassa est tout simplement parfait !"</p>
-                                </div>
-                            </div>
-                            
-                            <!-- Slide 4 -->
-                            <div class="carousel-slide">
-                                <div class="testimonial-card">
-                                    <div class="testimonial-header">
-                                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Ibrahima Ndiaye" class="testimonial-avatar">
-                                        <div class="testimonial-info">
-                                            <h5>Ibrahima Ndiaye</h5>
-                                            <div class="testimonial-rating">
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <p class="testimonial-text">"En tant que Sénégalais vivant à l'étranger, Casa Mia me rappelle les saveurs de mon enfance. La qualité des plats et l'authenticité des recettes sont remarquables."</p>
-                                </div>
-                            </div>
+                            @endforeach
                         </div>
                     </div>
                     
@@ -2320,6 +2180,59 @@
                         <button class="carousel-dot" data-slide="1"></button>
                         <button class="carousel-dot" data-slide="2"></button>
                         <button class="carousel-dot" data-slide="3"></button>
+                    </div>
+
+                    <div class="carousel-dots">
+                        <button class="btn btn-primary mx-auto" data-bs-toggle="modal"  data-bs-target="#temoignageModal">
+                            <i class="fas fa-plus me-1"></i> Témoigner
+                        </button>
+                    </div>
+                </div>
+                    
+
+                <!-- Nouveau temoignage -->
+                <div class="modal fade" id="temoignageModal" tabindex="-1">
+                    <div class="modal-dialog">
+                        <form method="post" action="{{route('temoignage.store')}}">
+                            @csrf
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Nouveau temoignage</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                </div>
+
+                                <div class="modal-body">
+                                    <div class="mb-3">
+                                        <label>Votre Nom Complet</label>
+                                        <input type="text" name="nom" class="form-control">
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <div class="mb-3">
+                                                <label>Téléphone</label>
+                                                <input type="text" name="telephone" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="mb-3">
+                                                <label>Email</label>
+                                                <input type="email" name="email" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label>Message</label>
+                                        <textarea name="message" class="form-control"></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-primary">Enregistrer</button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>

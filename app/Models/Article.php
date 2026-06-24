@@ -15,6 +15,8 @@ class Article extends Model
         'image',
         'menu_id',
         'statut',
+        'stock',
+        'stock_min'
     ];
 
     public function menu()

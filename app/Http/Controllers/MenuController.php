@@ -33,8 +33,8 @@ class MenuController extends Controller
     {
         $request->validate([
             'nom' => 'required','string',
-            'description' => 'required',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'description',
+            'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
         // Gestion des l'images
@@ -49,7 +49,7 @@ class MenuController extends Controller
         // creation du categorie
         $categories= Menu::create([
             'nom' => $request->nom,
-            'description' => $request->description,
+            'description' => $request->description ??  'categorie '.$request->nom,
             'image' => $path,
         ]);
         // dd($categories);

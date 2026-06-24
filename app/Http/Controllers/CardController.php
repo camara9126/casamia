@@ -4,13 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Article;
 use App\Models\Menu;
-use App\Models\Paiements;
 use App\Models\Stock;
 use App\Models\Vente;
 use App\Models\VenteItem;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
-use PhpParser\Node\Stmt\Switch_;
 
 class CardController extends Controller
 {

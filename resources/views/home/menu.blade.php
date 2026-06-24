@@ -1585,6 +1585,7 @@
                 height: 120px;
             }
             
+            
             .dish-content {
                 padding: 0.6rem;
             }

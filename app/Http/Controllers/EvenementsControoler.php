@@ -34,7 +34,7 @@ class EvenementsControoler extends Controller
             'description' => 'required',
             'date' => 'required',
             'heure' => 'nullable',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
    
         // Gestion des l'images
@@ -42,6 +42,8 @@ class EvenementsControoler extends Controller
             $filename = time().$request->file('image')->getClientOriginalName();
             $path = $request->file('image')->storeAs('imgEvenements', $filename, 'public');
             $request['image'] = '/storage/' . $path;
+        } else {
+            null;
         }
         
         // creation de l'article
@@ -50,7 +52,7 @@ class EvenementsControoler extends Controller
             'description' => $request->description,
             'date' => $request->date,
             'heure' => $request->heure,
-            'image' => $path,
+            'image' => $path ?? null,
         ]);
 
          //dd($articles);
@@ -119,8 +121,41 @@ class EvenementsControoler extends Controller
         return redirect()->back()->with('success', 'Evenement supprimé avec success');
     }
 
-    public function reserve()
+    public function reserve(Request $request)
     {
-        return redirect()->back()->with('success', 'Fonctionnalite en cours de construction');
+        $message = "🛒 Nouvelle Réservation\n\n ";
+
+         $request->validate([
+            'nom' => 'string',
+            'telephone' => 'required|string|max:20',
+            'date' => 'required',
+            'heure' => 'required',
+            'personne' => 'required',
+            'table' => 'string',
+            'message' => 'string|string',
+         ]);
+
+         //dd($request);
+         // Numero whatsapp
+         $whatsapp = '221772068181';
+
+         // message commande
+        $message = sprintf(
+            "Nom : %s\n\nTéléphone : %s\n\nDate : %s\n\nHeure : %s\n\nPersonne : %s\n\nTable : %s\n\nMessage : %s",
+            $request->nom,
+            $request->telephone,
+            $request->date,
+            $request->heure,
+            $request->personne,
+            $request->table,
+            $request->message
+        );
+
+         
+
+         $url = "https://wa.me/{$whatsapp}?text=" . urlencode($message);
+
+        return redirect()->away($url)->with('success', 'Fonctionnalite en cours de construction');
+
     }
 }

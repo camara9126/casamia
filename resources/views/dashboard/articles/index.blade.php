@@ -69,7 +69,7 @@
                                     </td>
                                     <td>
                                         <div class="action-buttons">
-                                            <button class="btn-action btn-edit" data-bs-toggle="modal" data-id="{{ $art->id }}" data-name="{{ $art->nom }}" data-category="{{ $art->menu_id }}" data-price="{{ $art->prix }}" data-description="{{ $art->description }}" data-image="{{ asset('storage/'.$art->image) }}" data-bs-target="#articleEditModal">
+                                            <button class="btn-action btn-edit" data-bs-toggle="modal" data-id="{{ $art->id }}" data-name="{{ $art->nom }}" data-menu_id="{{ $art->menu_id }}" data-price="{{ $art->prix }}" data-stock="{{ $art->stock }}" data-stock_min="{{ $art->stock_min }}" data-description="{{ $art->description }}" data-image="{{ asset('storage/'.$art->image) }}" data-bs-target="#articleEditModal">
                                                 <i class="fas fa-edit"></i>
                                             </button>
                                             <!--<a href="" class="btn btn-outline-warning"><i class="fa fa-check" aria-hidden="true"></i></a>-->
@@ -143,6 +143,21 @@
                                             <input type="text" name="prix" class="form-control">
                                         </div>
 
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                 <div class="mb-3">
+                                                    <label>Qty Stock</label>
+                                                    <input type="number" name="stock" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="mb-3">
+                                                    <label>Stock min</label>
+                                                    <input type="number" name="stock_min" class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+
                                         <div class="mb-3">
                                             <label>Description</label>
                                             <textarea name="description"  class="form-control"></textarea>
@@ -157,7 +172,7 @@
                         </div>
                     </div>
 
-                        <!-- Edit article -->
+                    <!-- Edit article -->
                     <div class="modal fade" id="articleEditModal" tabindex="-1">
                         <div class="modal-dialog">
 
@@ -173,6 +188,7 @@
                                     <div class="modal-body">
 
                                         <input type="hidden" name="id" id="article_id">
+                                        <input type="hidden" name="menu_id" id="menu_id">
 
                                         <div class="mb-3">
                                             <label>Image</label>
@@ -180,29 +196,29 @@
                                             <input type="file" name="image" id="image" class="form-control">
                                         </div>
 
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                 <div class="mb-3">
-                                                    <label>Nom du menu</label>
-                                                    <input type="text" name="nom" id="name" class="form-control" required>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="mb-3">
-                                                    <label>Categorie</label>
-                                                    <select name="menu_id" class="form-control">
-                                                        <option value="" id="menu_id"></option>
-                                                        @foreach($menus as $m)
-                                                            <option value="{{ $m->id }}">{{ $m->nom }}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                            </div>
+                                        <div class="mb-3">
+                                            <label>Nom du menu</label>
+                                            <input type="text" name="nom" id="name" class="form-control" required>
                                         </div>
                                        
                                         <div class="mb-3">
                                             <label>Prix</label>
                                             <input type="text" name="prix" id="price" class="form-control">
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                 <div class="mb-3">
+                                                    <label>Qty Stock</label>
+                                                    <input type="number" name="stock" id="stock" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="mb-3">
+                                                    <label>Stock min</label>
+                                                    <input type="number" name="stock_min" id="stock_min" class="form-control">
+                                                </div>
+                                            </div>
                                         </div>
 
                                         <div class="mb-3">
@@ -240,6 +256,8 @@
                 const id = button.getAttribute('data-id');
                 const name = button.getAttribute('data-name');
                 const price = button.getAttribute('data-price');
+                const stock = button.getAttribute('data-stock');
+                const stock_min = button.getAttribute('data-stock_min');
                 const description = button.getAttribute('data-description');
                 const image = button.getAttribute('data-image');
                 const menu_id = button.getAttribute('data-menu_id');
@@ -248,6 +266,8 @@
                 modal.querySelector('#article_id').value = id;
                 modal.querySelector('#name').value = name;
                 modal.querySelector('#price').value = price;
+                modal.querySelector('#stock').value = stock;
+                modal.querySelector('#stock_min').value = stock_min;
                 modal.querySelector('#description').value = description;
                 modal.querySelector('#image').src = image;
                 modal.querySelector('#menu_id').value = menu_id;

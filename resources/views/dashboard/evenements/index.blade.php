@@ -111,7 +111,7 @@
                                     <div class="modal-body">
                                         <div class="mb-3">
                                             <label>Image</label>
-                                            <input type="file" name="image" class="form-control" required>
+                                            <input type="file" name="image" class="form-control">
                                         </div>
 
                                         <div class="row">

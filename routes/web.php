@@ -12,10 +12,12 @@ use App\Http\Controllers\Finance\RecetteController;
 use App\Http\Controllers\Inventaire\MouvementStockController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\PersonnelController;
+use App\Http\Controllers\TemoignageController;
 use App\Http\Controllers\UserController;
 use App\Models\Article;
 use App\Models\Evenements;
 use App\Models\Menu;
+use App\Models\Temoignage;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Facades\Route;
 
@@ -25,8 +27,9 @@ Route::get('/', function () {
     $menus= Menu::latest()->get();
     $articles= Article::where('menu_id', '=', 7)->latest()->paginate(6);
     $evenements= Evenements::latest()->paginate(3);
+    $temoignages= Temoignage::latest()->get();
 
-    return view('home.index', compact('menus','articles','evenements'));
+    return view('home.index', compact('menus','articles','evenements','temoignages'));
 })->name('accueil');
 
 // plat
@@ -52,12 +55,15 @@ Route::get('/contact', function () {
 
 //menu
 Route::get('/menu', function () {
-   $menus= Menu::latest()->get();
+    $menus= Menu::latest()->get();
     $plats= Article::latest()->get();
 
     return view('home.menu', compact('menus','plats'));
 })->name('menu');
 
+
+// Route Temoignage
+Route::resource('/temoignage', TemoignageController::class);
 
 //Route connexion
 Route::resource('/login', UserController::class);
@@ -149,7 +155,7 @@ Route::resource('/depenses', DepenseController::class)->middleware(['auth','veri
 
 // Route Evenements
 Route::resource('/evenements', EvenementsControoler::class)->middleware(['auth','verified']);
-Route::get('/evenements/reserve', [EvenementsControoler::class, 'reserve'])->name('evenements.reserve');
+Route::post('/evenements/reserve', [EvenementsControoler::class, 'reserve'])->name('evenements.reserve');
 //Route whatsapp
 Route::get('/whatsapp', [CardController::class, 'whatsapp'])->name('cart.whatsapp');
 Route::post('/commande', [CardController::class, 'commande'])->name('commande.speciale');

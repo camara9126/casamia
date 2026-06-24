@@ -35,12 +35,14 @@ class ArticleController extends Controller
     {
         $request->validate([
             'nom' => 'required','string',
-            'description' => 'required',
+            'description',
             'prix' => 'required',
             'prix2' => 'nullable',
             'prix3' => 'nullable',
             'menu_id' => 'required', 'exists:menus,id',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'stock' ,
+            'stock_min' ,
         ]);
        
         // Gestion des l'images
@@ -55,12 +57,14 @@ class ArticleController extends Controller
         // creation de l'article
         $articles= Article::create([
             'nom' => $request->nom,
-            'description' => $request->description,
+            'description' => $request->description ?? $request->nom,
             'prix' => $request->prix,
             'prix2' => $request->prix2 ?? null,
             'prix3' => $request->prix3 ?? null,
             'menu_id' => $request->menu_id,
             'image' => $path,
+            'stock' => $request->stock  ?? 100,
+            'stock_min' => $request->stock_min ?? 10,
         ]);
 
          //dd($articles);
@@ -75,7 +79,7 @@ class ArticleController extends Controller
         $articles= Article::FindOrFail($id);
         $menus= Menu::where('id', $articles->menu_id)->get();
         
-        return view('home.detail', compact('articles'));
+        return view('home.detail', compact('articles', 'menus'));
     }
 
     /**
@@ -102,8 +106,10 @@ class ArticleController extends Controller
             'prix' => 'required',
             'prix2' => 'nullable',
             'prix3' => 'nullable',
-            'menu_id' => 'required', 'exists:menus,id',
+            'menu_id' ,
             'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+            'stock' ,
+            'stock_min' ,
         ]);
        
         // Gestion des l'images
@@ -120,8 +126,10 @@ class ArticleController extends Controller
             'prix' => $request->prix,
             'prix2' => $request->prix2 ?? null,
             'prix3' => $request->prix3 ?? null,
-            'menu_id' => $request->menu_id,
+            'menu_id' => $request->menu_id ?? $articles->menu_id,
             'image' => $path ?? $articles->image,
+            'stock' => $request->stock,
+            'stock_min' => $request->stock_min,
         ]);
             
              //dd($articles);

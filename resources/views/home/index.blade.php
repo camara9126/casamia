@@ -132,8 +132,7 @@
 
         /* ===== HERO SECTION CORRIGÉE ===== */
         .hero-section {
-            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
-                        url('https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1374&q=80');
+            background:  url('{{ asset('assets/image/img_accueil.jpeg') }}');
             background-size: cover;
             background-position: center;
             min-height: 400px;
@@ -146,7 +145,6 @@
         }
 
         .hero-overlay {
-            /*background: rgba(0, 0, 0, 0.6);*/
             width: 100%;
             padding: 1rem 0;
         }
@@ -1160,7 +1158,6 @@
             }
             
             .hero-overlay {
-                background: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.75));
                 padding: 1.5rem 0;
             }
             
@@ -1870,7 +1867,7 @@
                 <div class="container">
                     <div class="hero-content fade-in-up">
                         <h1 class="hero-title">Bienvenue à <span class="highlight">Casa Mia</span></h1>
-                        <p class="hero-subtitle">Saveurs authentiques du Sénégal au cœur de Saint Louis</p>
+                        <p class="hero-subtitle fw-bold">Saveurs authentiques du Sénégal au cœur de Saint Louis</p>
                         <div class="hero-buttons">
                             <a href="{{ route('menu') }}" class="btn btn-primary btn-hero">Voir Notre Menu</a>
                             <!--<a href="contact.html#reservation" class="btn btn-outline-light btn-hero">Réserver une Table</a>-->

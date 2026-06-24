@@ -331,6 +331,7 @@
             border-top: 1px solid rgba(255, 193, 7, 0.2);
         }
 
+
         .price {
             font-size: 1.2rem;
             font-weight: 700;
@@ -1898,7 +1899,7 @@
                 <!-- Première ligne - 3 spécialités sur desktop, 2 sur mobile -->
                 <div class="row g-4 justify-content-center">
                     @foreach($articles as $art)
-                        <div class="col-md-4 fade-in-up" style="animation-delay: 0.1s">
+                        <div class="col-md-4" style="animation-delay: 0.1s">
                             <div class="specialty-card">
                                 <div class="specialty-image">
                                     <img src="{{ asset('storage/'.$art->image) }}" alt="{{ $art->nom}}" class="img-fluid">
@@ -1906,7 +1907,7 @@
                                 </div>
                                 <div class="specialty-content">
                                     <h4>{{ $art->nom}}</h4>
-                                    <p>{{ $art->description}}</p>
+                                    <p class="pb-0 mb-0">{{ $art->description}}</p>
                                     <div class="specialty-footer">
                                         <span class="price">{{ $art->prix}} FCFA</span>
                                         <a href="" class="btn-order" data-bs-toggle="modal" data-bs-target="#productModal" data-id="{{ $art->id }}" data-image="{{ asset('storage/'.$art->image) }}" data-name="{{ $art->nom }}" data-description="{{ $art->description }}" data-price="{{ $art->prix }}">
@@ -2605,7 +2606,7 @@
                     const specialtyCards = document.querySelectorAll('.specialty-card');
                     specialtyCards.forEach(card => {
                         // Assurer une hauteur minimale
-                        card.style.minHeight = '300px';
+                        card.style.minHeight = '150px';
                     });
                     
                     // Correction pour le carousel
